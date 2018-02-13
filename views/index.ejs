@@ -1,0 +1,19 @@
+<% include ./partials/header %>
+    
+<% if (!user) { %>
+	<h2>Welcome! Please log in.</h2>
+	<a href="/auth/linkedin">Login with Linkedin</a>
+<% } else { %>
+	<h2>Hello, <%= user.displayName %>.</h2>
+	<p>First Name: <%= user.name.givenName %></p>
+	<p>Last Name: <%= user.name.familyName %></p>
+	<p>Email: <%= user.emails[0].value %></p>
+	<p>Email: <%= user._json.emailAddress %></p>
+	<p>Public Profile URL: <%= user._json.publicProfileUrl %></p>
+	<% var url = user._json.publicProfileUrl %>
+	<p>Public Profile Query String: <%= url.substring(url.indexOf('in/')+3) %></p>
+	<img src= <%= user.photos[0].value %> >
+	<pre><code><%= JSON.stringify(user, null, 2) %></code></pre>
+<% } %>
+
+<% include ./partials/footer %>
