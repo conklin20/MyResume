@@ -1,15 +1,11 @@
 var express         = require("express"),
-    router          = express.Router()
+    router          = express.Router();
 
-// **********************
-// ROUTES - INDEX
-// These ROUTES follow the REST pattern
-// **********************
-router.get('/', function(req, res){
-  res.render('index', { user: req.user });
+// THIS IS TO SHORT CIRCUIT AN ANNOYING BUS WHERE EXPRESS TRIES TO REDIRECT TO /favicon/ico
+router.get('/favicon.ico', function(req, res) {
+    res.status(204);
 });
-
-// CREATE ROUTE
 
 
 module.exports = router; 
+

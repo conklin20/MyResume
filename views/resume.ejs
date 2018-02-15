@@ -1,0 +1,104 @@
+<% include ./partials/header %>
+
+ <div class="row">
+        <form action="/resume" method="POST">
+            <h1 style="text-align: center;">Hi, <%= user.firstName %>, create a resume to get started! </h1>
+            <div id="tab" class="btn-group btn-group-vertical col-xs-6 col-md-4 resume" data-toggle="buttons">
+                <a href="#elevatorPitch" class="btn btn-primary active" data-toggle="tab">
+                    <input type="radio" />Elevator Pitch
+                </a>
+                <a href="#timeline" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Timeline
+                </a>
+                <a href="#objective" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Objective
+                </a>
+                <a href="#careerSummary" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Career Summary
+                </a>
+                <a href="#skills" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Skills
+                </a>
+                <a href="#experience" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Experience
+                </a>
+                <a href="#education" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Education
+                </a>
+                <a href="#other" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Other
+                </a>
+                <a href="#review" class="btn btn-primary" data-toggle="tab">
+                    <input type="radio" />Review
+                </a>
+            </div>
+            <div id="resumeContent" class="tab-content col-xs-12 col-md-8 resume">
+                <div class="tab-pane " id="elevatorPitch">
+                    <h2>Elevator Pitch</h2>
+                    <textarea class="form-control" rows="2" name="resume[elevatorPitch]" placeholder="Write your elevator pitch here (keep this to one or two sentances)..."></textarea>
+                </div>
+                <div class="tab-pane active" id="timeline">
+                    <h2>Timeline</h2>
+                    <div class="form-group input narrow">
+                        <label class="pull-left" for="date">Date: </label>
+                        <input class="form-control" type="date" name="timelineEvent[date]" placeholder="date of event" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="summary">Summary: </label>
+                        <input class="form-control" type="text" name="timelineEvent[summary]" placeholder="summary of event" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="detail">Detail: </label>
+                        <textarea class="form-control" rows="4" name="timelineEvent[detail]" placeholder="detail of event" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="bannerImg">Banner Image: </label>
+                        <input class="form-control" type="text" name="timelineEvent[bannerImg]" placeholder="url of banner image" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="icon">Icon: </label>
+                        <input class="form-control" type="text" name="timelineEvent[icon]" placeholder="url of icon image" required>
+                    </div>
+                    <div class="form-group">
+                        <button id="btnAddTimelineEvent" class="btn btn-primary" onClick="addEvent(summary)">Add Timeline Event</button>
+                    </div>
+                    <div id="timelineItems" class="form-group">
+                        <% var timelineEvents = []; console.log(timelineEvents[0]); %>
+                    </div>
+                </div>
+                <div class="tab-pane" id="objective">
+                    <h2>Objective</h2>
+                    <textarea class="form-control" rows="8" name="objective" placeholder="Write your objective here..."></textarea>
+                </div>
+                <div class="tab-pane" id="careerSummary">
+                    <h2>Career Summary</h2>
+                    <textarea class="form-control" rows="8" name="careerSummary" placeholder="Write your career summary here..."></textarea>
+                </div>
+                <div class="tab-pane resume" id="skills">
+                    <h2>Skills</h2>
+                    <input type="text" name="category" placeholder="Enter Category" >
+                </div>
+                <div class="tab-pane" id="experience">
+                    <h2>Experience</h2>
+                </div>
+                <div class="tab-pane" id="education">
+                    <h2>Education</h2>
+                </div>
+                <div class="tab-pane" id="other">
+                    <h2>Other</h2>
+                </div>
+                <div class="tab-pane" id="review">
+                    <h2>Review</h2>
+                    <p>Please review the information you have entered, when ready, hit Submit</p>
+                    <input type="text" name="alias" placeholder="Enter an Alias" required>
+                    <br><br>
+                    <button class="btn btn-primary">Submit Resume</button>
+                </div>
+            </div>
+        </form>
+    </div>
+                    
+    <!-- Custom JavaScript-->
+    <script src="/js/resume.js"></script>
+    
+<% include ./partials/footer %>

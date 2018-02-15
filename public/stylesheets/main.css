@@ -1,0 +1,40 @@
+.account {
+     border: 2px solid black;
+     width: 46%;
+     margin: 2% 2%;
+     padding: 2% 2%; 
+}
+
+.accountHeader{
+     text-align: center;
+}
+
+.resume {
+    /*border: 2px solid black;*/
+    text-align: center;
+    padding: 0 1%; 
+    float: left;
+    width: auto;
+    
+}
+
+.delete-form {
+    display: inline;
+}
+
+.input.narrow {
+    width: 20%; 
+}
+.input.wider {
+    width: 40%; 
+}
+.input.wide {
+    width: 60%; 
+}
+
+#resumeContent {
+    width: 80%;
+    border: 2px solid black;
+    padding: 1%; 
+}
+

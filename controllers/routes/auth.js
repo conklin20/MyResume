@@ -2,18 +2,14 @@ var express         = require("express"),
     passport        = require("passport"),
     router          = express.Router();
 
-// **********************
-// ROUTES - AUTH
-// These ROUTES follow the REST pattern
-// **********************
-
 // GET /auth/linkedin
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Linkedin authentication will involve
 //   redirecting the user to linkedin.com.  After authorization, Linkedin
 //   will redirect the user back to this application at /auth/linkedin/callback
+var state = "dsadh23hrioghwrg";
 router.get('/auth/linkedin',
-  passport.authenticate('linkedin', { state: 'SOME STATE' }),
+  passport.authenticate('linkedin', { state: state }),
   function(req, res){
     // The request will be redirected to Linkedin for authentication, so this
     // function will not be called.
@@ -27,12 +23,16 @@ router.get('/auth/linkedin',
 router.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/'); 
   });
+
+router.get('/login', function(req, res){
+  res.render('login');
+});
 
 router.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 

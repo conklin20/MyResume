@@ -1,0 +1,50 @@
+<% include ./partials/header %>
+
+ <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-3 col-xs-2"></div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 text-center">
+            <h1 style="text-align: center;">Register</h1>
+            <form id="newUser" action="/" method="POST">                
+                <div class="thumbnail">
+                <p>Imported from LinkedIn</p>
+                    <div class="form-group">
+                        <label class="pull-left" for="username">Username</label>
+                        <% var url = user._json.publicProfileUrl %>
+                        <input class="form-control" type="text" name="user[username]" value=<%= url.substring(url.indexOf('in/')+3)  %> required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="firstName">First Name</label>
+                        <input class="form-control" type="text" name="user[firstName]" value=<%= user.name.givenName %> required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="lastName">Last Name</label>
+                        <input class="form-control" type="text" name="user[lastName]" value=<%= user.name.familyName %> required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="email">Email</label>
+                        <input class="form-control" type="text" name="user[email]" value=<%= user._json.emailAddress %> required readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left" for="phone">Phone</label>
+                    <input class="form-control bfh-phone" type="tel" name="user[phone]" data-format="+1 (ddd) ddd-dddd" placeholder="phone" required>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left" for="avatar">Image</label>
+                    <input class="form-control" type="text" name="user[avatar]" value=<%= user.photos[0].value %> required>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left" for="bannerImg">Banner Image</label>
+                    <input class="form-control" type="text" name="user[bannerImg]" placeholder="bannerImg" required>
+                </div>
+                <!--<div class="form-group">-->
+                <!--    <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>-->
+                <!--    <input class="form-control" type="text" name="user[elevatorPitch]" placeholder="elevatorPitch" required>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<% include ./partials/footer %>

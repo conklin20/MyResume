@@ -1,5 +1,6 @@
 var express           = require('express')
   , passport          = require('passport')
+  , mongoose          = require("mongoose")
   , bodyParser        = require("body-parser")
   , methodOverride    = require("method-override")
   , cookieParser      = require("cookie-parser")
@@ -11,12 +12,25 @@ var express           = require('express')
 // **********************
 // Hookup Routes
 // **********************
-var accountRoutes     = require("./controllers/routes/account"),
+var indexRoutes       = require("./controllers/routes/index"),
     authRoutes        = require("./controllers/routes/auth"),
-    indexRoutes       = require("./controllers/routes/index");
+    userRoutes        = require("./controllers/routes/user"), 
+    resumeRoutes      = require("./controllers/routes/resume");
 
 // **********************
-// SSeteup Passport and LinkedIn-OAuth2
+// Database Config
+// Using environment variables here to distinguish between our test (C9) db version, and our "prod" or "deployed" (heroku) db version 
+// In order to do so, we need to run the following commands to CREATE an environment variable in both enviornments 
+// 1) For Cloud9, run cmd: export DATABASEURL=mongodb://localhost/yelp_camp
+// 2) For Heroku, run cmd: heroku config:set DATABASEURL=mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
+//      OR: you can go to your Heroku account, and under settings of your app find "config vars" and manually add key: DATABASEURL value:  { heroku url string }
+//      URL for this Heroku db: mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
+// **********************
+mongoose.connect("mongodb://localhost/MyResume");
+//mongoose.connect(process.env.DATABASEURL); 
+
+// **********************
+// Seteup Passport and LinkedIn-OAuth2
 // **********************
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -84,9 +98,10 @@ app.use(methodOverride("_method")); //overriding HTML froms ability to only send
 // **********************
 // Use our Routes
 // **********************
-app.use(accountRoutes); 
-app.use(authRoutes); 
 app.use(indexRoutes); 
+app.use(authRoutes); 
+app.use(userRoutes); 
+app.use(resumeRoutes); 
 
 // **********************
 // Start the server

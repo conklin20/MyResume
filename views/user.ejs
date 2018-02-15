@@ -1,0 +1,62 @@
+<% include ./partials/header %>
+
+     <div class="row">
+        <div class="col-lg-0 col-md-1 col-sm-2 col-xs-2"></div>
+        <h1 class="accountHeader">Hi <%= user.firstName %>, here is an overview of your profile! </h1>
+        <div class="col-lg-12 col-md-10 col-sm-8 col-xs-8">
+            <div class="row">
+                <div class="col-xs-6 account">
+                    <h3 class="accountHeader">Account Info
+                                                    <!--Semantic UI Icons-->
+                    <a href="<%= user._id %>/edit"><i class="write icon"></i></a>
+                    <form class="delete-form" action="<%= user._id %>?_method=DELETE" method="POST">
+                        <button class="btn btn-xs"><i class="trash icon"></i></button>
+                    </form></h3>
+                    <p>Name: <%= user.firstName + ' ' + user.lastName %> </p>
+                    <p>Email: <%= user.email %> </p>
+                    <p>Phone: <%= user.phone %> </p>
+                    <p class="thumbnail">Image: <img src= <%= user.avatar %> > </p>
+                </div>
+                <div class="col-xs-6 account">
+                    <h3 class="accountHeader">Resumes <a href="<%= user._id %>/new"><span class="glyphicon glyphicon-plus"></span></a></h3>
+                    <% if(!resumes && resumes.length > 0) { %>
+                        <p>You have <%= user.resume.length %> resumes</p>
+                        <!--Loop through the resumes -->
+                        <% resumes.forEach(function(resume){ %>
+                            <a href="<%= user._id %>/ <%= resume._id %>/edit"><%= resume.title %></a>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No resumes found</p>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 account">
+                    <h3 class="accountHeader">Cover Letters</h3>
+                    <% if(!coverLetters && coverLetters.length > 0) { %>
+                        <p>You have <%= coverLetters.length %> cover letters</p>
+                        <!--Loop through the resumes -->
+                        <% coverLetters.forEach(function(letter){ %>
+                            <a href="<%= user._id %>/<%= resumes._id %>/<%= letter.id %>/edit"><%= letter.title %></a>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No cover letters found</p>
+                    <% } %>
+                </div>
+                <div class="col-xs-6 account">
+                    <h3 class="accountHeader">References</h3>
+                    <% if(!references && references.length > 0) { %>
+                        <p>You have <%= references.length %> references</p>
+                        <!--Loop through the resumes -->
+                        <% references.forEach(function(reference){ %>
+                            <a href="<%= user._id %>/<%= resume._id %>/<%= reference.id %>/edit"><%= reference.title %></a>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No references found</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<% include ./partials/footer %>

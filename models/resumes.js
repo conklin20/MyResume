@@ -1,19 +1,59 @@
-var mongoose                = require("mongoose"), 
-    passportLocalMongoose   = require("passport-local-mongoose");
+var mongoose    = require("mongoose");
 
 //user schema 
 var resumeSchema = new mongoose.Schema({
-    email: String,
-    phone: String, 
-    objective: String, 
+    alias: String, 
+    elevatorPitch: String,
+    objective: String,
+    careerSummary: String, 
+    timeline: [
+        {
+            date: Date, 
+            summary: String, 
+            detail: String, 
+            bannerImg: String, 
+            icon: String 
+        }
+        ],
+    skills: [
+        {
+            category: String, 
+            skill: [
+                {
+                    String, 
+                    proficiency: []
+                }
+            ]    
+        }
+        ],
+    experience: [
+        {
+            companyName: String, 
+            title: String, 
+            startDate: Date, 
+            endDate: Date, 
+            responsibility: [
+                String
+                ],
+            achievment: [
+                String
+                ]
+        }
+        ],
     education: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Education"
+            instituteName: String, 
+            city: String, 
+            state: String, 
+            startDate: Date, 
+            endDate: Date, 
+            degree: String, 
+            areaOfStudy: String, 
+            achievments: String, 
+            notes: String, 
+            graduated: Boolean
         }
         ]
 }); 
-
-resumeSchema.plugin(passportLocalMongoose); 
 
 module.exports = mongoose.model("Resume", resumeSchema); 
