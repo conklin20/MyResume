@@ -1,9 +1,18 @@
-var mongoose    = require("mongoose");
+var mongoose    = require("mongoose"),
+    User        = require("./users");
 
 //user schema 
-var userSchema = new mongoose.Schema({
+var coverLetterschema = new mongoose.Schema({
     title: String, 
     body: String
 }); 
 
-module.exports = mongoose.model("CoverLetter", userSchema);
+
+coverLetterschema.pre('remove', function(next) {
+    // 'this' is the Cover Letter being removed. Provide callbacks here if you want
+    // to be notified of the calls' result.
+    User.remove({coverLetter_id: this._id}).exec();
+    next();
+});
+
+module.exports = mongoose.model("CoverLetter", coverLetterschema);

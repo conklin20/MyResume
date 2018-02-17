@@ -1,5 +1,7 @@
 var express         = require("express"),
     User            = require("../../models/users"),
+    Resume          = require("../../models/resumes"),
+    CoverLetter     = require("../../models/coverletters"),
     middleware      = require("../../middleware/auth.js"),
     router          = express.Router();
 
@@ -16,10 +18,14 @@ var express         = require("express"),
 // SHOW     /:userID          GET     Show User Info            User.findById()
 // UPDATE   /:userID          PUT     Update user info in db    User.findByIdAndUpdate()
 // EDIT     /:userID/edit     GET     Show user edit form       User.findById()
-// DESTROY                    DELETE  Delete a user             User.findByIdAndRemove()
+// DESTROY  /:userID          DELETE  Delete a user             User.findByIdAndRemove()
 
 // INDEX
 router.get('/', function(req, res){
+  if (res.locals.testing){
+    req. flash("error", "**In Test Mode!**"); 
+  }
+  
   //check if user is in db, using the LinkedIn ID field
   if(req.user){
     User.findOne({ linkedInID: req.user.id }, function(err, foundUser){
@@ -73,28 +79,24 @@ router.post("/", middleware.ensureAuthenticated, function(req, res){
 }); 
 
 // SHOW
-router.get('/:userID', function(req, res){
-  //get resumes
-  var resumes = [];
-  
-  //get resume cover letters 
-  var coverLetters = [];
-  
-  //get resume references 
-  var references = [];
-  
+router.get('/:userID', middleware.isAccountOwner, function(req, res){
   //find the user in the DB 
-  User.findById(req.params.userID, function(err, user){
-    if(err){
-      console.log(err); 
-    } else {
-      res.render('user', { user: user, resumes: resumes, coverLetters: coverLetters, references: references });
-    }
-  }); 
+  User.findById(req.params.userID).
+    populate("resumes").
+    populate("coverLetters").
+    populate("references").
+    exec(function(err, foundUser){
+      if(err){
+        console.log(err); 
+      } else {
+        //eval(require("locus"))
+        res.render('user', { user: foundUser });
+      }
+    }); 
 });
 
 // EDIT 
-router.get('/:userID/edit', middleware.ensureAuthenticated, function(req, res) {
+router.get('/:userID/edit', middleware.isAccountOwner, function(req, res) {
   //find the user in the DB 
   User.findById(req.params.userID, function(err, user){
     if(err){
@@ -110,7 +112,7 @@ router.get('/:userID/edit', middleware.ensureAuthenticated, function(req, res) {
 });
 
 // UPDATE
-router.put('/:userID', function(req, res){
+router.put('/:userID', middleware.isAccountOwner, function(req, res){
   User.findByIdAndUpdate(req.params.userID, req.body.user, function(err, updatedUser){
     if(err){
       console.log(err); 
@@ -121,7 +123,7 @@ router.put('/:userID', function(req, res){
 });
 
 // DELETE
-router.delete('/:userID', function(req, res){
+router.delete('/:userID', middleware.isAccountOwner, function(req, res){
   //delete the user
   User.findByIdAndRemove(req.params.userID, function(err){
     if(err){

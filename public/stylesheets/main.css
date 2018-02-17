@@ -5,10 +5,6 @@
      padding: 2% 2%; 
 }
 
-.accountHeader{
-     text-align: center;
-}
-
 .resume {
     /*border: 2px solid black;*/
     text-align: center;
@@ -30,6 +26,15 @@
 }
 .input.wide {
     width: 60%; 
+}
+
+.halfButton {
+    width: 49.8%; 
+    display: inline-block;
+}
+
+.thirdButton{
+    width: 33%;
 }
 
 #resumeContent {

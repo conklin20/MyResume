@@ -9,11 +9,11 @@ var express         = require("express"),
 // These ROUTES follow the REST pattern
 // **********************
 
-// Route    URL               Verb    Purpose                   Mongoose Method
+// Route    URL                   Verb    Purpose                   Mongoose Method
 // -----------------------------------------------------------------------------
 // INDEX    
-// NEW      /new              GET     Show new resume form      N/A
-// CREATE   /                 POST    Create new resume in db   Resume.create()       
+// NEW      /:userID/resume/new   GET     Show new resume form      N/A
+// CREATE   /                     POST    Create new resume in db   Resume.create()       
 // SHOW     
 // UPDATE   
 // EDIT     
@@ -21,7 +21,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/:userID/new', function(req, res){
+router.get('/:userID/resume/new', function(req, res){
   //find the user in the DB 
   User.findById(req.params.userID, function(err, user){
     if(err){
@@ -33,7 +33,7 @@ router.get('/:userID/new', function(req, res){
 });
 
 // CREATE
-router.post('/:userID', /*implement middleware*/ function(req, res){
+router.post('/:userID/resume', /*implement middleware*/ function(req, res){
   //Save the Resume to the DB
   eval(require("locus"))
   Resume.create(req.body.resume, function(err, user) {

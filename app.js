@@ -1,13 +1,16 @@
-var express           = require('express')
-  , passport          = require('passport')
-  , mongoose          = require("mongoose")
-  , bodyParser        = require("body-parser")
-  , methodOverride    = require("method-override")
-  , cookieParser      = require("cookie-parser")
-  , expressSession    = require("express-session")
-  //,LinkedinStrategy = require('../lib').Strategy;
-  , LinkedinStrategy  = require('passport-linkedin-oauth2').Strategy
-  , app               = express();
+var express           = require('express'),
+    mongoose          = require("mongoose"),
+    flash             = require("connect-flash"),
+    bodyParser        = require("body-parser"),
+    methodOverride    = require("method-override"),
+    cookieParser      = require("cookie-parser"),
+    expressSession    = require("express-session"),
+    passport          = require('passport'),
+    LinkedinStrategy  = require('passport-linkedin-oauth2').Strategy,
+    seedDB            = require("./seed"),
+    app               = express();
+
+const ENV_TEST = true; 
 
 // **********************
 // Hookup Routes
@@ -15,7 +18,9 @@ var express           = require('express')
 var indexRoutes       = require("./controllers/routes/index"),
     authRoutes        = require("./controllers/routes/auth"),
     userRoutes        = require("./controllers/routes/user"), 
-    resumeRoutes      = require("./controllers/routes/resume");
+    resumeRoutes      = require("./controllers/routes/resume"),
+    coverLetterRoutes = require("./controllers/routes/coverletter"), 
+    referenceRoutes   = require("./controllers/routes/reference");
 
 // **********************
 // Database Config
@@ -28,6 +33,12 @@ var indexRoutes       = require("./controllers/routes/index"),
 // **********************
 mongoose.connect("mongodb://localhost/MyResume");
 //mongoose.connect(process.env.DATABASEURL); 
+
+// **********************
+// Various custom config
+// **********************
+// Needs to come before passport config
+app.use(flash()); //used for our flash messages... this lib is pretty old so hold on
 
 // **********************
 // Seteup Passport and LinkedIn-OAuth2
@@ -49,8 +60,8 @@ passport.deserializeUser(function(obj, done) {
 
 // API Access link for creating client ID and secret:
 // https://www.linkedin.com/secure/developer
-var LINKEDIN_CLIENT_ID = "78dyjfwqjl6rpm";
-var LINKEDIN_CLIENT_SECRET = "JszVmdQI2cepCwj3";
+var LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
+var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 
 // Use the LinkedinStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -95,6 +106,20 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method")); //overriding HTML froms ability to only send POST and GET routes 
 
+
+// **********************
+//  Custom middleware 
+// **********************
+// pass our currentUser object to all routes 
+app.use(function(req, res, next){
+   res.locals.currentUser   = req.user; 
+   res.locals.error         = req.flash("error"); 
+   res.locals.success       = req.flash("success"); 
+   res.locals.warning       = req.flash("warning"); 
+   res.locals.testing       = ENV_TEST; 
+   next(); 
+});
+
 // **********************
 // Use our Routes
 // **********************
@@ -102,6 +127,11 @@ app.use(indexRoutes);
 app.use(authRoutes); 
 app.use(userRoutes); 
 app.use(resumeRoutes); 
+app.use(coverLetterRoutes); 
+app.use(referenceRoutes); 
+
+//seed our db for  testing only
+seedDB(); 
 
 // **********************
 // Start the server

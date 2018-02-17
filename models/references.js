@@ -1,8 +1,7 @@
 var mongoose    = require("mongoose");
 
 //user schema 
-var userSchema = new mongoose.Schema({
-    title: String, 
+var referenceSchema = new mongoose.Schema({
     name: String, 
     company: String, 
     position: String, 
@@ -13,4 +12,4 @@ var userSchema = new mongoose.Schema({
     writtenRef: String
 }); 
 
-module.exports = mongoose.model("Reference", userSchema);
+module.exports = mongoose.model("Reference", referenceSchema);

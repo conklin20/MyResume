@@ -15,31 +15,23 @@ var userSchema = new mongoose.Schema({
     bannerImg: String, 
     resumes: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Resume"
-            },
-            title: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Resume"
         }
-        ], 
+    ], 
     coverLetters: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "CoverLetter"
-            },
-            title: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "CoverLetter"
         }
-        ], 
+    ], 
     references: [
         {
-            id: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Reference"
-            },
-            title: String
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Reference"
         }
-        ]
+    ]
 }); 
+
 
 module.exports = mongoose.model("User", userSchema); 

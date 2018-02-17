@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Welcome to MyResume</title>
+        <title>MyResume</title>
         <!-- Make site responsive on mobile/tablet -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <!--Bootstrap CDN-->
@@ -34,5 +34,24 @@
             </div>
         </div>
     </nav>
+    
+    <!--Flash message-->
+    <div class="container text-center">
+      <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+          <h1><%= error %></h1>
+        </div>
+      <% } %>
+      <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+          <h1><%= success %></h1>
+        </div>
+      <% } %>
+      <% if(warning && warning.length > 0){ %>
+        <div class="alert alert-warning" role="alert">
+          <h1><%= warning %></h1>
+        </div>
+      <% } %>
+    </div>
     
     <div class="container">

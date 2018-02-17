@@ -1,3 +1,5 @@
+var User = require('../models/users');
+
 // All middleware goes here 
 var middlewareObj = {}; 
 
@@ -10,5 +12,28 @@ middlewareObj.ensureAuthenticated = function (req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
 };
+
+//custom...here we go
+middlewareObj.isAccountOwner = function (req, res, next) {
+  if (req.isAuthenticated()){
+    User.findById(req.params.userID, function(err, foundUser){
+      if(err){
+        req.flash('error', 'Redirect to error page: error looking up user');
+        res.redirect('back'); 
+      } else {
+        //check for ownership
+        if((foundUser.linkedInID && foundUser.linkedInID === req.user.id) || res.locals.testing === true){
+          return next();
+        } else {
+          req.flash('error', 'Redirect to error page: user doesnt own this profile and cannot access this page');
+          res.redirect('back'); 
+        }
+      }  
+    });
+  } else {
+    req.flash('error', 'Redirect to error page: user is not authenticated');
+    res.redirect('back'); 
+  }
+}; 
 
 module.exports = middlewareObj; 
