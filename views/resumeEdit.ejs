@@ -1,0 +1,51 @@
+<% include ./partials/header %>
+    
+    <div class="row">
+        <h1 style="text-align: center;">Edit Resume</h1>
+        <hr>
+        <form role="form" class="form-horizontal" id="newResume" action="/<%= user._id %>/resume" method="POST">  
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="alias">Alias</label>
+                        <input class="form-control" type="text" name="resume[alias]" value="<%= resume.alias %>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>
+                        <input class="form-control" type="text" name="resume[elevatorPitch]" value="<%= resume.elevatorPitch %>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="pull-left" for="objective">Objective</label>
+                        <textarea class="form-control" type="text" rows="4" name="resume[objective]"><%= resume.objective %></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="pull-left" for="careerSummary">Career Summary</label>
+                        <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]"><%= resume.careerSummary %></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <button class="btn btn-lg btn-success btn-block">Next</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <a class="btn btn-lg btn-primary btn-block" href="/<%= user._id %>">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+                    
+    <!-- Custom JavaScript-->
+    <script src="/js/resume.js"></script>
+    
+<% include ./partials/footer %>

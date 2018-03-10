@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resume</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/printStyles.css">
+    </head>
+    <body>
+        <!--Header Section-->
+        <header>
+            <div class="name"><%= user.firstName + " " + user.lastName %></div>
+            <div class="contact">
+                <span><%= user.city + ", " + user.state %></span>
+                <br>
+                <span><a href="mailto:<%= user.email %>"><%= user.email %></a><i class="fa fa-th-large"></i></span>
+                <span><%= user.phone %></span>
+            </div>
+        </header>
+        <hr>
+        
+        <!--Main Section-->
+        <main>
+            <section class="objective">
+                <!--Loop through the work experience array-->
+                <% if(resume.objective && resume.objective.length > 0) { %>
+                    <h3>Objective</h3>
+                    <hr>
+                    <p>
+                        <%- resume.objective %>
+                    </p>
+                <% } %>
+            </section>
+            
+            <section class="careerSummary">
+                <% if(resume.careerSummary && resume.careerSummary.length > 0) { %>
+                    <h3>Career Summary</h3>
+                    <hr>
+                    <p>
+                        <%- resume.careerSummary %>
+                    </p>
+                <% } %>
+            </section>
+            
+            <section class="work-experience">
+                <h3>Work Experience</h3>
+                <hr>
+                <!--Loop through the work experience array-->
+                <% resume.experience.forEach(function(workExp) { %>
+                    <div class="bold">  
+                        <span><%= workExp.companyName %></span>
+                        <span><%= moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
+                    </div>  
+                    <div class="ital">  
+                        <span><%= workExp.title %></span>
+                        <span><%= workExp.city+ ", " + workExp.state %></span>
+                    </div>  
+                    <ul class="responsibilities">
+                        <!--Loop through responsibilities-->
+                        <% workExp.responsibilities.forEach(function(responsibility) { %>
+                            <li>
+                                <%- responsibility %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% }) %>
+            </section>
+            
+            
+            <section class="education">
+                <h3>Education</h3>
+                <hr>
+                <!--Loop through the education array-->
+                <% resume.education.forEach(function(pastEducation) { %>
+                    <div class="bold">  
+                        <span><%= pastEducation.instituteName %></span>
+                        <span><%= moment(pastEducation.startDate).format('MMMM YYYY') + " - " + (pastEducation.endDate ? moment(pastEducation.endDate).format('MMMM YYYY') : 'Current') %></span>
+                    </div>  
+                    <div class="ital"> 
+                        <span><%= pastEducation.degree + ", " + pastEducation.areaOfStudy %></span>
+                        <span><%= pastEducation.city+ ", " + pastEducation.state %></span>
+                    </div>  
+                    <ul class="achievements">
+                        <!--Loop through achievements-->
+                        <% pastEducation.achievements.forEach(function(achievement) { %>
+                            <li>
+                                <%- achievement %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% }) %>
+            </section>
+            
+            <section class="skills-interests">
+                <h3>Skills & Interests</h3>
+                <hr>
+                <h4>Skills</h4>
+                <ul class="skills">
+                    <!--Loops through skills-->
+                    <% resume.skills.forEach(function(skill){ %>
+                        <li><%= skill.category %></li>
+                        <ul>
+                            <% var skillStr = ""; %>
+                            <% for(var i=0; i < skill.skill.length; i++){ %>
+                                <% skillStr += skill.skill[i].skillName + ", " %>
+                            <% }; %>
+                            <li><%= skillStr.slice(0, -2); %></li>
+                        </ul>
+                    <% }); %>
+                </ul>
+                <h4>Interests</h4>
+                <ul class="interests">
+                    <!--Loop through interests-->
+                    <% var interestStr = ""; %>
+                    <% resume.interests.forEach(function(interest){ %>
+                        <% interestStr += interest + ", " %>
+                    <% }) %>
+                    <li>
+                        <%= interestStr.slice(0, -2);  %>
+                    </li>
+                </ul>
+            </section>
+            
+            <% if(resume.other) { %>
+                <section class="other">
+                    <!--loop through 'other' content -->
+                    <% resume.other.forEach(function(otherSection) { %>
+                        <h3><%= otherSection.title %></h3>
+                        <hr>
+                        <p><%= otherSection.summary %></p>
+                        <ul class="other">
+                            <!--Loops through skills-->
+                            <% otherSection.bulletItems.forEach(function(item){ %>
+                                <li><%- item %></li>
+                            <% }); %>
+                        </ul>
+                    <% }) %>
+                </section>
+            <% } %>
+        </main>
+        
+        <!--Footer Section-->
+        <footer>
+            <p>This web page was formatted with CSS Flexbox</p>
+            <p>Find me on Linked<a href="<%= user.linkedInURL %>"><i class="fa fa-linkedin fa-lg"></i></a></p>
+        </footer>
+    </body>
+</html>

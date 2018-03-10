@@ -1,0 +1,145 @@
+/*General Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font: normal 14px "Garamond", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    
+    width: 1063px;
+    height: 1375px;
+    padding: 30px;
+}
+
+a {
+    text-decoration: none;
+}
+
+@media (max-width: 400px) {
+    body {
+        padding: 5px;
+        width: 390px;
+    }
+    header .contact i {
+        display: none; 
+    }
+}
+
+/*Header Section*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    
+    flex: 1 1 5%;
+    
+    /*background: #A4D5D5;*/
+}
+
+header .name {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+header .contact {
+    text-align: right; 
+    font-size:20px;
+}
+
+header .contact i {
+    /*justify-content: flex-start;*/
+    padding: 0 10px;
+    transform: rotate(45deg);
+}
+
+/*Body Section*/
+
+main {
+    display: flex;
+    flex: 1 1 90%;
+    flex-direction: column; 
+    justify-content: flex-start;
+}
+
+section {
+    margin-top: 10px;
+    /*display: flex;*/
+    /*flex-direction: column; */
+}
+
+section h3 {
+    text-transform: uppercase;
+}
+
+section ul {
+    margin-left: 20px;
+    margin-bottom: 10px; 
+}
+
+section li {
+    margin-bottom: 2px; 
+}
+
+section .ital {
+    font-style: italic;
+}
+
+section .bold {
+    font-weight: bold; 
+}
+
+/*Work Experience Section */
+
+.work-experience {
+    /*background: #FBDBBB;*/
+}
+
+.work-experience div {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+/*Education Section */
+
+.education {
+    /*background: #FBFBBB;*/
+}
+
+.education div {
+    display: flex;
+    justify-content: space-between;
+}
+
+/*Skills Interests Section */
+
+.skills-interests {
+    /*background: #DBFBBB;*/
+}
+
+/*Footer Section*/
+
+footer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    
+    /*background: #FBBBFB;*/
+}
+
+footer p {
+    text-transform: uppercase;
+    font-size: 14px;
+    opacity: 0.6;
+    align-self: center;
+    padding-top: 5px; 
+}

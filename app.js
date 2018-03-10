@@ -1,26 +1,27 @@
-var express           = require('express'),
-    mongoose          = require("mongoose"),
-    flash             = require("connect-flash"),
-    bodyParser        = require("body-parser"),
-    methodOverride    = require("method-override"),
-    cookieParser      = require("cookie-parser"),
-    expressSession    = require("express-session"),
-    passport          = require('passport'),
-    LinkedinStrategy  = require('passport-linkedin-oauth2').Strategy,
-    seedDB            = require("./seed"),
-    app               = express();
+var express                 = require('express'),
+    mongoose                = require("mongoose"),
+    flash                   = require("connect-flash"),
+    bodyParser              = require("body-parser"),
+    methodOverride          = require("method-override"),
+    cookieParser            = require("cookie-parser"),
+    expressSession          = require("express-session"),
+    passport                = require('passport'),
+    LinkedinStrategy        = require('passport-linkedin-oauth2').Strategy,
+    seedDB                  = require("./seed"),
+    expressSanitizer        = require("express-sanitizer"),
+    app                     = express();
 
-const ENV_TEST = true; 
+const ENV_TEST = true;
 
 // **********************
 // Hookup Routes
 // **********************
-var indexRoutes       = require("./controllers/routes/index"),
-    authRoutes        = require("./controllers/routes/auth"),
-    userRoutes        = require("./controllers/routes/user"), 
-    resumeRoutes      = require("./controllers/routes/resume"),
-    coverLetterRoutes = require("./controllers/routes/coverletter"), 
-    referenceRoutes   = require("./controllers/routes/reference");
+var indexRoutes = require("./controllers/routes/index"),
+    authRoutes = require("./controllers/routes/auth"),
+    userRoutes = require("./controllers/routes/user"),
+    resumeRoutes = require("./controllers/routes/resume"),
+    coverLetterRoutes = require("./controllers/routes/coverletter"),
+    referenceRoutes = require("./controllers/routes/reference");
 
 // **********************
 // Database Config
@@ -39,6 +40,7 @@ mongoose.connect("mongodb://localhost/MyResume");
 // **********************
 // Needs to come before passport config
 app.use(flash()); //used for our flash messages... this lib is pretty old so hold on
+app.locals.moment = require('moment'); //MomentJS
 
 // **********************
 // Seteup Passport and LinkedIn-OAuth2
@@ -51,11 +53,11 @@ app.use(flash()); //used for our flash messages... this lib is pretty old so hol
 //   have a database of user records, the complete Linkedin profile is
 //   serialized and deserialized.
 passport.serializeUser(function(user, done) {
-  done(null, user);
+    done(null, user);
 });
 
 passport.deserializeUser(function(obj, done) {
-  done(null, obj);
+    done(null, obj);
 });
 
 // API Access link for creating client ID and secret:
@@ -68,23 +70,23 @@ var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 //   credentials (in this case, an accessToken, refreshToken, and Linkedin
 //   profile), and invoke a callback with a user object.
 passport.use(new LinkedinStrategy({
-    clientID:     LINKEDIN_CLIENT_ID,
-    clientSecret: LINKEDIN_CLIENT_SECRET,
-    callbackURL:  "https://personal-conklin20.c9users.io/auth/linkedin/callback",
-    scope:        [ 'r_basicprofile', 'r_emailaddress'],
-    passReqToCallback: true
-  },
-  function(req, accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    req.session.accessToken = accessToken;
-    process.nextTick(function () {
-      // To keep the example simple, the user's Linkedin profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the Linkedin account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
-  }
+        clientID: LINKEDIN_CLIENT_ID,
+        clientSecret: LINKEDIN_CLIENT_SECRET,
+        callbackURL: "https://personal-conklin20.c9users.io/auth/linkedin/callback",
+        scope: ['r_basicprofile', 'r_emailaddress'],
+        passReqToCallback: true
+    },
+    function(req, accessToken, refreshToken, profile, done) {
+        // asynchronous verification, for effect...
+        req.session.accessToken = accessToken;
+        process.nextTick(function() {
+            // To keep the example simple, the user's Linkedin profile is returned to
+            // represent the logged-in user.  In a typical application, you would want
+            // to associate the Linkedin account with a user record in your database,
+            // and return that user instead.
+            return done(null, profile);
+        });
+    }
 ));
 
 // **********************
@@ -92,7 +94,8 @@ passport.use(new LinkedinStrategy({
 // **********************
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true})); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSanitizer()); //MUST GO AFTER BODY PARSER 
 // app.use(express.logger());
 app.use(cookieParser());
 // app.use(express.urlencoded());
@@ -111,31 +114,31 @@ app.use(methodOverride("_method")); //overriding HTML froms ability to only send
 //  Custom middleware 
 // **********************
 // pass our currentUser object to all routes 
-app.use(function(req, res, next){
-   res.locals.currentUser   = req.user; 
-   res.locals.error         = req.flash("error"); 
-   res.locals.success       = req.flash("success"); 
-   res.locals.warning       = req.flash("warning"); 
-   res.locals.testing       = ENV_TEST; 
-   next(); 
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    res.locals.warning = req.flash("warning");
+    res.locals.testing = ENV_TEST;
+    next();
 });
 
 // **********************
 // Use our Routes
 // **********************
-app.use(indexRoutes); 
-app.use(authRoutes); 
-app.use(userRoutes); 
-app.use(resumeRoutes); 
-app.use(coverLetterRoutes); 
-app.use(referenceRoutes); 
+app.use(indexRoutes);
+app.use(authRoutes);
+app.use(userRoutes);
+app.use(resumeRoutes);
+app.use(coverLetterRoutes);
+app.use(referenceRoutes);
 
-//seed our db for  testing only
-seedDB(); 
+//seed our db for testing only 
+seedDB();
 
 // **********************
 // Start the server
 // **********************
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Server started...");
 });

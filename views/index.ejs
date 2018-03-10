@@ -1,19 +1,71 @@
-<% include ./partials/header %>
-    
-<% if (!user) { %>
-	<h2>Welcome! Please log in.</h2>
-	<a href="/auth/linkedin">Login with Linkedin</a>
-<% } else { %>
-	<h2>Hello, <%= user.displayName %>.</h2>
-	<p>First Name: <%= user.name.givenName %></p>
-	<p>Last Name: <%= user.name.familyName %></p>
-	<p>Email: <%= user.emails[0].value %></p>
-	<p>Email: <%= user._json.emailAddress %></p>
-	<p>Public Profile URL: <%= user._json.publicProfileUrl %></p>
-	<% var url = user._json.publicProfileUrl %>
-	<p>Public Profile Query String: <%= url.substring(url.indexOf('in/')+3) %></p>
-	<img src= <%= user.photos[0].value %> >
-	<pre><code><%= JSON.stringify(user, null, 2) %></code></pre>
-<% } %>
-
-<% include ./partials/footer %>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resume</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--Font Awesome-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--SemanticUI-->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
+        <!--Custom JS-->
+        <script src="/js/app.js"></script>
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+    </head>
+    <body>
+        <!--Header-->
+        <header>
+        </header>
+        
+        <!--Main-->
+        <main style="color: <%= resume.fontColor %>">
+            <!--Landing Page Section-->
+            <section class="landing-page">
+	            <div class="banner-image" style="background-image: url(<%= user.bannerImg %>);"></div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box introduction"><h3>Hi, I'm <%= user.firstName %>! Nice to meet you!</h3></div>
+                <div class="box elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
+                <div class="box"></div>
+		    </section>
+		    
+		    <!--Timeline Section-->
+		    <section class="timeline">
+		        <div class="title">
+		            <h2>-- Notable Timeline Events --</h2>
+		        </div>
+		        <div class="all-events">
+		            <% resume.timeline.forEach(function(event){ %>
+                                                                   <!--Order the events in cronological order -->
+		                <div class="event" style="order: <%= event.date.getTime() / 100000 %>;">
+		                <hr>
+		                    <h3><%= moment(event.date).format('MMMM YYYY') %></h3>
+		                    <div class="event-icon" >
+		                        <img src= <%= event.icon %> >
+		                    </div>
+		                    <h4><%- event.summary %></h4>
+		                    <div class="event-detail">
+    		                    <p><%- event.detail %></p>
+		                    </div>
+		                </div>
+		            <% }) %>
+		        </div>
+		    </section>
+		    <!--Skills Section-->
+		    <section class="skills">
+		        <div class="title">
+		            <h2>-- Notable Skills --</h2>
+		        </div>
+		        <div class="all-skills">
+		            <% resume.skills.forEach(function(skill){ %>
+		                
+		            <% }) %>
+		        </div>
+		    </section>
+        </main>
+        
+        <!--Footer-->
+        <footer>
+        </footer>
+    </body>
+</html>

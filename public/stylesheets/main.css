@@ -1,17 +1,15 @@
-.account {
-     border: 2px solid black;
-     width: 46%;
-     margin: 2% 2%;
-     padding: 2% 2%; 
+/*General Styles*/
+hr {
+    height: 2px;
+    background-color: gray;
+    margin: 50px 0;
 }
 
-.resume {
-    /*border: 2px solid black;*/
-    text-align: center;
-    padding: 0 1%; 
-    float: left;
-    width: auto;
-    
+.account {
+    border: 2px solid black;
+    width: 46%;
+    margin: 2% 2%;
+    padding: 2% 2%;
 }
 
 .delete-form {
@@ -19,27 +17,100 @@
 }
 
 .input.narrow {
-    width: 20%; 
+    width: 20%;
 }
+
 .input.wider {
-    width: 40%; 
+    width: 40%;
 }
+
 .input.wide {
-    width: 60%; 
+    width: 60%;
 }
 
 .halfButton {
-    width: 49.8%; 
+    width: 49.8%;
     display: inline-block;
 }
 
-.thirdButton{
+.thirdButton {
     width: 33%;
 }
 
-#resumeContent {
-    width: 80%;
-    border: 2px solid black;
-    padding: 1%; 
+#tab {
+    top: 60px;
 }
 
+
+/*Resume Section*/
+.stepOne {
+    /*min-height: 900px; */
+}
+
+.stepTwo {
+    /*Timeline*/
+    vertical-align: text-top;
+}
+
+.timelineSummary {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    border-color: transparent;  
+    text-align: center; 
+    display: inline-block;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.resume {
+    /*border: 2px solid black;*/
+    /*text-align: center;*/
+    padding: 0 1%;
+    /*float: left;*/
+    width: auto;
+    min-height: 1800px; 
+}
+
+.resumeContent a {
+    text-decoration: none;
+}
+
+
+form a {
+    color: black; 
+}
+
+/*hr {*/
+
+/*     overflow: visible; For IE */
+
+/*    padding: 0;*/
+
+/*    border: none;*/
+
+/*    border-top: medium double #333;*/
+
+/*    color: #333;*/
+
+/*    text-align: center;*/
+
+/*}*/
+
+/*hr:after {*/
+
+/*    content: "My Resume";*/
+
+/*    display: inline-block;*/
+
+/*    position: relative;*/
+
+/*    top: -0.7em;*/
+
+/*    font-size: 1.5em;*/
+
+/*    padding: 0 0.25em;*/
+
+/*    background: white;*/
+
+/*}*/

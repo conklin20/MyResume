@@ -11,6 +11,8 @@ var userSchema = new mongoose.Schema({
     linkedInID: String, 
     // Custom fields
     phone: String,
+    city: String, 
+    state: String, 
     avatar: String, 
     bannerImg: String, 
     resumes: [

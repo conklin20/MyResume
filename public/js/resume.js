@@ -1,7 +1,5 @@
 
-var timelineEvents = []; 
-
-function addEvent(timelineEvent){
-    timelineEvents.push(timelineEvent); 
-    return timelineEvents
+function testFunction(){
+    alert('did this get called?')
+    
 }

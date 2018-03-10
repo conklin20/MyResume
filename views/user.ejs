@@ -9,10 +9,9 @@
             <div class="row">
                 <div class="col-xs-6 account">
                     <h3 class="text-center">Account Info
-                                                    <!--Semantic UI Icons-->
-                    <a href="<%= user._id %>/edit"><i class="write icon"></i></a>
+                    <a href="<%= user._id %>/edit"><i class="fa fa-pencil"></i></a>
                     <form class="delete-form" action="<%= user._id %>?_method=DELETE" method="POST">
-                        <button class="btn btn-xs"><i class="trash icon"></i></button>
+                        <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                     </form></h3>
                     <div class="row">
                         <div class="">
@@ -28,21 +27,30 @@
                     </div>
                 </div>
                 <div class="col-xs-6 account">
-                    <h3 class="text-center">Resumes <a href="<%= user._id %>/resume/new"><span class="glyphicon glyphicon-plus"></span></a></h3>
+                    <h3 class="text-center">Resumes <span class="badge"><%= user.resumes.length %></span> <a href="<%= user._id %>/resume/new"><span class="fa fa-plus"></span></a></h3>
                     <% if(user.resumes && user.resumes.length > 0) { %>
-                        <p>You have <%= user.resumes.length %> resumes</p>
-                        <!--Loop through the resumes -->
-                        <% user.resumes.forEach(function(resume){ %>
-                            <a href="<%= user._id %>/ <%= resume._id %>/edit"><%= resume.title %></a>
-                        <% }) %>
+                        <!--<p>You have <%= user.resumes.length %> resumes</p>-->
+                        <ul>
+                            <!--Loop through the resumes -->
+                            <% user.resumes.forEach(function(resume){ %>
+                                <li>
+                                    <a href="<%= user._id %>/resume/<%= resume.id %>/edit" title="Edit Resume"><%= resume.alias %></a>
+                                    <!--<a href="<%= user._id %>/resume/<%= resume.id %>/edit"><i class="fa fa-pencil"></i></a>-->
+                                    <a href="<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version"><i class="fa fa-print"></i></a>
+                                    <!--<form>-->
+                                    <!--    <a href="<%= user._id %>/resume/<%= resume.id %>/delete"><i class="fa fa-trash"></i></a>-->
+                                    <!--</form>-->
+                                </li>
+                            <% }) %>
+                        </ul>
                     <% } else { %>
                         <p>No resumes found</p>
                     <% } %>
                 </div>
                 <div class="col-xs-6 account">
-                    <h3 class="text-center">Cover Letters <a href="<%= user._id %>/coverletter/new"><span class="glyphicon glyphicon-plus"></span></a></h3>
+                    <h3 class="text-center">Cover Letters <span class="badge"><%= user.coverLetters.length %></span> <a href="<%= user._id %>/coverletter/new"><span class="fa fa-plus"></span></a></h3>
                     <% if(user.coverLetters && user.coverLetters.length > 0) { %>  
-                        <p>You have <%= user.coverLetters.length %> cover letters</p>
+                        <!--<p>You have <%= user.coverLetters.length %> cover letters</p>-->
                         <ul>
                             <!--Loop through the cover letters -->
                             <% user.coverLetters.forEach(function(letter){ %>
@@ -54,9 +62,9 @@
                     <% } %>
                 </div>
                 <div class="col-xs-6 account">
-                    <h3 class="text-center">References <a href="<%= user._id %>/reference/new"><span class="glyphicon glyphicon-plus"></span></a></h3>
+                    <h3 class="text-center">References <span class="badge"><%= user.references.length %></span> <a href="<%= user._id %>/reference/new"><span class="fa fa-plus"></span></a></h3>
                     <% if(user.references && user.references.length > 0) { %>
-                        <p>You have <%= user.references.length %> references</p>
+                        <!--<p>You have <%= user.references.length %> references</p>-->
                         <ul>
                             <!--Loop through the references -->
                             <% user.references.forEach(function(reference){ %>
