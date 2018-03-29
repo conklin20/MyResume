@@ -217,8 +217,8 @@ Work Experience & Education section
 *******************************************************************************/
 .experience-all, 
 .education-all {
-    /*display: flex; */
-    /*flex-direction: column; */
+    display: flex; 
+    flex-direction: column; 
     margin-bottom: 5%; 
 }
 
