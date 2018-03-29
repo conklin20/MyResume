@@ -1,8 +1,13 @@
 
-function arraySortByDate(arr){
-    for(var i=0; i < arr.length; i++){
-        for(var j=0; j < arr.length; j++){
-            
-        }
-    }
-}
+
+//*************************************************
+// This code handles the SemanticUI 'Shape' Object
+//*************************************************
+// $('.shape').shape();
+
+// $('.shape').shape('flip up');
+
+// $('.shape')
+//   .shape('set next side', '.second.side')
+//   .shape('flip up')
+// ;

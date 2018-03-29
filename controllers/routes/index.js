@@ -25,25 +25,13 @@ router.get('/myresume/:userID/:resumeID', function(req, res) {
         console.log(err); 
     } else {
         //find the resume in the DB 
-        // Resume.findById(req.params.resumeID, function(err, foundResume){
-        // if(err){
-        //     console.log(err);
-        // } else {
-            
-        //     res.render('index', { user: foundUser, resume: foundResume }); 
-        // }
-        // }); 
-        Resume.findById(req.params.resumeID). 
-        populate('timeline').
-        sort({date: 'asc'}).
-        exec(function(err, foundResume){
+        Resume.findById(req.params.resumeID, function(err, foundResume){
         if(err){
             console.log(err);
         } else {
-            
             res.render('index', { user: foundUser, resume: foundResume }); 
         }
-        });
+        }); 
     }
     }); 
 });

@@ -88,24 +88,6 @@ router.get('/:userID/resume/:resumeID/edit', function(req, res) {
   }); 
 });
 
-// // EDIT (Page2) - This isnt ideal but I am not sure how else to handle it right now
-// router.get('/:userID/resume/:resumeID/edit/page2', function(req, res) {
-//   //find the user in the DB 
-//   User.findById(req.params.userID, function(err, foundUser){
-//     if(err){
-//       console.log(err); 
-//     } else {
-//       Resume.findById(req.params.resumeID, function(err, foundResume){
-//       if(err){
-//         console.log(err);
-//       } else {
-//         res.render('resumeEditP2', { user: foundUser, resume: foundResume });
-//       }
-//     }); 
-//     }
-//   }); 
-// });
-
 // UPDATE
 router.put('/:userID/resume/:resumeID/', function(req, res){
   //sanitize for any input allowing HTML input (Test sanitizing the entire resume object first)
@@ -121,97 +103,198 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
         if(err){
           console.log(err);
         } else {
+          // TIMELINE UPDATES
+          //check if a timeline background and font was entered 
+          if(req.body.timeline){
+              foundResume.timeline.order          = 1; 
+              foundResume.timeline.backgroundImg  = req.body.timeline.backgroundImg; 
+              foundResume.timeline.fontColor      = req.body.timeline.fontColor; 
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
+              return; 
+          } 
           //check if a timeline was entered
           if(req.body.timelineEvent){
-              foundResume.timeline.push(req.body.timelineEvent);
+              foundResume.timeline.details.push(req.body.timelineEvent);
           
               foundResume.save(); 
               res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
               return; 
           } 
-          //check if a skill category was entered 
-          if(req.body.newSkillCategory){
-              var newSkill = {
-                  category: req.body.newSkillCategory,
-                  skill: {
-                    skillName: req.body.skill, 
-                    proficiency: req.body.proficiency
-                  }
-                };
-              foundResume.skills.push(newSkill);
-          
+          // SKILL UPDATES
+          //check if a skill background and font was entered 
+          if(req.body.skills){
+              foundResume.skills.order          = 2; 
+              foundResume.skills.backgroundImg  = req.body.skills.backgroundImg; 
+              foundResume.skills.fontColor      = req.body.skills.fontColor; 
               foundResume.save(); 
               res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
               return; 
           }
           //check if a skill was entered 
-          if(req.body.category){
-              var newSkill = {
-                  skillName: req.body.skill, 
-                  proficiency: req.body.proficiency
-                };
-              foundResume.skills[req.body.category].skill.push(newSkill);
-          
-              foundResume.save();
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+          if(req.body.skill){
+              if(req.body.newSkillCategory){
+                // if a new category is being entered
+                var newSkillCat = {
+                    category: req.body.newSkillCategory,
+                    categoryIcon: req.body.newSkillCategoryIcon,
+                    skill: {
+                      skillName: req.body.skill, 
+                      proficiency: req.body.proficiency
+                    }
+                  };
+                foundResume.skills.details.push(newSkillCat);
+            
+                foundResume.save(); 
+                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+                return; 
+              } else {
+                // if an existing category is being used
+                var newSkill = {
+                    skillName: req.body.skill, 
+                    proficiency: req.body.proficiency
+                  };
+                  
+                foundResume.skills.details[req.body.category].skill.push(newSkill);
+            
+                foundResume.save();
+                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+                return; 
+              }
+          }
+          // INTEREST UPDATES
+          //check if a interest background and font was entered 
+          if(req.body.interests){
+              foundResume.interests.order          = 3; 
+              foundResume.interests.backgroundImg  = req.body.interests.backgroundImg; 
+              foundResume.interests.fontColor      = req.body.interests.fontColor; 
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
               return; 
-          } 
+          }
+          
           //check if a interest was entered 
           if(req.body.interest){
-              foundResume.interests.push(req.body.interest);
-          
+              if(req.body.newInterestCategory){
+                // if a new category is being entered
+                var newInterestCat = {
+                    category: req.body.newInterestCategory,
+                    categoryIcon: req.body.newInterestCategoryIcon,
+                    interest: {
+                      interest: req.body.interest, 
+                    }
+                  };
+                foundResume.interests.details.push(newInterestCat);
+            
+                foundResume.save(); 
+                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+                return; 
+              } else {
+                // if an existing category is being used
+                var newInterest = {
+                    interest: req.body.interest
+                  };
+                  
+                foundResume.interests.details[req.body.category].interest.push(newInterest);
+            
+                foundResume.save();
+                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+                return; 
+              }
+          }
+          // WORK EXP UPDATES
+          //check if a experience background and font was entered 
+          if(req.body.experience){
+              foundResume.experience.order          = 4; 
+              foundResume.experience.backgroundImg  = req.body.experience.backgroundImg; 
+              foundResume.experience.fontColor      = req.body.experience.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
           } 
           //check if a new prior work experience was entered 
           if(req.body.workExp){
-              foundResume.experience.push(req.body.workExp);
+              foundResume.experience.details.push(req.body.workExp);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
           }
           //check if a new responsibility has been added
           if(req.body.responsibility){
-              foundResume.experience[req.body.responsibility.company].responsibilities.push(req.body.responsibility.responsibility);
-          
-              foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
-              return; 
-          }
-          //check if a prior education has been added 
-          if(req.body.education){
-              var graduated = req.body.education.graduated === 'on' ? true : false; 
-              req.body.education.graduated = graduated; 
-              foundResume.education.push(req.body.education);
+              foundResume.experience.details[req.body.responsibility.company].responsibilities.push(req.body.responsibility.responsibility);
           
               foundResume.save(); 
               res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
+              return; 
+          }
+          // EDUCATION UPDATES
+          //check if a education background and font was entered 
+          if(req.body.education){
+              foundResume.education.order          = 5; 
+              foundResume.education.backgroundImg  = req.body.education.backgroundImg; 
+              foundResume.education.fontColor      = req.body.education.fontColor; 
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              return; 
+          } 
+          //check if a prior education has been added 
+          if(req.body.edu){
+              var graduated = req.body.edu.graduated === 'on' ? true : false; 
+              req.body.edu.graduated = graduated; 
+              foundResume.education.details.push(req.body.edu);
+          
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
           }
           //check if a prior education achievement has been added 
           if(req.body.achievement){
-              foundResume.education[req.body.achievement.instituteName].achievements.push(req.body.achievement.achievement);
-          
-              foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
-              return; 
-          }
-          //check if other content was entered 
-          if(req.body.other){
-              foundResume.other.push(req.body.other);
+              foundResume.education.details[req.body.achievement.instituteName].achievements.push(req.body.achievement.achievement);
           
               foundResume.save(); 
               res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              return; 
+          }
+          // QUOTES UPDATES
+          if(req.body.quotes){
+              foundResume.quotes.order          = 6; 
+              foundResume.quotes.backgroundImg  = req.body.quotes.backgroundImg; 
+              foundResume.quotes.fontColor      = req.body.quotes.fontColor; 
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              return; 
+          }
+          if(req.body.quote){
+              foundResume.quotes.details.push(req.body.quote);
+          
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              return; 
+          }
+          // OTHER SECTION UPDATES
+          //check if other content was entered 
+          if(req.body.otherSection){
+              foundResume.other.order          = 7; 
+              foundResume.other.backgroundImg  = req.body.otherSection.backgroundImg; 
+              foundResume.other.fontColor      = req.body.otherSection.fontColor; 
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              return; 
+          }
+          if(req.body.other){
+              foundResume.other.details.push(req.body.other);
+          
+              foundResume.save(); 
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
               return; 
           }
           //check if other content bullet item was entered 
           if(req.body.bulletItems){
-              foundResume.other[req.body.bulletItems.title].bulletItems.push(req.body.bulletItems.item);
+              foundResume.other.details[req.body.bulletItems.title].bulletItems.push(req.body.bulletItems.item);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
           } else {
             res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepOne");
               return; 
@@ -244,7 +327,7 @@ router.put('/:userID/resume/:resumeID/skillCategory/:catIdx', function(req, res)
         console.log(err);
       } else {
         // eval(require("locus"))
-        foundResume.skills.splice(req.params.catIdx, 1);
+        foundResume.skills.details.splice(req.params.catIdx, 1);
         foundResume.save(); 
         res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
       }
@@ -258,23 +341,38 @@ router.put('/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', fu
       if(err){
         console.log(err);
       } else {
-        foundResume.skills[req.params.catIdx].skill.splice(req.params.skillIdx, 1);
+        foundResume.skills.details[req.params.catIdx].skill.splice(req.params.skillIdx, 1);
         foundResume.save(); 
         res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
       }
     }); 
 }); 
 
-// REMOVE INTEREST ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/interest/:interestIdx', function(req, res){
+// REMOVE INTEREST CATEGORY ARRAY ELEMENT
+router.put('/:userID/resume/:resumeID/interestCategory/:catIdx', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
         console.log(err);
       } else {
-        foundResume.interests.splice(req.params.interestIdx, 1);
+        // eval(require("locus"))
+        foundResume.interests.details.splice(req.params.catIdx, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
+      }
+    }); 
+}); 
+
+// REMOVE INTEREST ARRAY ELEMENT
+router.put('/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interestIdx', function(req, res){
+  //find the resume in the DB and delete it 
+  Resume.findById(req.params.resumeID, function(err, foundResume){
+      if(err){
+        console.log(err);
+      } else {
+        foundResume.interests.details[req.params.catIdx].interest.splice(req.params.interestIdx, 1);
+        foundResume.save(); 
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
       }
     }); 
 }); 
@@ -286,9 +384,9 @@ router.put('/:userID/resume/:resumeID/workExp/:workExp', function(req, res){
       if(err){
         console.log(err);
       } else {
-        foundResume.experience.splice(req.params.workExp, 1);
+        foundResume.experience.details.splice(req.params.workExp, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
       }
     }); 
 }); 
@@ -300,9 +398,9 @@ router.put('/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', function(r
       if(err){
         console.log(err);
       } else {
-        foundResume.experience[req.params.workExp].responsibilities.splice(req.params.respID, 1);
+        foundResume.experience.details[req.params.workExp].responsibilities.splice(req.params.respID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
       }
     }); 
 }); 
@@ -314,9 +412,9 @@ router.put('/:userID/resume/:resumeID/education/:eduID', function(req, res){
       if(err){
         console.log(err);
       } else {
-        foundResume.education.splice(req.params.eduID, 1);
+        foundResume.education.details.splice(req.params.eduID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
       }
     }); 
 });
@@ -328,12 +426,26 @@ router.put('/:userID/resume/:resumeID/education/:eduID/achv/:achvID', function(r
       if(err){
         console.log(err);
       } else {
-        foundResume.education[req.params.eduID].achievements.splice(req.params.achvID, 1);
+        foundResume.education.details[req.params.eduID].achievements.splice(req.params.achvID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
       }
     }); 
 }); 
+
+// REMOVE QUOTE
+router.put('/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
+  //find the resume in the DB and delete it 
+  Resume.findById(req.params.resumeID, function(err, foundResume){
+      if(err){
+        console.log(err);
+      } else {
+        foundResume.quotes.details.splice(req.params.quoteID, 1);
+        foundResume.save(); 
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
+      }
+    }); 
+});
 
 // REMOVE 'OTHER' ARRAY ELEMENT
 router.put('/:userID/resume/:resumeID/other/:sectionID', function(req, res){
@@ -342,9 +454,9 @@ router.put('/:userID/resume/:resumeID/other/:sectionID', function(req, res){
       if(err){
         console.log(err);
       } else {
-        foundResume.other.splice(req.params.sectionID, 1);
+        foundResume.other.details.splice(req.params.sectionID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepEight' );
       }
     }); 
 });
@@ -356,9 +468,9 @@ router.put('/:userID/resume/:resumeID/other/:sectionID/item/:itemID', function(r
       if(err){
         console.log(err);
       } else {
-        foundResume.other[req.params.sectionID].bulletItems.splice(req.params.itemID, 1);
+        foundResume.other.details[req.params.sectionID].bulletItems.splice(req.params.itemID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
+        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
       }
     }); 
 }); 

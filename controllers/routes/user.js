@@ -48,24 +48,29 @@ router.get('/', function(req, res){
 
 // NEW
 router.get('/new', middleware.ensureAuthenticated, function(req, res){
-  res.render('register', { user: req.user });
+  res.render('userNew', { user: req.user });
 });
 
 // CREATE 
 router.post("/", middleware.ensureAuthenticated, function(req, res){
   var newUser = {
       //LinkedIn Fields
-      username: req.body.user.username, 
-      firstName: req.body.user.firstName, 
-      lastName: req.body.user.lastName, 
-      email: req.body.user.email,
-      linkedInURL: req.user._json.publicProfileUrl, 
-      linkedInID: req.user.id, 
+      linkedinUsername: req.body.user.linkedinUsername, 
+      linkedinFirstName: req.body.user.linkedinFirstName, 
+      linkedinLastName: req.body.user.linkedinLastName, 
+      linkedinEmail: req.body.user.linkedinEmail,
+      linkedinURL: req.user._json.publicProfileUrl, 
+      linkedinID: req.user.id, 
       //Custom fields
+      username: req.body.user.username,
       phone: req.body.user.phone, 
+      city: req.body.user.city, 
+      state: req.body.user.state,
       avatar: req.body.user.avatar, 
-      bannerImg: req.body.user.bannerImg, 
-      //elevatorPitch: req.body.user.elevatorPitch
+      facebookURL: req.body.user.facebookURL,
+      instagramURL: req.body.user.instagramURL, 
+      twitterURL: req.body.user.twitterURL, 
+      githubURL: req.body.user.githubURL
   };
   //Save the user to the DB
   User.create(newUser, function(err, user) {

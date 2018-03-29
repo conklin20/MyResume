@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--Font Awesome-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- jQuery CDN -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--SemanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
         <!--Custom JS-->
@@ -20,48 +22,225 @@
         <!--Main-->
         <main style="color: <%= resume.fontColor %>">
             <!--Landing Page Section-->
-            <section class="landing-page">
-	            <div class="banner-image" style="background-image: url(<%= user.bannerImg %>);"></div>
+            <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>;">
                 <div class="box"></div>
                 <div class="box"></div>
-                <div class="box introduction"><h3>Hi, I'm <%= user.firstName %>! Nice to meet you!</h3></div>
+                <div class="box introduction"><h3>Hi, I'm <%= user.linkedinFirstName %>! Nice to meet you!</h3></div>
                 <div class="box elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
                 <div class="box"></div>
 		    </section>
 		    
 		    <!--Timeline Section-->
-		    <section class="timeline">
-		        <div class="title">
-		            <h2>-- Notable Timeline Events --</h2>
-		        </div>
-		        <div class="all-events">
-		            <% resume.timeline.forEach(function(event){ %>
-                                                                   <!--Order the events in cronological order -->
-		                <div class="event" style="order: <%= event.date.getTime() / 100000 %>;">
-		                <hr>
-		                    <h3><%= moment(event.date).format('MMMM YYYY') %></h3>
-		                    <div class="event-icon" >
-		                        <img src= <%= event.icon %> >
-		                    </div>
-		                    <h4><%- event.summary %></h4>
-		                    <div class="event-detail">
-    		                    <p><%- event.detail %></p>
-		                    </div>
-		                </div>
-		            <% }) %>
+		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>;">
+		        <div class="timeline-section">
+    		        <div class="title">
+    		            <h2>-- Notable Timeline Events --</h2>
+    		        </div>
+    		        <div class="events-all">
+    		            <% resume.timeline.details.forEach(function(event, idx){ %>
+                            <div class="ui link cards event" style="order: <%= event.date.getTime() / 100000 %>;">
+                                <div class="card">
+                                    <div class="image">
+                                        <img src="<%= event.icon %>">
+                                    </div>
+                                    <div class="content">
+                                        <div class="header"><%= moment(event.date).format('MMMM YYYY') %></div>
+                                        <div class="meta">
+                                            <a><%- event.summary %></a>
+                                        </div>
+                                        <div class="description">
+                                            <%- event.detail %>
+                                        </div>
+                                    </div>
+                                    <div class="extra content">
+                                        <span class="floated">
+                                            <%= moment(event.date).fromNow() %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+    		            <% }) %>
+    		        </div>
 		        </div>
 		    </section>
+		    
 		    <!--Skills Section-->
-		    <section class="skills">
-		        <div class="title">
-		            <h2>-- Notable Skills --</h2>
-		        </div>
-		        <div class="all-skills">
-		            <% resume.skills.forEach(function(skill){ %>
-		                
-		            <% }) %>
+		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;">
+		        <div class="skills-section">
+    		        <div class="title">
+    		            <h2>-- Notable Skills --</h2>
+    		        </div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted relaxed divided list">
+    	                    <% resume.skills.details.forEach(function(skillCat){ %>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="skill-header"><%= skillCat.category %></div>
+                                        <!--<ul>-->
+                                        <div class"all-skills">
+                        		            <% skillCat.skill.forEach(function(skill){ %>
+                                                <div style="font-size:<%= skill.proficiency <= 2 ? 1 : skill.proficiency / 2 %>em" >
+                                                    <p><%- skill.skillName %></p>
+                                                </div>
+                                            <% }) %>
+                                        </div>
+                                    </div>
+                                </div>
+    	                    <% }) %>
+                        </div>
+                    </div>
+                </div>
+		    </section>
+		    
+		    <!--Interests Section-->
+		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>;">
+		        <div class="interests-section">
+    		        <div class="title">
+    		            <h2>-- Interests --</h2>
+    		        </div>
+                    <div class="ui inverted segment">
+                        <div class="ui inverted relaxed divided list">
+    	                    <% resume.interests.details.forEach(function(interestCat){ %>
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="skill-header"><%= interestCat.category %></div>
+                                        <div class"all-skills">
+                        		            <% interestCat.interest.forEach(function(interest){ %>
+                                                <div>
+                                                    <p><%- interest.interest %></p>
+                                                </div>
+                                            <% }) %>
+                                        </div>
+                                    </div>
+                                </div>
+    	                    <% }) %>
+                        </div>
+                    </div>
 		        </div>
 		    </section>
+		    
+		    <!--Work Experience Section-->
+		    <section class="section-background" style="background-image: url(<%= resume.experience.backgroundImg %>); color: <%= resume.experience.fontColor %>;">
+		        <div class="work-experience-section">
+    		        <div class="title">
+    		            <h2>-- Work Experience --</h2>
+    		        </div>
+    		        
+    		        <div class="experience-all">
+    	                <!--Loop through work experience-->
+    	                <% resume.experience.details.forEach(function(workExp){ %>
+    	                                            <!--Sort by Start Date, Desc-->
+    	                    <div class="experience" style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
+                                <div class="experience-image">
+                                    <a class="" href="<%= workExp.url %>">
+                                        <img src="<%= workExp.logo %>">
+                                    </a>
+                                </div>
+                                <div class="experience-detail">
+                                    <span class="experience-headers">
+                                        <h3> <%= workExp.companyName %> </h3>
+                                        <h3> <%= moment(workExp.startDate).format('MMM YY') + ' - ' + (workExp.endDate ?  moment(workExp.endDate).format('MMM YY')  : ' current') %> </h3>
+                                    </span>
+                                    <span class="experience-headers">
+                                        <h4> <%= workExp.title %> </h4> 
+                                        <h4> <%= workExp.city + ', ' + workExp.state%> </h4> 
+                                    </span>  
+                                    <% workExp.responsibilities.forEach(function(responsibility){ %>
+                                        <p> <%- responsibility %> </p>
+                                    <% }) %>
+                                   
+                                </div>
+                            <hr>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+		    </section>
+		 
+		    <!--Education Section-->
+		    <section class="section-background" style="background-image: url(<%= resume.education.backgroundImg %>); color: <%= resume.education.fontColor %>;">
+		        <div class="education-section">
+    		        <div class="title">
+    		            <h2>-- Education --</h2>
+    		        </div>
+    		        <div class="education-all">
+    	                <!--Loop through work experience-->
+    	                <% resume.education.details.forEach(function(edu){ %>
+    	                                            <!--Sort by Start Date, Desc-->
+    	                    <div class="education" style="order: <%= - edu.startDate.getTime() / 100000 %>;">
+                                <div class="education-image">
+                                    <a class="" href="<%= edu.url %>">
+                                        <img src="<%= edu.logo %>">
+                                    </a>
+                                </div>
+                                <div class="education-detail">
+                                    <span class="experience-headers">
+                                        <h3> <%= edu.instituteName %> </h3>
+                                        <h3> <%= moment(edu.startDate).format('MMM YY') + ' - ' + (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : ' current') %> </h3>
+                                    </span>
+                                    <span class="experience-headers">
+                                        <h4> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h4>  
+                                        <h4> <%= edu.city + ', ' + edu.state %> </h4>
+                                    </span>  
+                                    <% edu.achievements.forEach(function(achievement){ %>
+                                        <p> <%- achievement %> </p>
+                                    <% }) %>
+                                    <p><%= edu.notes %></p>
+                                    <% if(edu.graduated) { %>
+                                        <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">
+                                    <% } %>
+                                </div>
+                                <hr>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </section>
+		    
+		    <!--Quotes Section-->
+		    <section class="section-background" style="background-image: url(<%= resume.quotes.backgroundImg %>); color: <%= resume.quotes.fontColor %>;">
+		        <div class="quotes-section">
+    		        <div class="title">
+    		            <h2>--Quotes That I Like--</h2>
+    		        </div>
+                    <!--Loop through other items-->
+                    <% resume.quotes.details.forEach(function(quote){ %>
+        		        <div class="quotes-all">
+        		            <div class="quotes-detail">
+                               <p>
+                                   <%= quote.quote %>
+                                   <br>
+                                   <span>- <%= quote.by %></span>
+                               </p>
+                            </div>
+                        </div>
+                        <hr>
+                    <% }) %>
+                </div>
+            </section>
+		    
+		    <!--Other Section-->
+		    <section class="section-background" style="background-image: url(<%= resume.other.backgroundImg %>); color: <%= resume.other.fontColor %>;">
+		        <div class="other-section">
+                    <!--Loop through other items-->
+                    <% resume.other.details.forEach(function(section){ %>
+        		        <div class="title">
+        		            <h2>-- <%= section.title %> --</h2>
+        		        </div>
+        		        <div class="other-all">
+        		            <h4> <%= section.summary %> </h4>
+        		            <div class="other-detail">
+                                <ul>
+                                    <% section.bulletItems.forEach(function(item){ %>
+                                        <li> <%- item %> </li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+		    
         </main>
         
         <!--Footer-->

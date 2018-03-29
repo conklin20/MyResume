@@ -81,36 +81,9 @@ form a {
     color: black; 
 }
 
-/*hr {*/
 
-/*     overflow: visible; For IE */
-
-/*    padding: 0;*/
-
-/*    border: none;*/
-
-/*    border-top: medium double #333;*/
-
-/*    color: #333;*/
-
-/*    text-align: center;*/
-
-/*}*/
-
-/*hr:after {*/
-
-/*    content: "My Resume";*/
-
-/*    display: inline-block;*/
-
-/*    position: relative;*/
-
-/*    top: -0.7em;*/
-
-/*    font-size: 1.5em;*/
-
-/*    padding: 0 0.25em;*/
-
-/*    background: white;*/
-
-/*}*/
+/*Skill section */
+.proficiency {
+    display: flex; 
+    justify-content: space-between;
+}

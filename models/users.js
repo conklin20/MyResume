@@ -3,18 +3,22 @@ var mongoose    = require("mongoose");
 //user schema 
 var userSchema = new mongoose.Schema({
     // Imported from LinkedIn
-    username: String, 
-    firstName: String, 
-    lastName: String, 
-    email: String,
-    linkedInURL: String,
-    linkedInID: String, 
+    linkedinUsername: String, 
+    linkedinFirstName: String, 
+    linkedinLastName: String, 
+    linkedinEmail: String,
+    linkedinURL: String,
+    linkedinID: String, 
     // Custom fields
+    username: String,
     phone: String,
     city: String, 
     state: String, 
     avatar: String, 
-    bannerImg: String, 
+    facebookURL: String, 
+    instagramURL: String, 
+    twitterURL: String, 
+    githubURL: String,
     resumes: [
         {
             type: mongoose.Schema.Types.ObjectId,

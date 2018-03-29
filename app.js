@@ -32,7 +32,7 @@ var indexRoutes = require("./controllers/routes/index"),
 //      OR: you can go to your Heroku account, and under settings of your app find "config vars" and manually add key: DATABASEURL value:  { heroku url string }
 //      URL for this Heroku db: mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
 // **********************
-mongoose.connect("mongodb://localhost/MyResume");
+mongoose.connect("mongodb://localhost/MyResume_v2");
 //mongoose.connect(process.env.DATABASEURL); 
 
 // **********************
@@ -62,8 +62,8 @@ passport.deserializeUser(function(obj, done) {
 
 // API Access link for creating client ID and secret:
 // https://www.linkedin.com/secure/developer
-var LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
-var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
+var LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID || '78dyjfwqjl6rpm';
+var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET || 'JszVmdQI2cepCwj3';
 
 // Use the LinkedinStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -134,7 +134,7 @@ app.use(coverLetterRoutes);
 app.use(referenceRoutes);
 
 //seed our db for testing only 
-seedDB();
+//seedDB();
 
 // **********************
 // Start the server

@@ -1,75 +1,74 @@
 <% include ./partials/header %>
 
-    <div class="row">
+ <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-3 col-xs-2"></div>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-8 text-center">
-            <h1 style="text-align: center;">Update Info</h1>
-            
-            <form id="editUser" action="/<%= user._id %>?_method=PUT" method="POST">              
+            <h1 style="text-align: center;">Register</h1>
+            <form id="newUser" action="/" method="POST">                 
                 <div class="thumbnail">
-                <p>Edit Your Profile</p>
+                <p>Create a Custom Profile</p>
                     <div class="form-group">
                         <label class="pull-left" for="username">Username</label>
                             <!--Eventually validate that this is a unique field-->
-                        <input class="form-control" type="text" name="user[username]" value=<%= user.username %> required>
+                        <input class="form-control" type="text" name="user[username]" placeholder="username" required>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="phone">Phone</label>
-                        <input class="form-control bfh-phone" type="tel" name="user[phone]" data-format="+1 (ddd) ddd-dddd" value=<%= user.phone  %> required>
+                        <input class="form-control bfh-phone" type="tel" name="user[phone]" data-format="+1 (ddd) ddd-dddd" placeholder="phone" required>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="city">City</label>
-                        <input class="form-control" type="text" name="user[city]" value=<%= user.city  %> required>
+                        <input class="form-control" type="text" name="user[city]" placeholder="city" required>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="state">State</label>
-                        <input class="form-control" type="text" name="user[state]" value=<%= user.state  %> required>
+                        <input class="form-control" type="text" name="user[state]" placeholder="state" required>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="avatar">Avatar/Bitmoji</label>
-                        <input class="form-control" type="text" name="user[avatar]" value=<%= user.avatar %> required>
+                        <input class="form-control" type="text" name="user[avatar]" value=<%= user.photos[0].value %> required>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="facebookURL">Facebook Profile URL</label>
-                        <input class="form-control" type="text" name="user[facebookURL]" value=<%= user.facebookURL  %> >
+                        <input class="form-control" type="text" name="user[facebookURL]" placeholder="facebook url" >
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="instagramURL">Instagram Profile URL</label>
-                        <input class="form-control" type="text" name="user[instagramURL]" value=<%= user.instagramURL  %> >
+                        <input class="form-control" type="text" name="user[instagramURL]" placeholder="instagram url" >
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="twitterURL">Twitter Profile URL</label>
-                        <input class="form-control" type="text" name="user[twitterURL]" value=<%= user.twitterURL  %> >
+                        <input class="form-control" type="text" name="user[twitterURL]" placeholder="twitter url" >
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="githubURL">Github Profile URL</label>
-                        <input class="form-control" type="text" name="user[githubURL]" value=<%= user.githubURL  %> >
+                        <input class="form-control" type="text" name="user[githubURL]" placeholder="github url" >
                     </div>
                 </div>             
                 <div class="thumbnail">
                 <p>Imported from LinkedIn</p>
                     <div class="form-group">
                         <label class="pull-left" for="username">LinkedIn Username</label>
-                        <input class="form-control" type="text" name="user[linkedinUsername]" value= "<%= user.linkedinUsername  %>" readonly>
+                        <% var url = user._json.publicProfileUrl %>
+                        <input class="form-control" type="text" name="user[linkedinUsername]" value=<%= url.substring(url.indexOf('in/')+3)  %> required readonly>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="firstName">First Name</label>
-                        <input class="form-control" type="text" name="user[linkedinFirstName]" value= "<%= user.linkedinFirstName  %>" readonly>
+                        <input class="form-control" type="text" name="user[linkedinFirstName]" value=<%= user.name.givenName %> required readonly>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="lastName">Last Name</label>
-                        <input class="form-control" type="text" name="user[linkedinLastName]" value= "<%= user.linkedinLastName %>" readonly>
+                        <input class="form-control" type="text" name="user[linkedinLastName]" value=<%= user.name.familyName %> required readonly>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="email">Email</label>
-                        <input class="form-control" type="text" name="user[linkedinEmail]" value= "<%= user.linkedinEmail %>" readonly>
+                        <input class="form-control" type="text" name="user[linkedinEmail]" value=<%= user._json.emailAddress %> required readonly>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Update!</button>
+                    <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                 </div>
             </form>
         </div>
     </div>
-    
 <% include ./partials/footer %>

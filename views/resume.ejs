@@ -32,7 +32,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <label class="pull-left" for="backgroundImg">Background Image/Color <p>(Find an image online)</p></label>
+                            <input class="form-control" type="text" name="resume[backgroundImg]" placeholder="background url" required>
+                        </div>
                         <div class="col-sm-6">
                             <label class="pull-left" for="fontColor">Font Color <p>(Doesnt apply to printable version of resume)</p></label>
                             <input class="form-control" type="color" name="resume[fontColor]" required>
@@ -85,7 +88,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                <input class="form-control" type="text" name="resume[backgroundImg]" value="<%= resume.backgroundImg %>" required>
+                            </div>
                             <div class="col-sm-6">
                                 <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
                                 <input class="form-control" type="color" name="resume[fontColor]" value="<%= resume.fontColor %>" required>
@@ -105,11 +111,31 @@
                 </form>
             </div>
             <hr>
+            <!--TIMELINE SECTION-->
             <div class="row">
-                <form class="form-horizontal stepTwo" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form class="form-horizontal stepTwo" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
                         </a href="#stepTwo"><h2 id="stepTwo" name="stepTwo" style="text-align: center;">Timeline Entries</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="timeline[backgroundImg]" value="<%= resume.timeline.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="timeline[fontColor]" value="<%= resume.timeline.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form class="form-horizontal stepTwo" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="date">Date: </label>
@@ -130,12 +156,6 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-9">
-                                <label class="pull-left" for="bannerImg">Banner Image: </label>
-                                <input class="form-control" type="text" name="timelineEvent[bannerImg]" placeholder="url of banner image" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-9">
                                 <label class="pull-left" for="icon">Icon: </label>
                                 <input class="form-control" type="text" name="timelineEvent[icon]" placeholder="url of icon image" >
                             </div>
@@ -145,13 +165,13 @@
                                 <button id="btnAddTimelineEvent" class="btn btn-primary">Add Timeline Event</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 <div class="col-sm-2"></div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <p>Current Events <span class="badge"><%= resume.timeline.length %></span></p>
-                        <% resume.timeline.forEach(function(event, idx){ %>
+                        <% resume.timeline.details.forEach(function(event, idx){ %>
                             <div class="timelineSummary thumbnail">
                                 <span><%= moment(event.date).format('MMMM YYYY') %></span><br>
                                 <img src="<%= event.icon %>"><br>
@@ -164,22 +184,43 @@
                 </div>
             </div>
             <hr>
+            <!--SKILLS-->
             <div class="row">
-                <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        </a href="#stepThree"><h2 id="stepThree" name="stepThree" style="text-align: center;">Skills & Interests</h2>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepThree"><h2 id="stepThree" name="stepThree" style="text-align: center;">Skills</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="skills[backgroundImg]" value="<%= resume.skills.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="skills[fontColor]" value="<%= resume.skills.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Skill Category: </label><br>
                                 <div>
                                     <select class="form-control" name="category">
-                                        <% resume.skills.forEach(function(skillCategory, catIdx){ %>
+                                        <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
                                             <option value="<%= catIdx %>"><%= skillCategory.category %></option>
                                         <% }) %>
                                     </select>
                                     <div class="text-center">OR</div>
                                     <input class="form-control" type="text" name="newSkillCategory" placeholder="new category" >
+                                    <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -188,9 +229,14 @@
                             </div>
                             <div class="col-sm-4">
                                 <label class="pull-left" for="proficiency">Proficiency: </label>
-                                <input type="range" min="0" max="5.0" step=".5"list="tickmarks" name="proficiency" placeholder="proficiency (0 - 5)" >
-                                <label class="pull-left" for="proficiency">1</label>
-                                <label class="pull-right" for="proficiency">5</label>
+                                <input type="range" min="1.0" max="5.0" step=".5"list="tickmarks" name="proficiency" >
+                                <div class="proficiency">
+                                    <label for="proficiency">1</label>
+                                    <label for="proficiency">2</label>
+                                    <label for="proficiency">3</label>
+                                    <label for="proficiency">4</label>
+                                    <label for="proficiency">5</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -199,8 +245,8 @@
                                 <button id="btnAddSkill" class="btn btn-primary btn-block">Add Skill</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-2"></div>
@@ -209,7 +255,7 @@
                         <h3>Skills</h3>
                         <ul>
                             <!--Loop through skills-->
-                            <% resume.skills.forEach(function(skillCategory, catIdx){ %>
+                            <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
                                 <li>
                                     <form action="/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>?_method=PUT" method="POST">
                                         <label><%= skillCategory.category %></label>
@@ -229,45 +275,117 @@
                             <% }) %>
                         </ul>
                     </div>
-                    <div class="row">
-                        <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="col-sm-8">
-                                        <label class="pull-left" for="interest">Interest: </label>
-                                        <input class="form-control" type="text" name="interest" placeholder="interest" >
-                                    </div>
+                </div>
+            </div>
+            <hr>
+            <!--INTERESTS-->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepFour" class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepFour"><h2 id="stepFour" name="stepFour" style="text-align: center;">Interests</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="interests[backgroundImg]" value="<%= resume.interests.backgroundImg %>" required>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        <button id="btnAddInterest" class="btn btn-primary btn-block">Add Interest</button>
-                                    </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="interests[fontColor]" value="<%= resume.interests.fontColor %>" required>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <form id="#stepFour" class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="skillCategory">Interest Category: </label><br>
+                                <div>
+                                    <select class="form-control" name="category">
+                                        <% resume.interests.details.forEach(function(interestCategory, interestIdx){ %>
+                                            <option value="<%= interestIdx %>"><%= interestCategory.category %></option>
+                                        <% }) %>
+                                    </select>
+                                    <div class="text-center">OR</div>
+                                    <input class="form-control" type="text" name="newInterestCategory" placeholder="new interest" >
+                                    <input class="form-control" type="text" name="newInterestCategoryIcon" placeholder="interest icon url" >
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="interest">Interest: </label>
+                                <input class="form-control" type="text" name="interest" placeholder="interest" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button id="btnAddInterest" class="btn btn-primary btn-block">Add Interest</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
                     <div class="form-group">
                         <h3>Interests</h3>
                         <ul>
-                            <!--Loop through skills-->
-                            <% resume.interests.forEach(function(interest, interestIdx){ %>
+                            <!--Loop through interests-->
+                            <% resume.interests.details.forEach(function(interestCategory, catIdx){ %>
                                 <li>
-                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/interest/<%= interestIdx %>?_method=PUT" method="POST">
-                                        <%= interest %>
+                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>?_method=PUT" method="POST">
+                                        <label><%= interestCategory.category %></label>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </li>
+                                <ul>
+                                    <% interestCategory.interest.forEach(function(interest, interestIdx){ %>
+                                        <li>
+                                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>/interest/<%= interestIdx %>?_method=PUT" method="POST">
+                                                <%= interest.interest %>
+                                                <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </li>
+                                    <% }) %>
+                                </ul>
                             <% }) %>
                         </ul>
                     </div>
                 </div>
             </div>
             <hr>
+            <!--WORK EXPERIENCE-->
             <div class="row">
-                <form id="#stepFour" class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        </a href="#stepFour"><h2 id="stepFour" name="stepFour" style="text-align: center;">Add Work Experience</h2>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepFive" class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepFive"><h2 id="stepFive" name="stepFive" style="text-align: center;">Add Work Experience</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="experience[backgroundImg]" value="<%= resume.experience.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="experience[fontColor]" value="<%= resume.experience.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepFive" class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="companyName">Company Name: </label>
@@ -298,24 +416,35 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="companyName">Company Site URL: </label>
+                                <input class="form-control" type="text" name="workExp[url]" placeholder="company url">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="title">Company Logo or Image: </label>
+                                <input class="form-control" type="text" name="workExp[logo]" placeholder="company logo/image">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-4">
                                 <button id="btnAddTimelineEvent" class="btn btn-primary btn-block">Add Work Experience</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="row">
                 <form class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
+                        <h3>Interests</h3>
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="company">Company: </label><br>
                                 <div>
                                     <select class="form-control" name="responsibility[company]">
-                                        <% resume.experience.forEach(function(workExp, workIdx){ %>
+                                        <% resume.experience.details.forEach(function(workExp, workIdx){ %>
                                             <option value="<%= workIdx %>"><%= workExp.companyName %></option>
                                         <% }) %>
                                     </select>
@@ -341,7 +470,7 @@
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     <ul>
-                    <% resume.experience.forEach(function(workExp, workIdx){ %>
+                    <% resume.experience.details.forEach(function(workExp, workIdx){ %>
                         <li>
                             <form action="/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>?_method=PUT" method="POST">
                                 <%= workExp.companyName + ' (' + workExp.title + ', ' + workExp.city + ', ' + workExp.state + ')' %>
@@ -363,59 +492,89 @@
                 </div>
             </div>
             <hr>
+            <!--EDUCATION SECTION-->
             <div class="row">
-                <form id="#stepFive" class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        </a href="#stepFive"><h2 id="stepFive" name="stepFive" style="text-align: center;">Add Eductaion</h2>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepSix" class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepSix"><h2 id="stepSix" name="stepSix" style="text-align: center;">Add Eductaion</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="education[backgroundImg]" value="<%= resume.education.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="education[fontColor]" value="<%= resume.education.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepSix" class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-6">
                                 <label class="pull-left" for="instituteName">Institution Name: </label>
-                                <input class="form-control" type="text" name="education[instituteName]" placeholder="college/institution name" >
+                                <input class="form-control" type="text" name="edu[instituteName]" placeholder="college/institution name" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="city">City: </label>
-                                <input class="form-control" type="text" name="education[city]" placeholder="city" >
+                                <input class="form-control" type="text" name="edu[city]" placeholder="city" >
                             </div>
                             <div class="col-sm-2">
                                 <label class="pull-left" for="state">State: </label>
-                                <input class="form-control" type="text" name="education[state]" maxlength="2" placeholder="state" >
+                                <input class="form-control" type="text" name="edu[state]" maxlength="2" placeholder="state" >
                             </div>
                             <div class="col-sm-3">
                                 <label class="pull-left" for="startDate">Start: </label>
-                                <input class="form-control" type="date" name="education[startDate]"  >
+                                <input class="form-control" type="date" name="edu[startDate]"  >
                             </div>
                             <div class="col-sm-3">
                                 <label class="pull-left" for="endDate">End: </label>
-                                <input class="form-control" type="date" name="education[endDate]" >
+                                <input class="form-control" type="date" name="edu[endDate]" >
                                 <p>(leave blank if current)</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="degree">Degree: </label>
-                                <input class="form-control" type="text" name="education[degree]" placeholder="degree" >
+                                <input class="form-control" type="text" name="edu[degree]" placeholder="degree" >
                             </div>
                             <div class="col-sm-6">
                                 <label class="pull-left" for="areaOfStudy">Area of Study: </label>
-                                <input class="form-control" type="text" name="education[areaOfStudy]" placeholder="area of study" >
+                                <input class="form-control" type="text" name="edu[areaOfStudy]" placeholder="area of study" >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-2">
-                                <label class="pull-left" for="degree">GPA: </label>
-                                <input class="form-control" type="number" name="education[gpa]" placeholder="gpa" >
+                                <label class="pull-left" for="gpa">GPA: </label>
+                                <input class="form-control" type="number" name="edu[gpa]" placeholder="gpa" >
                             </div>
                             <div class="col-sm-2">
                                 <label class="pull-left" for="graduated">Graudated: </label>
-                                <input class="form-control" type="checkbox" name="education[graduated]"  >
+                                <input class="form-control" type="checkbox" name="edu[graduated]"  >
                             </div>
                             <div class="col-sm-8">
                                 <label class="pull-left" for="notes">Notes: </label>
-                                <input class="form-control" type="text" name="education[notes]" placeholder="notes" >
+                                <input class="form-control" type="text" name="edu[notes]" placeholder="notes" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="url">URL: </label>
+                                <input class="form-control" type="text" name="edu[url]" placeholder="url">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="logo">Logo or Image: </label>
+                                <input class="form-control" type="text" name="edu[logo]" placeholder="logo/image">
                             </div>
                         </div>
                         <div class="form-group">
@@ -424,11 +583,11 @@
                                 <button id="btnAddTimelineEvent" class="btn btn-primary btn-block">Add Education</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="row">
-                <form class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                <form class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -436,7 +595,7 @@
                                 <label class="pull-left" for="company">College/Institution: </label><br>
                                 <div>
                                     <select class="form-control" name="achievement[instituteName]">
-                                        <% resume.education.forEach(function(college, collegeIdx){ %>
+                                        <% resume.education.details.forEach(function(college, collegeIdx){ %>
                                             <option value="<%= collegeIdx %>"><%= college.instituteName %></option>
                                         <% }) %>
                                     </select>
@@ -462,7 +621,7 @@
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     <ul>
-                    <% resume.education.forEach(function(college, collegeIdx){ %>
+                    <% resume.education.details.forEach(function(college, collegeIdx){ %>
                         <li>
                             <form action="/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>?_method=PUT" method="POST">
                                 <%= college.instituteName + ' (' + college.city + ', ' + college.state + ', ' + college.degree + ', ' + college.areaOfStudy + ')' %>
@@ -484,11 +643,95 @@
                 </div>
             </div>
             <hr>
+            <!--QUOTES SECTION-->
             <div class="row">
-                <form id="#stepSix" class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-8">
-                        </a href="#stepSix"><h2 id="stepSix" name="stepSix" style="text-align: center;">Add Other Content</h2>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepSeven"><h2 id="stepSeven" name="stepSeven" style="text-align: center;">Quotes</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="quotes[backgroundImg]" value="<%= resume.quotes.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="quotes[fontColor]" value="<%= resume.quotes.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="by">By: </label>
+                                <input class="form-control" type="text" name="quote[by]" placeholder="by" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="pull-left" for="quote">Quote: </label>
+                                <textarea class="form-control" type="text" name="quote[quote]" placeholder="quote"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary btn-block">Add Quote</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <ul>
+                    <% resume.quotes.details.forEach(function(quote, quoteIdx){ %>
+                        <li>
+                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/quote/<%= quoteIdx %>?_method=PUT" method="POST">
+                                <%= quote.quote %>
+                                <br>
+                                <span>- <%= quote.by %></span>
+                                <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </li>
+                    <% }) %>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <!--OTHER SECTION-->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepEight"><h2 id="stepEight" name="stepEight" style="text-align: center;">Add Other Content</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="otherSection[backgroundImg]" value="<%= resume.other.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="otherSection[fontColor]" value="<%= resume.other.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="title">Section Title: </label>
@@ -507,8 +750,8 @@
                                 <button class="btn btn-primary btn-block">Add Content</button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
             <div class="row">
                 <form class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
@@ -520,7 +763,7 @@
                                 <div>
                                     <select class="form-control" name="bulletItems[title]">
                                         <% if(resume.other) { %>
-                                            <% resume.other.forEach(function(otherSection, sectionIdx){ %>
+                                            <% resume.other.details.forEach(function(otherSection, sectionIdx){ %>
                                                 <option value="<%= sectionIdx %>"><%= otherSection.title %></option>
                                             <% }) %>
                                         <% } %>
@@ -548,7 +791,7 @@
                 <div class="col-sm-8">
                     <ul>
                     <% if(resume.other) { %>
-                        <% resume.other.forEach(function(otherSection, sectionIdx){ %>
+                        <% resume.other.details.forEach(function(otherSection, sectionIdx){ %>
                             <li>
                                 <form action="/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>?_method=PUT" method="POST">
                                     <%= otherSection.title %>
@@ -575,6 +818,4 @@
         <% } %>
     </div>
     
-    <!-- Custom JavaScript-->
-    <script src="/js/resume.js"></script>
 <% include ./partials/footer %>

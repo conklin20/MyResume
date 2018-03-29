@@ -1,4 +1,6 @@
-/*General Styles*/
+/******************************************************************************
+General Styles
+*******************************************************************************/
 
 * {
     margin: 0;
@@ -10,17 +12,46 @@ html {
     font: normal 16px sans-serif;
     color: #555;
     
-    background: #8E0E00;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(left, #1F1C18, #8E0E00);
-    background: -moz-linear-gradient(left, #1F1C18, #8E0E00);
-    background: -o-linear-gradient(left, #1F1C18, #8E0E00);
-    background: linear-gradient(to right, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(left, #414345, #232526);
+    background: -moz-linear-gradient(left, #414345, #232526);
+    background: -o-linear-gradient(left, #414345, #232526);
+    background: linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
-section .title {
-    margin-top: 5%; 
-    margin-bottom: 3%; 
+hr {
+    margin: 2% 0; 
+}
+
+/******************************************************************************
+Shared
+*******************************************************************************/
+.timeline-section, 
+.skills-section,
+.interests-section,
+.work-experience-section,
+.education-section, 
+.quotes-section,
+.other-section {
+    text-align: center; 
+    padding: 5% auto;
+    width: 50%; 
+    margin: auto; 
+}
+
+.section-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 75vh;
+    height: 100%;
+    background-size: cover;
+}
+
+.title h2 {
+    padding: 5% 0; 
+    font-variant: small-caps;
 }
 
 hr {
@@ -31,21 +62,58 @@ hr {
 @media (max-width: 800px) {
     main {
         font-size: .75em; 
-        width: 80%; 
-        padding: 12% 10%;
+        /*width: 80%; */
+        /*padding: 12% 10%;*/
+    }
+    .timeline-section, 
+    .skills-section,
+    .interests-section,
+    .work-experience-section,
+    .education-section, 
+    .quotes-section,
+    .other-section {
+        margin: auto; 
+    }
+
+    .title h2 {
+        font-size: 1.9em; 
+        padding: 8% 0; 
+    }
+    
+    .experience-all {
+        display: flex; 
+        flex-direction: column; 
     }
 }
 
 @media (max-width: 400px) {
     main {
-        font-size: .5em; 
-        width: 96%; 
-        padding: 12% 10%;
+        font-size: .7em; 
+    }
+    
+    .timeline-section, 
+    .skills-section,
+    .interests-section,
+    .work-experience-section,
+    .education-section, 
+    .quotes-section,
+    .other-section {
+        margin: auto; 
+    }
+    
+    .title h2 {
+        font-size: 1.8em; 
+        padding: 10% 0; 
+    }
+    
+    .experience-all {
     }
 }
 
 
-/*Landing page section */
+/******************************************************************************
+Landing page section
+*******************************************************************************/
 .landing-page {
     display: flex;
     flex-direction: column;
@@ -62,14 +130,6 @@ hr {
 }
 
 .landing-page .banner-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    /*z-index: -1;*/
-    background-color: #80a3db;
 }
 
 .introduction, 
@@ -108,57 +168,127 @@ hr {
 }
 
 
-/*Timeline section */
-.timeline {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    text-align: center; 
-    min-height: 100vh;
-    /*align-items: center; */
-    margin-left: 16%; 
-    width: 66.6%; 
-}
-
-.all-events {
+/******************************************************************************
+Timeline section 
+*******************************************************************************/
+.events-all {
     display: flex;
-    /*border: 10px solid black;*/
-    flex-direction: row; 
-    justify-content: space-around;
-    margin: 2% 2% 2% 2%; 
-    flex-wrap: wrap;
+    flex-direction: column;
+    margin-bottom: 5%; 
 }
 
 .event { 
-    /*border: 1px solid grey;*/
-    /*background: #EE9A9A;*/
+    justify-content: center; 
+    margin-top: 0.0em;
+    padding-top: 2%; 
+}
+
+.connector {
+    width: 100%; 
+    height: 5%; 
+    margin: 0; 
+}
+
+
+/******************************************************************************
+Skills section
+*******************************************************************************/
+.skill-header {
+    font-size: 2em; 
+    font-weight: bold;
+    margin: 2% auto; 
+    font-variant: small-caps;
+    text-decoration: underline; 
+}
+
+.all-skills {
+    display: flex; 
+    flex-direction: column; 
+    margin-bottom: 5%; 
+}
+
+.skills ul {
+    list-style-type: none; 
+}
+
+
+/******************************************************************************
+Work Experience & Education section
+*******************************************************************************/
+.experience-all, 
+.education-all {
+    /*display: flex; */
+    /*flex-direction: column; */
+    margin-bottom: 5%; 
+}
+
+.experience,
+.education{
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+.experience-headers {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.experience-image, 
+.education-image {
+    flex-basis: 30%; 
+    flex-grow: 1;
+}
+
+.experience-detail,
+.education-detail {
+    flex-basis: 70%; 
+    flex-grow: 4;
+    text-align: left; 
+}
+
+.experience-image img,
+.education-image img {
+    border-radius: 10%; 
+    background-color: white; 
+    height: 18em;
+    width: 18em;
+}
+
+.experience-detail h2, h3, h4, 
+.education-detail h2, h3, h4  {
+    margin: 0 0;
+}
+
+/******************************************************************************
+Education ection
+*******************************************************************************/
+#grad-image {
+    height: 5em;
+    width: 5em;
+}
+
+
+/******************************************************************************
+Other ection
+*******************************************************************************/
+.other-all {
+    display: flex; 
+    flex-direction: column; 
+}
+
+.other {
+    display: flex; 
     margin: 2% 2%; 
-    padding: 2% 2%; 
-    /*justify-content: space-between;*/
 }
 
-.event-icon {
-    
+.other-detail {
+    width: 70%; 
+    text-align: left; 
+    margin: 2% 2%;
 }
 
-.event-detail {
-    /*text-align: justify;*/
+.other-detail ul, li {
+    list-style-type: none;
+    margin: 2% 2%; 
 }
 
-
-.event-image {
-    /*background-size: 50em;*/
-    /*background-repeat: no-repeat;*/
-    /*opacity: 0.5; */
-}
-
-
-/*Skills section */
-.skills {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    text-align: center; 
-    min-height: 100vh;
-    /*align-items: center; */
-    margin-left: 16%; 
-    width: 66.6%; 
-}
