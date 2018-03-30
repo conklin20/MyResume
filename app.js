@@ -64,6 +64,7 @@ passport.deserializeUser(function(obj, done) {
 // https://www.linkedin.com/secure/developer
 var LINKEDIN_CLIENT_ID = process.env.LINKEDIN_CLIENT_ID;
 var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
+var LINKEDIN_CALLBACK = process.env.LINKEDIN_CALLBACK; 
 
 // Use the LinkedinStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -72,7 +73,7 @@ var LINKEDIN_CLIENT_SECRET = process.env.LINKEDIN_CLIENT_SECRET;
 passport.use(new LinkedinStrategy({
         clientID: LINKEDIN_CLIENT_ID,
         clientSecret: LINKEDIN_CLIENT_SECRET,
-        callbackURL: "https://personal-conklin20.c9users.io/auth/linkedin/callback",
+        callbackURL: LINKEDIN_CALLBACK || "https://personal-conklin20.c9users.io/auth/linkedin/callback",
         scope: ['r_basicprofile', 'r_emailaddress'],
         passReqToCallback: true
     },
