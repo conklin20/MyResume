@@ -10,31 +10,37 @@
                         <div class="col-sm-3"></div>
                         <div class="col-sm-6">
                             <label class="pull-left" for="alias">Alias</label>
-                            <input class="form-control" type="text" name="resume[alias]" placeholder="give this resume an alias" required>
+                            <input class="form-control" type="text" name="resume[alias]" placeholder="Give this resume an alias" maxlength="50" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="pull-left" for="introduction">Say Hello</label>
+                            <input class="form-control" type="text" name="resume[introduction]" placeholder="Hey, I'm <%= user.linkedinFirstName %>" maxlength="150" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>
-                            <input class="form-control" type="text" name="resume[elevatorPitch]" placeholder="this will be what people first see, write something that makes you stand out" required>
+                            <input class="form-control" type="text" name="resume[elevatorPitch]" placeholder="This will be what people first see. Write something that makes you stand out, but keep it short" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label class="pull-left" for="objective">Objective</label>
-                            <textarea class="form-control" type="text" rows="4" name="resume[objective]" placeholder="what is your objective?"></textarea>
+                            <textarea class="form-control" type="text" rows="4" name="resume[objective]" placeholder="What is your objective? (optional)"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label class="pull-left" for="careerSummary">Career Summary</label>
-                            <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]" placeholder="summerize your career (optional)"></textarea>
+                            <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]" placeholder="Summerize your career (optional)"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-6">
                             <label class="pull-left" for="backgroundImg">Background Image/Color <p>(Find an image online)</p></label>
-                            <input class="form-control" type="text" name="resume[backgroundImg]" placeholder="background url" required>
+                            <input class="form-control" type="text" name="resume[backgroundImg]" placeholder="Background url" required>
                         </div>
                         <div class="col-sm-6">
                             <label class="pull-left" for="fontColor">Font Color <p>(Doesnt apply to printable version of resume)</p></label>
@@ -71,8 +77,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
+                                <label class="pull-left" for="introduction">Say Hello</label>
+                                <input class="form-control" type="text" name="resume[introduction]" value="<%= resume.introduction %>" maxlength="50" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
                                 <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>
-                                <input class="form-control" type="text" name="resume[elevatorPitch]" value="<%= resume.elevatorPitch %>" required>
+                                <input class="form-control" type="text" name="resume[elevatorPitch]" value="<%= resume.elevatorPitch %>" maxlength="150" required>
                             </div>
                         </div>
                         <div class="form-group">

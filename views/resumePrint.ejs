@@ -10,11 +10,11 @@
     <body>
         <!--Header Section-->
         <header>
-            <div class="name"><%= user.firstName + " " + user.lastName %></div>
+            <div class="name"><%= user.linkedinFirstName + " " + user.linkedinLastName %></div>
             <div class="contact">
                 <span><%= user.city + ", " + user.state %></span>
                 <br>
-                <span><a href="mailto:<%= user.email %>"><%= user.email %></a><i class="fa fa-th-large"></i></span>
+                <span><a href="mailto:<%= user.linkedinEmail %>"><%= user.linkedinEmail %></a><i class="fa fa-th-large"></i></span>
                 <span><%= user.phone %></span>
             </div>
         </header>
@@ -47,7 +47,7 @@
                 <h3>Work Experience</h3>
                 <hr>
                 <!--Loop through the work experience array-->
-                <% resume.experience.forEach(function(workExp) { %>
+                <% resume.experience.details.forEach(function(workExp) { %>
                     <div class="bold">  
                         <span><%= workExp.companyName %></span>
                         <span><%= moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
@@ -72,7 +72,7 @@
                 <h3>Education</h3>
                 <hr>
                 <!--Loop through the education array-->
-                <% resume.education.forEach(function(pastEducation) { %>
+                <% resume.education.details.forEach(function(pastEducation) { %>
                     <div class="bold">  
                         <span><%= pastEducation.instituteName %></span>
                         <span><%= moment(pastEducation.startDate).format('MMMM YYYY') + " - " + (pastEducation.endDate ? moment(pastEducation.endDate).format('MMMM YYYY') : 'Current') %></span>
@@ -98,7 +98,7 @@
                 <h4>Skills</h4>
                 <ul class="skills">
                     <!--Loops through skills-->
-                    <% resume.skills.forEach(function(skill){ %>
+                    <% resume.skills.details.forEach(function(skill){ %>
                         <li><%= skill.category %></li>
                         <ul>
                             <% var skillStr = ""; %>
@@ -111,21 +111,33 @@
                 </ul>
                 <h4>Interests</h4>
                 <ul class="interests">
-                    <!--Loop through interests-->
-                    <% var interestStr = ""; %>
-                    <% resume.interests.forEach(function(interest){ %>
-                        <% interestStr += interest + ", " %>
-                    <% }) %>
-                    <li>
-                        <%= interestStr.slice(0, -2);  %>
-                    </li>
+                    
+                    <% resume.interests.details.forEach(function(interest){ %>
+                        <li><%= interest.category %></li>
+                        <ul>
+                            <% var interestStr = ""; %>
+                            <% for(var i=0; i < interest.interest.length; i++){ %>
+                                <% interestStr += interest.interest[i] + ", " %>
+                            <% }; %>
+                            <li><%= interestStr.slice(0, -2); %></li>
+                        </ul>
+                    <% }); %><!--Loop through interests-->
+                    
+                    
+                    <!--<% var interestStr = ""; %>-->
+                    <!--<% resume.interests.details.forEach(function(interest){ %>-->
+                    <!--    <% interestStr += interest + ", " %>-->
+                    <!--<% }) %>-->
+                    <!--<li>-->
+                    <!--    <%= interestStr.slice(0, -2);  %>-->
+                    <!--</li>-->
                 </ul>
             </section>
             
             <% if(resume.other) { %>
                 <section class="other">
                     <!--loop through 'other' content -->
-                    <% resume.other.forEach(function(otherSection) { %>
+                    <% resume.other.details.forEach(function(otherSection) { %>
                         <h3><%= otherSection.title %></h3>
                         <hr>
                         <p><%= otherSection.summary %></p>

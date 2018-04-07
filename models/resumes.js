@@ -3,6 +3,7 @@ var mongoose = require("mongoose");
 //user schema 
 var resumeSchema = new mongoose.Schema({
     alias: String,
+    introduction: String,
     elevatorPitch: String,
     objective: String,
     careerSummary: String,

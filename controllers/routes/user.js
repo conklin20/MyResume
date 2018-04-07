@@ -25,10 +25,9 @@ router.get('/', function(req, res){
   if (res.locals.testing){
     req. flash("error", "**In Test Mode!**"); 
   }
-  
   //check if user is in db, using the LinkedIn ID field
   if(req.user){
-    User.findOne({ linkedInID: req.user.id }, function(err, foundUser){
+    User.findOne({ linkedinID: req.user.id }, function(err, foundUser){
       if(err){
         console.log(err); 
       } else {
@@ -72,7 +71,7 @@ router.post("/", middleware.ensureAuthenticated, function(req, res){
       twitterURL: req.body.user.twitterURL, 
       githubURL: req.body.user.githubURL
   };
-  //Save the user to the DB
+  
   User.create(newUser, function(err, user) {
       if (err) {
           console.log(err); 
@@ -81,6 +80,7 @@ router.post("/", middleware.ensureAuthenticated, function(req, res){
       }
       res.redirect('/' + user.id);
   });
+    
 }); 
 
 // SHOW

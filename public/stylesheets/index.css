@@ -9,7 +9,7 @@ General Styles
 }
 
 html {
-    font: normal 16px sans-serif;
+    font: normal 24px sans-serif;
     color: #555;
     
     background: #232526;  /* fallback for old browsers */
@@ -130,11 +130,11 @@ Landing page section
 }
 
 .landing-page .banner-image {
+    font-size: 4em; 
 }
 
 .introduction, 
 .elevator-pitch {
-    font-size: 2em; 
     opacity: 0;
 }
 
@@ -292,3 +292,16 @@ Other ection
     margin: 2% 2%; 
 }
 
+/******************************************************************************
+Footer Section
+*******************************************************************************/
+.footer {
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around;
+    text-align: center;
+    
+    
+    margin: 2% auto; 
+    height: 20vh; 
+}

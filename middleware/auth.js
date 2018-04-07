@@ -22,7 +22,7 @@ middlewareObj.isAccountOwner = function (req, res, next) {
         res.redirect('back'); 
       } else {
         //check for ownership
-        if((foundUser.linkedInID && foundUser.linkedInID === req.user.id) || res.locals.testing === true){
+        if((foundUser.linkedinID && foundUser.linkedinID === req.user.id) || res.locals.testing === true){
           return next();
         } else {
           req.flash('error', 'Redirect to error page: user doesnt own this profile and cannot access this page');
