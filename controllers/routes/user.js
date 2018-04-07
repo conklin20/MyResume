@@ -2,6 +2,7 @@ var express         = require("express"),
     User            = require("../../models/users"),
     Resume          = require("../../models/resumes"),
     CoverLetter     = require("../../models/coverletters"),
+    Reference       = require("../../models/references"),
     middleware      = require("../../middleware/auth.js"),
     router          = express.Router();
 
@@ -129,6 +130,9 @@ router.put('/:userID', middleware.isAccountOwner, function(req, res){
 
 // DELETE
 router.delete('/:userID', middleware.isAccountOwner, function(req, res){
+  //delete data associated to the user 
+  // Resume.find({ id:333 }).remove().exec();
+  //NEED TO COMPLETE THIS
   //delete the user
   User.findByIdAndRemove(req.params.userID, function(err){
     if(err){

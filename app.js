@@ -11,7 +11,7 @@ var express                 = require('express'),
     expressSanitizer        = require("express-sanitizer"),
     app                     = express();
 
-const ENV_TEST = true;
+const ENV_TEST = false;
 
 // **********************
 // Hookup Routes
@@ -32,8 +32,11 @@ var indexRoutes = require("./controllers/routes/index"),
 //      OR: you can go to your Heroku account, and under settings of your app find "config vars" and manually add key: DATABASEURL value:  { heroku url string }
 //      URL for this Heroku db: mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
 // **********************
-//mongoose.connect("mongodb://localhost/MyResume_v2");
-mongoose.connect(process.env.DATABASECON); 
+if(ENV_TEST) {
+    mongoose.connect("mongodb://localhost/MyResume_v2");
+} else {
+    mongoose.connect(process.env.DATABASECON);
+} 
 
 // **********************
 // Various custom config

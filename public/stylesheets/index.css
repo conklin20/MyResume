@@ -35,9 +35,10 @@ Shared
 .quotes-section,
 .other-section {
     text-align: center; 
-    padding: 5% auto;
+    /*padding: 5% auto;*/
     width: 50%; 
-    margin: auto; 
+    margin: 0 auto; 
+    margin-bottom: 5%; 
 }
 
 .section-background {
@@ -191,7 +192,7 @@ Timeline section
 
 
 /******************************************************************************
-Skills section
+Skills & Interests section
 *******************************************************************************/
 .skill-header {
     font-size: 2em; 
@@ -209,6 +210,15 @@ Skills section
 
 .skills ul {
     list-style-type: none; 
+}
+
+.skill-header img {
+    height: 5%; 
+    width: 5%; 
+    margin: 0 2%; 
+}
+
+.interests-section {
 }
 
 
@@ -301,7 +311,10 @@ Footer Section
     justify-content: space-around;
     text-align: center;
     
-    
     margin: 2% auto; 
     height: 20vh; 
+}
+
+#builtby {
+    font-size: 1.5em; 
 }

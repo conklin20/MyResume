@@ -312,7 +312,7 @@ router.put('/:userID/resume/:resumeID/timelineEvent/:timelineID', function(req, 
       if(err){
         console.log(err);
       } else {
-        foundResume.timeline.splice(req.params.timelineID, 1);
+        foundResume.timeline.details.splice(req.params.timelineID, 1);
         foundResume.save(); 
         res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepTwo' );
       }

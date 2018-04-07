@@ -111,26 +111,17 @@
                 </ul>
                 <h4>Interests</h4>
                 <ul class="interests">
-                    
+                    <!--Loop through interests-->
                     <% resume.interests.details.forEach(function(interest){ %>
                         <li><%= interest.category %></li>
                         <ul>
                             <% var interestStr = ""; %>
                             <% for(var i=0; i < interest.interest.length; i++){ %>
-                                <% interestStr += interest.interest[i] + ", " %>
+                                <% interestStr += interest.interest[i].interest + ", " %>
                             <% }; %>
                             <li><%= interestStr.slice(0, -2); %></li>
                         </ul>
-                    <% }); %><!--Loop through interests-->
-                    
-                    
-                    <!--<% var interestStr = ""; %>-->
-                    <!--<% resume.interests.details.forEach(function(interest){ %>-->
-                    <!--    <% interestStr += interest + ", " %>-->
-                    <!--<% }) %>-->
-                    <!--<li>-->
-                    <!--    <%= interestStr.slice(0, -2);  %>-->
-                    <!--</li>-->
+                    <% }); %>
                 </ul>
             </section>
             

@@ -78,8 +78,11 @@
         	                    <% resume.skills.details.forEach(function(skillCat){ %>
                                     <div class="item">
                                         <div class="content">
-                                            <div class="skill-header"><%= skillCat.category %></div>
-                                            <!--<ul>-->
+                                            <div class="skill-header">
+                                                <img src="<%= skillCat.categoryIcon %>">
+                                                <%= skillCat.category %>
+                                                <img src="<%= skillCat.categoryIcon %>">
+                                            </div>
                                             <div class"all-skills">
                             		            <% skillCat.skill.forEach(function(skill){ %>
                                                     <div style="font-size:<%= skill.proficiency <= 2 ? 1 : skill.proficiency / 2 %>em" >
@@ -108,7 +111,11 @@
         	                    <% resume.interests.details.forEach(function(interestCat){ %>
                                     <div class="item">
                                         <div class="content">
-                                            <div class="skill-header"><%= interestCat.category %></div>
+                                            <div class="skill-header">
+                                                <img src="<%= interestCat.categoryIcon %>">
+                                                <%= interestCat.category %>
+                                                <img src="<%= interestCat.categoryIcon %>">
+                                            </div>
                                             <div class"all-skills">
                             		            <% interestCat.interest.forEach(function(interest){ %>
                                                     <div>
@@ -301,9 +308,9 @@
                 </a>
                 <% } %>
             </div>
-            <p>
-                This site was built by Cary Conklin using <a href="https://www.caryconklin.com">caryconklin.com</a>
-            </p>
+            <span id="builtby">
+                This site was built by <a href="https://www.caryconklin.com">Cary Conklin</a>
+            </span>
 	    </section>
     </body>
 </html>
