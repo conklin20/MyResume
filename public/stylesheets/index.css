@@ -53,6 +53,11 @@ Shared
 .title h2 {
     padding: 5% 0; 
     font-variant: small-caps;
+    /*background-color: #232526; */
+    /*border-radius: 40%; */
+    /*opacity: .8; */
+    /*width: 50%; */
+    /*text-align: center; */
 }
 
 hr {
@@ -168,6 +173,32 @@ Landing page section
     100% { opacity: .9; }
 }
 
+/******************************************************************************
+Cover Letter section 
+*******************************************************************************/
+.cover-letter {
+    position: absolute; 
+    margin-left: 10%; 
+    padding: 5%;
+    width: 60%; 
+    left: 10%; 
+    top: 10%; 
+    background: white;
+    border-radius: 50%; 
+    border: 1px solid #232526;
+}
+
+.cover-letter-title {
+    font-weight: bold; 
+}
+
+.cover-letter-body {
+    text-align: left; 
+    
+}
+
+.cover-letter button {
+}
 
 /******************************************************************************
 Timeline section 

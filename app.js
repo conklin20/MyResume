@@ -9,6 +9,7 @@ var express                 = require('express'),
     LinkedinStrategy        = require('passport-linkedin-oauth2').Strategy,
     seedDB                  = require("./seed"),
     expressSanitizer        = require("express-sanitizer"),
+    forceSsl                = require('force-ssl-heroku'),
     app                     = express();
 
 const ENV_TEST = false;
@@ -112,7 +113,8 @@ app.use(passport.session());
 // app.use(app.router);
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method")); //overriding HTML froms ability to only send POST and GET routes 
-
+// force SSL redirects
+app.use(forceSsl);
 
 // **********************
 //  Custom middleware 

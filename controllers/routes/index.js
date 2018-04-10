@@ -2,7 +2,6 @@ var express         = require("express"),
     User            = require("../../models/users"),
     Resume          = require("../../models/resumes"),
     CoverLetter     = require("../../models/coverletters"),
-    middleware      = require("../../middleware/auth.js"),
     router          = express.Router();
     
 
@@ -29,7 +28,32 @@ router.get('/myresume/:userID/:resumeID', function(req, res) {
         if(err){
             console.log(err);
         } else {
-            res.render('index', { user: foundUser, resume: foundResume }); 
+            res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+        }
+        }); 
+    }
+    }); 
+});
+
+// SHOW - SHOWING A COVERLETTER AS WELL
+router.get('/myresume/:userID/:resumeID/:coverLetterID', function(req, res) {
+    //find the user in the DB 
+    User.findById(req.params.userID, function(err, foundUser){
+    if(err){
+        console.log(err); 
+    } else {
+        //find the resume in the DB 
+        Resume.findById(req.params.resumeID, function(err, foundResume){
+        if(err){
+            console.log(err);
+        } else {
+            CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
+                if(err){
+                    console.log(err);
+                } else {
+                    res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
+                }
+            });
         }
         }); 
     }

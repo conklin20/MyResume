@@ -9,6 +9,9 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--SemanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
+        <!--<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">-->
+        <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+        <!--<script src="semantic/dist/semantic.min.js"></script>-->
         <!--Custom JS-->
         <script src="/js/app.js"></script>
         <!--Custom CSS-->
@@ -28,8 +31,25 @@
                 <div class="box introduction"><h3><%= resume.introduction %></h3></div>
                 <div class="box elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
                 <div class="box"></div>
-		    </section>
+    		    
+    		    <% if(coverLetter) { %>
+                    <!-- Modal -->
+                    <div id="cover-letter" class="cover-letter">
+                        <div class="cover-letter-title">
+                            <%= coverLetter.title %>
+                        </div>
+                        <hr>
+                        <div class="cover-letter-body">
+                            <%= coverLetter.body %>
+                        </div>
+                        <br><br>
+                        <button class="ui mini primary button" onclick="closeCoverLetter()">
+                            Continue
+                        </button>
+                    </div>
+    		    <% } %>
 		    
+		    </section>
 		    <!--Timeline Section-->
 		    <% if(resume.timeline.details.length > 0) { %>
     		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>;">
@@ -265,41 +285,37 @@
         </main>
         
         <!--Footer-->
-        <footer>
-            
-        </footer>
         <section class="footer">
-            <!--<div class="printable">-->
-            <!--    <a class="ui circular print icon button" href="<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">-->
-            <!--      <i class="print icon"></i>-->
-            <!--    </a>-->
-            <!--</div>-->
             <div class="social">
-                <!--https://personal-conklin20.c9users.io/5ac8146895bb080d3c5e133e/resume/5ac81b37af12f20d9334351d/print-->
                 <a class="ui circular print icon button" href="/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
                   <i class="print icon"></i>
                 </a>
+                <i class="handshake outline icon"></i>
                 
                 <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank">
                   <i class="linkedin icon"></i>
                 </a>
+                <i class="handshake outline icon"></i>
                 
                 <% if(user.githubURL) { %>
                 <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank">
                   <i class="github plus icon"></i>
                 </a>
+                <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.twitterURL) { %>
                 <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank">
                   <i class="twitter icon"></i>
                 </a>
+                <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.instagramURL) { %>
                 <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank">
                   <i class="instagram icon"></i>
                 </a>
+                <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.facebookURL) { %>
@@ -312,5 +328,6 @@
                 This site was built by <a href="https://www.caryconklin.com">Cary Conklin</a>
             </span>
 	    </section>
+	    
     </body>
 </html>
