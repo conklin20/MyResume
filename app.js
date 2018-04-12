@@ -9,7 +9,7 @@ var express                 = require('express'),
     LinkedinStrategy        = require('passport-linkedin-oauth2').Strategy,
     seedDB                  = require("./seed"),
     expressSanitizer        = require("express-sanitizer"),
-    forceSsl                = require('force-ssl-heroku'),
+    //forceSsl                = require('force-ssl-heroku'),
     app                     = express();
 
 const ENV_TEST = false;
@@ -36,7 +36,7 @@ var indexRoutes = require("./controllers/routes/index"),
 if(ENV_TEST) {
     mongoose.connect("mongodb://localhost/MyResume_v2");
 } else {
-    mongoose.connect(process.env.DATABASECON);
+    mongoose.connect(process.env.DATABASECON || "mongodb://localhost/MyResume_v2");
 } 
 
 // **********************
@@ -114,7 +114,7 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride("_method")); //overriding HTML froms ability to only send POST and GET routes 
 // force SSL redirects
-app.use(forceSsl);
+//app.use(forceSsl);
 
 // **********************
 //  Custom middleware 

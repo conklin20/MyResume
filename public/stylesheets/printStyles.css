@@ -19,6 +19,10 @@ body {
     padding: 30px;
 }
 
+main a {
+    color: black;
+}
+
 a {
     text-decoration: none;
 }

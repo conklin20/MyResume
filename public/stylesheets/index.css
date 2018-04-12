@@ -151,22 +151,9 @@ Landing page section
 
 .elevator-pitch {
     animation: 10s slidefadeIn 4s forwards;
-    /*animation-timing-function: ease-in-out;*/
-    /*-webkit-animation-timing-function: ease-in-out;*/
-    /*border: 1px solid #BBD2C5; */
-    /*width: 66.67%; */
-    /*padding-left: 33%; */
-    /*border-radius: 50%; */
-    /*Grow the elevator pitch box twice as much*/
     flex-grow: 2; 
     margin: auto 20%; 
     padding: 10% 5%;
-    
-    /*  background: #BBD2C5; fallback for old browsers */
-    /*background: -webkit-linear-gradient(left, #536976, #BBD2C5);*/
-    /*background: -moz-linear-gradient(left, #536976, #BBD2C5);*/
-    /*background: -o-linear-gradient(left, #536976, #BBD2C5);*/
-     /* background: linear-gradient(to right, #536976, #BBD2C5);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 @keyframes slidefadeIn {
@@ -330,7 +317,7 @@ Other ection
 
 .other-detail ul, li {
     list-style-type: none;
-    margin: 2% 2%; 
+    margin: 2% 2%;
 }
 
 /******************************************************************************
