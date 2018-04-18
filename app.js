@@ -17,12 +17,12 @@ const ENV_TEST = false;
 // **********************
 // Hookup Routes
 // **********************
-var indexRoutes = require("./controllers/routes/index"),
-    authRoutes = require("./controllers/routes/auth"),
-    userRoutes = require("./controllers/routes/user"),
-    resumeRoutes = require("./controllers/routes/resume"),
-    coverLetterRoutes = require("./controllers/routes/coverletter"),
-    referenceRoutes = require("./controllers/routes/reference");
+var authRoutes          = require("./controllers/routes/auth"),
+    userRoutes          = require("./controllers/routes/user"),
+    indexRoutes         = require("./controllers/routes/index"),
+    resumeRoutes        = require("./controllers/routes/resume"),
+    coverLetterRoutes   = require("./controllers/routes/coverletter"),
+    referenceRoutes     = require("./controllers/routes/reference");
 
 // **********************
 // Database Config
@@ -119,22 +119,22 @@ app.use(methodOverride("_method")); //overriding HTML froms ability to only send
 // **********************
 //  Custom middleware 
 // **********************
-// pass our currentUser object to all routes 
+// global vars
 app.use(function(req, res, next) {
-    res.locals.currentUser = req.user;
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-    res.locals.warning = req.flash("warning");
-    res.locals.testing = ENV_TEST;
+    res.locals.currentUser  = req.user;
+    res.locals.error        = req.flash("error");
+    res.locals.success      = req.flash("success");
+    res.locals.warning      = req.flash("warning");
+    res.locals.testing      = ENV_TEST;
     next();
 });
 
 // **********************
 // Use our Routes
 // **********************
-app.use(indexRoutes);
 app.use(authRoutes);
 app.use(userRoutes);
+app.use(indexRoutes);
 app.use(resumeRoutes);
 app.use(coverLetterRoutes);
 app.use(referenceRoutes);

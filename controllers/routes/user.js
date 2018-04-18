@@ -1,8 +1,8 @@
 var express         = require("express"),
     User            = require("../../models/users"),
-    Resume          = require("../../models/resumes"),
-    CoverLetter     = require("../../models/coverletters"),
-    Reference       = require("../../models/references"),
+    // Resume          = require("../../models/resumes"),
+    // CoverLetter     = require("../../models/coverletters"),
+    // Reference       = require("../../models/references"),
     middleware      = require("../../middleware/auth.js"),
     router          = express.Router();
 
@@ -22,37 +22,20 @@ var express         = require("express"),
 // DESTROY  /:userID          DELETE  Delete a user             User.findByIdAndRemove()
 
 // INDEX
-router.get('/', function(req, res){
+router.get('/user', function(req, res){
   if (res.locals.testing){
     req. flash("error", "**In Test Mode!**"); 
   }
-  //check if user is in db, using the LinkedIn ID field
-  if(req.user){
-    User.findOne({ linkedinID: req.user.id }, function(err, foundUser){
-      if(err){
-        console.log(err); 
-      } else {
-        if (foundUser){
-          //if so, redirect to show page
-          res.redirect('/' + foundUser._id);
-        } else {
-          //if not, reirect to sign up page
-          res.redirect('/new');
-        }
-      }
-    }); 
-  } else {
-    res.redirect('/auth/linkedin'); 
-  }
+  
 });
 
 // NEW
-router.get('/new', middleware.ensureAuthenticated, function(req, res){
+router.get('/user/new', middleware.ensureAuthenticated, function(req, res){
   res.render('userNew', { user: req.user });
 });
 
 // CREATE 
-router.post("/", middleware.ensureAuthenticated, function(req, res){
+router.post("/user", middleware.ensureAuthenticated, function(req, res){
   var newUser = {
       //LinkedIn Fields
       linkedinUsername: req.body.user.linkedinUsername, 
@@ -79,13 +62,13 @@ router.post("/", middleware.ensureAuthenticated, function(req, res){
           // req.flash('error', err.message);
           return res.redirect('back');
       }
-      res.redirect('/' + user.id);
+      res.redirect('user/' + user.id);
   });
     
 }); 
 
 // SHOW
-router.get('/:userID', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID', middleware.isAccountOwner, function(req, res){
   //find the user in the DB 
   User.findById(req.params.userID).
     populate("resumes").
@@ -102,7 +85,7 @@ router.get('/:userID', middleware.isAccountOwner, function(req, res){
 });
 
 // EDIT 
-router.get('/:userID/edit', middleware.isAccountOwner, function(req, res) {
+router.get('/user/:userID/edit', middleware.isAccountOwner, function(req, res) {
   //find the user in the DB 
   User.findById(req.params.userID, function(err, user){
     if(err){
@@ -118,18 +101,18 @@ router.get('/:userID/edit', middleware.isAccountOwner, function(req, res) {
 });
 
 // UPDATE
-router.put('/:userID', middleware.isAccountOwner, function(req, res){
+router.put('/user/:userID', middleware.isAccountOwner, function(req, res){
   User.findByIdAndUpdate(req.params.userID, req.body.user, function(err, updatedUser){
     if(err){
       console.log(err); 
     } else {
-      res.redirect('/' + req.params.userID); 
+      res.redirect('/user/' + req.params.userID); 
     }
   }); 
 });
 
 // DELETE
-router.delete('/:userID', middleware.isAccountOwner, function(req, res){
+router.delete('/user/:userID', middleware.isAccountOwner, function(req, res){
   //delete data associated to the user 
   // Resume.find({ id:333 }).remove().exec();
   //NEED TO COMPLETE THIS
@@ -139,6 +122,8 @@ router.delete('/:userID', middleware.isAccountOwner, function(req, res){
       console.log(err); 
         res.redirect("/"); 
     } else {
+        //log user out
+        req.logout();
         //redirect
         res.redirect("/"); 
     }

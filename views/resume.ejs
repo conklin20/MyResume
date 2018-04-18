@@ -3,7 +3,7 @@
     <div class="row resume">
         <% if(!resume) { %>
             <h1 style="text-align: center;">Add New Resume</h1>
-            <form role="form" class="form-horizontal stepOne" id="stepOne" action="/<%= user._id %>/resume" method="POST">  
+            <form role="form" class="form-horizontal stepOne" id="stepOne" action="/user/<%= user._id %>/resume" method="POST">  
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
                     <div class="form-group">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <a class="btn btn-lg btn-primary btn-block" href="/<%= user._id %>">Cancel</a>
+                            <a class="btn btn-lg btn-primary btn-block" href="/user/<%= user._id %>">Cancel</a>
                         </div>
                     </div>
                 </div>
@@ -62,10 +62,11 @@
         <% } else { %>
             <h1 style="text-align: center;">Edit Resume</h1>
             <div class="row">
-                <a href="/myresume/<%= user._id %>/<%= resume.id %>">View My Page!</a>
+                <!--<a href="/myresume/<%= user._id %>/<%= resume.id %>">View Your Page!</a>-->
+                <a href="/<%= user.username %>" target="_blank">View Your Page!</a>
             </dev>
             <div class="row">
-                <form role="form" id="stepOne" class="form-horizontal stepOne" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
+                <form role="form" id="stepOne" class="form-horizontal stepOne" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -116,7 +117,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <a class="btn btn-lg btn-primary btn-block" href="/<%= user._id %>">Cancel</a>
+                                <a class="btn btn-lg btn-primary btn-block" href="/user/<%= user._id %>">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -127,7 +128,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form class="form-horizontal stepTwo" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
+                    <form class="form-horizontal stepTwo" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
                         </a href="#stepTwo"><h2 id="stepTwo" name="stepTwo" style="text-align: center;">Timeline Entries</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -147,7 +148,7 @@
                             </div>
                         </div>
                     </form>
-                    <form class="form-horizontal stepTwo" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
+                    <form class="form-horizontal stepTwo" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="date">Date: </label>
@@ -187,7 +188,7 @@
                             <div class="timelineSummary thumbnail">
                                 <span><%= moment(event.date).format('MMMM YYYY') %></span><br>
                                 <img src="<%= event.icon %>"><br>
-                                <form action="/<%=  user._id %>/resume/<%= resume.id %>/timelineEvent/<%= idx %>?_method=PUT" method="POST">
+                                <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/timelineEvent/<%= idx %>?_method=PUT" method="POST">
                                     <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </div>
@@ -200,7 +201,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepThree" class="form-horizontal stepThree" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepThree"><h2 id="stepThree" name="stepThree" style="text-align: center;">Skills</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -220,7 +221,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="#stepThree" class="form-horizontal stepThree" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepThree" class="form-horizontal stepThree" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Skill Category: </label><br>
@@ -269,7 +270,7 @@
                             <!--Loop through skills-->
                             <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
                                 <li>
-                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>?_method=PUT" method="POST">
+                                    <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>?_method=PUT" method="POST">
                                         <label><%= skillCategory.category %></label>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
@@ -277,7 +278,7 @@
                                 <ul>
                                     <% skillCategory.skill.forEach(function(skill, skillIdx){ %>
                                         <li>
-                                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>/skill/<%= skillIdx %>?_method=PUT" method="POST">
+                                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>/skill/<%= skillIdx %>?_method=PUT" method="POST">
                                                 <%= skill.proficiency ? skill.skillName + ' (' + skill.proficiency + ')' : skill.skillName %>
                                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                             </form>
@@ -294,7 +295,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepFour" class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepFour" class="form-horizontal stepFour" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepFour"><h2 id="stepFour" name="stepFour" style="text-align: center;">Interests</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -315,7 +316,7 @@
                         </div>
                     </form>
                     
-                    <form id="#stepFour" class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepFour" class="form-horizontal stepFour" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Interest Category: </label><br>
@@ -352,7 +353,7 @@
                             <!--Loop through interests-->
                             <% resume.interests.details.forEach(function(interestCategory, catIdx){ %>
                                 <li>
-                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>?_method=PUT" method="POST">
+                                    <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>?_method=PUT" method="POST">
                                         <label><%= interestCategory.category %></label>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
@@ -360,7 +361,7 @@
                                 <ul>
                                     <% interestCategory.interest.forEach(function(interest, interestIdx){ %>
                                         <li>
-                                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>/interest/<%= interestIdx %>?_method=PUT" method="POST">
+                                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/interestCategory/<%= catIdx %>/interest/<%= interestIdx %>?_method=PUT" method="POST">
                                                 <%= interest.interest %>
                                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                             </form>
@@ -377,7 +378,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepFive" class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepFive" class="form-horizontal stepFive" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepFive"><h2 id="stepFive" name="stepFive" style="text-align: center;">Add Work Experience</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -397,7 +398,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="#stepFive" class="form-horizontal stepFive" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
+                    <form id="#stepFive" class="form-horizontal stepFive" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="companyName">Company Name: </label>
@@ -447,7 +448,7 @@
                 </div>
             </div>
             <div class="row">
-                <form class="form-horizontal stepFour" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                <form class="form-horizontal stepFour" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <h3>Interests</h3>
@@ -484,7 +485,7 @@
                     <ul>
                     <% resume.experience.details.forEach(function(workExp, workIdx){ %>
                         <li>
-                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>?_method=PUT" method="POST">
+                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>?_method=PUT" method="POST">
                                 <%= workExp.companyName + ' (' + workExp.title + ', ' + workExp.city + ', ' + workExp.state + ')' %>
                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                             </form>
@@ -492,7 +493,7 @@
                         <ul>
                             <% workExp.responsibilities.forEach(function(responsibility, respIdx){ %>
                                 <li>
-                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>/resp/<%= respIdx %>?_method=PUT" method="POST">
+                                    <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>/resp/<%= respIdx %>?_method=PUT" method="POST">
                                         <%- responsibility %>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
@@ -508,7 +509,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepSix" class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepSix" class="form-horizontal stepSix" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepSix"><h2 id="stepSix" name="stepSix" style="text-align: center;">Add Eductaion</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -528,7 +529,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="#stepSix" class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepSix" class="form-horizontal stepSix" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-3"></div>
                             <div class="col-sm-6">
@@ -566,15 +567,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-2">
-                                <label class="pull-left" for="gpa">GPA: </label>
-                                <input class="form-control" type="number" name="edu[gpa]" placeholder="gpa" >
-                            </div>
+                            <!--<div class="col-sm-2">-->
+                            <!--    <label class="pull-left" for="gpa">GPA: </label>-->
+                            <!--    <input class="form-control" type="number" name="edu[gpa]" placeholder="gpa" >-->
+                            <!--</div>-->
                             <div class="col-sm-2">
                                 <label class="pull-left" for="graduated">Graudated: </label>
                                 <input class="form-control" type="checkbox" name="edu[graduated]"  >
                             </div>
-                            <div class="col-sm-8">
+                            <div class="col-sm-10">
                                 <label class="pull-left" for="notes">Notes: </label>
                                 <input class="form-control" type="text" name="edu[notes]" placeholder="notes" >
                             </div>
@@ -599,7 +600,7 @@
                 </div>
             </div>
             <div class="row">
-                <form class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                <form class="form-horizontal stepSix" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -635,7 +636,7 @@
                     <ul>
                     <% resume.education.details.forEach(function(college, collegeIdx){ %>
                         <li>
-                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>?_method=PUT" method="POST">
+                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>?_method=PUT" method="POST">
                                 <%= college.instituteName + ' (' + college.city + ', ' + college.state + ', ' + college.degree + ', ' + college.areaOfStudy + ')' %>
                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                             </form>
@@ -643,7 +644,7 @@
                         <ul>
                             <% college.achievements.forEach(function(achievement, achvIdx){ %>
                                 <li>
-                                    <form action="/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>/achv/<%= achvIdx %>?_method=PUT" method="POST">
+                                    <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>/achv/<%= achvIdx %>?_method=PUT" method="POST">
                                         <%- achievement %>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
@@ -659,7 +660,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepSeven"><h2 id="stepSeven" name="stepSeven" style="text-align: center;">Quotes</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -679,7 +680,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepSeven" class="form-horizontal stepSeven" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="by">By: </label>
@@ -707,7 +708,7 @@
                     <ul>
                     <% resume.quotes.details.forEach(function(quote, quoteIdx){ %>
                         <li>
-                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/quote/<%= quoteIdx %>?_method=PUT" method="POST">
+                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/quote/<%= quoteIdx %>?_method=PUT" method="POST">
                                 <%= quote.quote %>
                                 <br>
                                 <span>- <%= quote.by %></span>
@@ -723,7 +724,7 @@
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8">
-                    <form id="#stepEight" class="form-horizontal stepEight" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         </a href="#stepEight"><h2 id="stepEight" name="stepEight" style="text-align: center;">Add Other Content</h2>
                         <div class="thumbnail">
                             <div class="form-group">
@@ -743,7 +744,7 @@
                             </div>
                         </div>
                     </form>
-                    <form id="#stepEight" class="form-horizontal stepEight" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <label class="pull-left" for="title">Section Title: </label>
@@ -766,7 +767,7 @@
                 </div>
             </div>
             <div class="row">
-                <form class="form-horizontal stepSix" action="/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                <form class="form-horizontal stepSix" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8">
                         <div class="form-group">
@@ -805,7 +806,7 @@
                     <% if(resume.other) { %>
                         <% resume.other.details.forEach(function(otherSection, sectionIdx){ %>
                             <li>
-                                <form action="/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>?_method=PUT" method="POST">
+                                <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>?_method=PUT" method="POST">
                                     <%= otherSection.title %>
                                     <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                 </form>
@@ -814,7 +815,7 @@
                                 <% if(otherSection.bulletItems){ %>
                                     <% otherSection.bulletItems.forEach(function(item, itemIdx){ %>
                                         <li>
-                                            <form action="/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>/item/<%= itemIdx %>?_method=PUT" method="POST">
+                                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>/item/<%= itemIdx %>?_method=PUT" method="POST">
                                                 <%- item %>
                                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                             </form>

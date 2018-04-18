@@ -272,6 +272,7 @@ Work Experience & Education section
     flex-basis: 70%; 
     flex-grow: 4;
     text-align: left; 
+    font-size: 1.5em; 
 }
 
 .experience-image img,
@@ -282,8 +283,8 @@ Work Experience & Education section
     width: 18em;
 }
 
-.experience-detail h2, h3, h4, 
-.education-detail h2, h3, h4  {
+.experience-detail h2, h3, h4, h5, h6 
+.education-detail h2, h3, h4, h5, h6 {
     margin: 0 0;
 }
 

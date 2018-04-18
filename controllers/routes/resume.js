@@ -21,7 +21,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/:userID/resume/new', function(req, res){
+router.get('/user/:userID/resume/new', function(req, res){
   //find the user in the DB 
   User.findById(req.params.userID, function(err, foundUser){
     if(err){
@@ -33,7 +33,7 @@ router.get('/:userID/resume/new', function(req, res){
 });
 
 // CREATE
-router.post('/:userID/resume', /*implement middleware*/ function(req, res){
+router.post('/user/:userID/resume', /*implement middleware*/ function(req, res){
   // REMEMBER TO SANITIZE THE BODY SINCE WERE ALLOW THEM TO INPUT HTML 
   //sanitize for any input allowing HTML input (Test sanitizing the entire resume object first)
   //req.body.resume = req.sanitize(req.body.resume); 
@@ -55,7 +55,7 @@ router.post('/:userID/resume', /*implement middleware*/ function(req, res){
             foundUser.resumes.push(newResume._id);
             foundUser.save();
             
-            res.redirect('/' + req.params.userID + "/resume/" + newResume._id + "/edit#stepTwo");
+            res.redirect('/user/' + req.params.userID + "/resume/" + newResume._id + "/edit#stepTwo");
           }
       });
     }
@@ -63,7 +63,7 @@ router.post('/:userID/resume', /*implement middleware*/ function(req, res){
 });
 
 // EDIT
-router.get('/:userID/resume/:resumeID/edit', function(req, res) {
+router.get('/user/:userID/resume/:resumeID/edit', middleware.isAccountOwner, function(req, res) {
   //find the user in the DB 
   User.findById(req.params.userID, function(err, foundUser){
     if(err){
@@ -89,7 +89,7 @@ router.get('/:userID/resume/:resumeID/edit', function(req, res) {
 });
 
 // UPDATE
-router.put('/:userID/resume/:resumeID/', function(req, res){
+router.put('/user/:userID/resume/:resumeID/', function(req, res){
   //sanitize for any input allowing HTML input (Test sanitizing the entire resume object first)
   //req.body.resume = req.sanitize(req.body.resume); 
   
@@ -110,7 +110,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.timeline.backgroundImg  = req.body.timeline.backgroundImg; 
               foundResume.timeline.fontColor      = req.body.timeline.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
               return; 
           } 
           //check if a timeline was entered
@@ -118,7 +118,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.timeline.details.push(req.body.timelineEvent);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTwo");
               return; 
           } 
           // SKILL UPDATES
@@ -128,7 +128,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.skills.backgroundImg  = req.body.skills.backgroundImg; 
               foundResume.skills.fontColor      = req.body.skills.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
               return; 
           }
           //check if a skill was entered 
@@ -146,7 +146,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
                 foundResume.skills.details.push(newSkillCat);
             
                 foundResume.save(); 
-                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+                res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
                 return; 
               } else {
                 // if an existing category is being used
@@ -158,7 +158,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
                 foundResume.skills.details[req.body.category].skill.push(newSkill);
             
                 foundResume.save();
-                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
+                res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
                 return; 
               }
           }
@@ -169,7 +169,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.interests.backgroundImg  = req.body.interests.backgroundImg; 
               foundResume.interests.fontColor      = req.body.interests.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
               return; 
           }
           
@@ -187,7 +187,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
                 foundResume.interests.details.push(newInterestCat);
             
                 foundResume.save(); 
-                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+                res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
                 return; 
               } else {
                 // if an existing category is being used
@@ -198,7 +198,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
                 foundResume.interests.details[req.body.category].interest.push(newInterest);
             
                 foundResume.save();
-                res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
+                res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
                 return; 
               }
           }
@@ -209,7 +209,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.experience.backgroundImg  = req.body.experience.backgroundImg; 
               foundResume.experience.fontColor      = req.body.experience.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
           } 
           //check if a new prior work experience was entered 
@@ -217,7 +217,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.experience.details.push(req.body.workExp);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
           }
           //check if a new responsibility has been added
@@ -225,7 +225,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.experience.details[req.body.responsibility.company].responsibilities.push(req.body.responsibility.responsibility);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
           }
           // EDUCATION UPDATES
@@ -235,7 +235,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.education.backgroundImg  = req.body.education.backgroundImg; 
               foundResume.education.fontColor      = req.body.education.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
           } 
           //check if a prior education has been added 
@@ -245,7 +245,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.education.details.push(req.body.edu);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
           }
           //check if a prior education achievement has been added 
@@ -253,7 +253,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.education.details[req.body.achievement.instituteName].achievements.push(req.body.achievement.achievement);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
           }
           // QUOTES UPDATES
@@ -262,14 +262,14 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.quotes.backgroundImg  = req.body.quotes.backgroundImg; 
               foundResume.quotes.fontColor      = req.body.quotes.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
               return; 
           }
           if(req.body.quote){
               foundResume.quotes.details.push(req.body.quote);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
               return; 
           }
           // OTHER SECTION UPDATES
@@ -279,14 +279,14 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.other.backgroundImg  = req.body.otherSection.backgroundImg; 
               foundResume.other.fontColor      = req.body.otherSection.fontColor; 
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
               return; 
           }
           if(req.body.other){
               foundResume.other.details.push(req.body.other);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
               return; 
           }
           //check if other content bullet item was entered 
@@ -294,9 +294,9 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
               foundResume.other.details[req.body.bulletItems.title].bulletItems.push(req.body.bulletItems.item);
           
               foundResume.save(); 
-              res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
           } else {
-            res.redirect('/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepOne");
+            res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepOne");
               return; 
           }
         }
@@ -306,7 +306,7 @@ router.put('/:userID/resume/:resumeID/', function(req, res){
 }); 
 
 // REMOVE TIMELINEEVENT ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/timelineEvent/:timelineID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/timelineEvent/:timelineID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -314,13 +314,13 @@ router.put('/:userID/resume/:resumeID/timelineEvent/:timelineID', function(req, 
       } else {
         foundResume.timeline.details.splice(req.params.timelineID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepTwo' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepTwo' );
       }
     }); 
 }); 
 
 // REMOVE SKILL CATEGORY ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/skillCategory/:catIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -329,13 +329,13 @@ router.put('/:userID/resume/:resumeID/skillCategory/:catIdx', function(req, res)
         // eval(require("locus"))
         foundResume.skills.details.splice(req.params.catIdx, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
       }
     }); 
 }); 
 
 // REMOVE SKILL ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -343,13 +343,13 @@ router.put('/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', fu
       } else {
         foundResume.skills.details[req.params.catIdx].skill.splice(req.params.skillIdx, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepThree' );
       }
     }); 
 }); 
 
 // REMOVE INTEREST CATEGORY ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/interestCategory/:catIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -358,13 +358,13 @@ router.put('/:userID/resume/:resumeID/interestCategory/:catIdx', function(req, r
         // eval(require("locus"))
         foundResume.interests.details.splice(req.params.catIdx, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
       }
     }); 
 }); 
 
 // REMOVE INTEREST ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interestIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interestIdx', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -372,13 +372,13 @@ router.put('/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interes
       } else {
         foundResume.interests.details[req.params.catIdx].interest.splice(req.params.interestIdx, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFour' );
       }
     }); 
 }); 
 
 // REMOVE WORK EXP ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/workExp/:workExp', function(req, res){
+router.put('/user/:userID/resume/:resumeID/workExp/:workExp', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -386,13 +386,13 @@ router.put('/:userID/resume/:resumeID/workExp/:workExp', function(req, res){
       } else {
         foundResume.experience.details.splice(req.params.workExp, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
       }
     }); 
 }); 
 
 // REMOVE WORK EXP ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -400,13 +400,13 @@ router.put('/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', function(r
       } else {
         foundResume.experience.details[req.params.workExp].responsibilities.splice(req.params.respID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepFive' );
       }
     }); 
 }); 
 
 // REMOVE EDUCATION ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/education/:eduID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/education/:eduID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -414,13 +414,13 @@ router.put('/:userID/resume/:resumeID/education/:eduID', function(req, res){
       } else {
         foundResume.education.details.splice(req.params.eduID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
       }
     }); 
 });
 
 // REMOVE EDUCATION ACHIVEMENT ELEMENT
-router.put('/:userID/resume/:resumeID/education/:eduID/achv/:achvID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/education/:eduID/achv/:achvID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -428,13 +428,13 @@ router.put('/:userID/resume/:resumeID/education/:eduID/achv/:achvID', function(r
       } else {
         foundResume.education.details[req.params.eduID].achievements.splice(req.params.achvID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSix' );
       }
     }); 
 }); 
 
 // REMOVE QUOTE
-router.put('/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -442,13 +442,13 @@ router.put('/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
       } else {
         foundResume.quotes.details.splice(req.params.quoteID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
       }
     }); 
 });
 
 // REMOVE 'OTHER' ARRAY ELEMENT
-router.put('/:userID/resume/:resumeID/other/:sectionID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/other/:sectionID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -456,13 +456,13 @@ router.put('/:userID/resume/:resumeID/other/:sectionID', function(req, res){
       } else {
         foundResume.other.details.splice(req.params.sectionID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepEight' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepEight' );
       }
     }); 
 });
 
 // REMOVE 'OTHER' BULLET ITEM ELEMENT
-router.put('/:userID/resume/:resumeID/other/:sectionID/item/:itemID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/other/:sectionID/item/:itemID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -470,25 +470,25 @@ router.put('/:userID/resume/:resumeID/other/:sectionID/item/:itemID', function(r
       } else {
         foundResume.other.details[req.params.sectionID].bulletItems.splice(req.params.itemID, 1);
         foundResume.save(); 
-        res.redirect('/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepSeven' );
       }
     }); 
 }); 
 
 // DESTROY
-router.delete('/:userID/resume/:resumeID', function(req, res){
+router.delete('/user/:userID/resume/:resumeID', function(req, res){
   //find the resume in the DB and delete it 
   Resume.findByIdAndRemove(req.params.resumeID, function(err, foundResume){
       if(err){
         console.log(err);
       } else {
-        res.redirect('/' + req.params.userID);
+        res.redirect('/user/' + req.params.userID);
       }
     }); 
 }); 
 
 // SHOW (PRINTABLE VERSION)
-router.get('/:userID/resume/:resumeID/print', function(req, res){
+router.get('/user/:userID/resume/:resumeID/print', function(req, res){
   //find the user in the DB 
   User.findById(req.params.userID, function(err, foundUser){
     if(err){

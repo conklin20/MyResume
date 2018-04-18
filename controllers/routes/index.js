@@ -15,50 +15,109 @@ var express         = require("express"),
 // EDIT     
 // DESTROY  
 
-
 // SHOW 
-router.get('/myresume/:userID/:resumeID', function(req, res) {
+router.get('/:username', function(req, res) {
     //find the user in the DB 
-    User.findById(req.params.userID, function(err, foundUser){
+    User.findOne({username: req.params.username }, function(err, foundUser){
     if(err){
         console.log(err); 
     } else {
-        //find the resume in the DB 
-        Resume.findById(req.params.resumeID, function(err, foundResume){
-        if(err){
-            console.log(err);
-        } else {
-            res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+        //find the resume in the DB
+        if(foundUser) {
+            // eval(require("locus"))
+            if(foundUser.resumes.length > 0){
+                Resume.findById(foundUser.resumes[0], function(err, foundResume){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+                    }
+                }); 
+            } else {
+                
+            }
         }
-        }); 
     }
     }); 
 });
+
 
 // SHOW - SHOWING A COVERLETTER AS WELL
-router.get('/myresume/:userID/:resumeID/:coverLetterID', function(req, res) {
+router.get('/:username/:coverLetterID', function(req, res) {
     //find the user in the DB 
-    User.findById(req.params.userID, function(err, foundUser){
+    User.findOne({username: req.params.username }, function(err, foundUser){
     if(err){
         console.log(err); 
     } else {
-        //find the resume in the DB 
-        Resume.findById(req.params.resumeID, function(err, foundResume){
-        if(err){
-            console.log(err);
-        } else {
-            CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
-                if(err){
-                    console.log(err);
-                } else {
-                    res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
-                }
-            });
+        //find the resume in the DB
+        if(foundUser) {
+            // eval(require("locus"))
+            if(foundUser.resumes.length > 0){
+                Resume.findById(foundUser.resumes[0], function(err, foundResume){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
+                            if(err){
+                                console.log(err);
+                            } else {
+                                res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
+                            }
+                        });
+                    }
+                }); 
+            } else {
+                
+            }
         }
-        }); 
     }
     }); 
 });
+
+
+// // SHOW 
+// router.get('/myresume/:userID/:resumeID', function(req, res) {
+//     //find the user in the DB 
+//     User.findById(req.params.userID, function(err, foundUser){
+//     if(err){
+//         console.log(err); 
+//     } else {
+//         //find the resume in the DB 
+//         Resume.findById(req.params.resumeID, function(err, foundResume){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+//         }
+//         }); 
+//     }
+//     }); 
+// });
+
+// SHOW - SHOWING A COVERLETTER AS WELL
+// router.get('/myresume/:userID/:resumeID/:coverLetterID', function(req, res) {
+//     //find the user in the DB 
+//     User.findById(req.params.userID, function(err, foundUser){
+//     if(err){
+//         console.log(err); 
+//     } else {
+//         //find the resume in the DB 
+//         Resume.findById(req.params.resumeID, function(err, foundResume){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
+//                 if(err){
+//                     console.log(err);
+//                 } else {
+//                     res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
+//                 }
+//             });
+//         }
+//         }); 
+//     }
+//     }); 
+// });
 
 // THIS IS TO SHORT CIRCUIT AN ANNOYING BUG WHERE EXPRESS TRIES TO REDIRECT TO /favicon/ico
 router.get('/favicon.ico', function(req, res) {

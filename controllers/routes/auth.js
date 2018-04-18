@@ -1,6 +1,12 @@
 var express         = require("express"),
     passport        = require("passport"),
+    User            = require("../../models/users"),
     router          = express.Router();
+
+// INDEX 
+router.get('/', function(req, res) {
+    res.render('login');
+}); 
 
 // GET /auth/linkedin
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -18,21 +24,53 @@ router.get('/auth/linkedin',
 // GET /auth/linkedin/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
+//   login page.  Otherwise, the primary route functionexit function will be called,
 //   which, in this example, will redirect the user to the home page.
 router.get('/auth/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
+  function(req, res){
+    try {
+      //check if user is in db, using the LinkedIn ID field
+      if(req.user){
+        User.findOne({ linkedinID: req.user.id }, function(err, foundUser){
+          if(err){
+            console.log(err); 
+          } else {
+            if (foundUser){
+              //if so, redirect to show page
+              res.redirect('/user/' + foundUser._id);
+            } else {
+              //if not, reirect to sign up page
+              res.redirect('/user/new');
+            }
+          }
+        }); 
+      } else {
+        res.redirect('/login');
+      }
+    } catch (ex) {
+      console.log(ex); 
+    }
   });
+  
+function findUserByLinkedIn(linkedInUserId){
+  User.findOne({ linkedinID: linkedInUserId }, function(err, foundUser){
+    if(err){
+      console.log(err); 
+    }
+    return foundUser; 
+  }); 
+}
 
 router.get('/login', function(req, res){
   res.render('login');
 });
 
 router.get('/logout', function(req, res){
+  //eval(require("locus"))
   req.logout();
   res.redirect('/login');
+  // res.send('logout successful')
 });
 
 

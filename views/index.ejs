@@ -26,12 +26,8 @@
         <main style="color: <%= resume.fontColor %>">
             <!--Landing Page Section-->
             <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>;">
-                <div class="box"></div>
-                <div class="box"></div>
                 <div class="box introduction"><h3><%= resume.introduction %></h3></div>
                 <div class="box elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
-                <div class="box"></div>
-    		    
     		    <% if(coverLetter) { %>
                     <!-- Modal -->
                     <div id="cover-letter" class="cover-letter">
@@ -166,18 +162,18 @@
         	                                            <!--Sort by Start Date, Desc-->
         	                    <div class="experience" style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
                                     <div class="experience-image">
-                                        <a class="" href="<%= workExp.url %>">
+                                        <a class="" href="<%= workExp.url %>" target="_blank">
                                             <img src="<%= workExp.logo %>">
                                         </a>
                                     </div>
                                     <div class="experience-detail">
                                         <span class="experience-headers">
-                                            <h3> <%= workExp.companyName %> </h3>
-                                            <h3> <%= moment(workExp.startDate).format('MMM YY') + ' - ' + (workExp.endDate ?  moment(workExp.endDate).format('MMM YY')  : ' current') %> </h3>
+                                            <h4> <%= workExp.companyName %> </h4>
+                                            <h4> <%= moment(workExp.startDate).format('MMM YY') + ' - ' + (workExp.endDate ?  moment(workExp.endDate).format('MMM YY')  : ' current') %> </h4>
                                         </span>
                                         <span class="experience-headers">
-                                            <h4> <%= workExp.title %> </h4> 
-                                            <h4> <%= workExp.city + ', ' + workExp.state%> </h4> 
+                                            <h5> <%= workExp.title %> </h5> 
+                                            <h5> <%= workExp.city + ', ' + workExp.state%> </h5> 
                                         </span>  
                                         <% workExp.responsibilities.forEach(function(responsibility){ %>
                                             <p> <%- responsibility %> </p>
@@ -200,27 +196,29 @@
         		            <h2>-- Education --</h2>
         		        </div>
         		        <div class="education-all">
-        	                <!--Loop through work experience-->
+        	                <!--Loop through education-->
         	                <% resume.education.details.forEach(function(edu){ %>
         	                                            <!--Sort by Start Date, Desc-->
         	                    <div class="education" style="order: <%= - edu.startDate.getTime() / 100000 %>;">
                                     <div class="education-image">
-                                        <a class="" href="<%= edu.url %>">
+                                        <a href="<%= edu.url %>"  target="_blank">
                                             <img src="<%= edu.logo %>">
                                         </a>
                                     </div>
                                     <div class="education-detail">
                                         <span class="experience-headers">
-                                            <h3> <%= edu.instituteName %> </h3>
-                                            <h3> <%= moment(edu.startDate).format('MMM YY') + ' - ' + (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : ' current') %> </h3>
+                                            <h4> <%= edu.instituteName %> </h4>
+                                            <h4> <%= moment(edu.startDate).format('MMM YY') + ' - ' + (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : ' current') %> </h4>
                                         </span>
                                         <span class="experience-headers">
-                                            <h4> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h4>  
-                                            <h4> <%= edu.city + ', ' + edu.state %> </h4>
+                                            <h5> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h5>  
+                                            <h5> <%= edu.city + ', ' + edu.state %> </h5>
                                         </span>  
+                                        <ul>
                                         <% edu.achievements.forEach(function(achievement){ %>
-                                            <p> <%- achievement %> </p>
+                                            <li> <%- achievement %> </li>
                                         <% }) %>
+                                        </ul>
                                         <p><%= edu.notes %></p>
                                         <% if(edu.graduated) { %>
                                             <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">
@@ -292,11 +290,6 @@
                 </a>
                 <i class="handshake outline icon"></i>
                 
-                <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank">
-                  <i class="linkedin icon"></i>
-                </a>
-                <i class="handshake outline icon"></i>
-                
                 <% if(user.githubURL) { %>
                 <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank">
                   <i class="github plus icon"></i>
@@ -323,6 +316,10 @@
                   <i class="facebook icon"></i>
                 </a>
                 <% } %>
+                
+                <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank">
+                  <i class="linkedin icon"></i>
+                </a>
             </div>
             <span id="builtby">
                 This site was built by <a href="https://www.caryconklin.com">Cary Conklin</a>

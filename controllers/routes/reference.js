@@ -21,7 +21,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/:userID/reference/new', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID/reference/new', middleware.isAccountOwner, function(req, res){
     res.render('reference', { userID: req.params.userID });
     //res.render('coverletter', { userID: req.params.userID }); 
 //   //find the user in the DB 
@@ -35,19 +35,19 @@ router.get('/:userID/reference/new', middleware.isAccountOwner, function(req, re
 });
 
 // CREATE
-router.post('/:userID/reference', middleware.isAccountOwner, function(req, res){
+router.post('/user/:userID/reference', middleware.isAccountOwner, function(req, res){
     //lookup the user 
     User.findById(req.params.userID, function(err, foundUser){
         if(err){
             console.log(err);
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
         } else {
             //Save the Reference to the DB
             Reference.create(req.body.reference, function(err, reference) {
                 if (err) {
                     console.log(err); 
                     req.flash('error', err.message);
-                    res.redirect("/" + req.params.userID); 
+                    res.redirect("/user/" + req.params.userID); 
                 } else {
                     //save ref
                     reference.save(); 
@@ -57,7 +57,7 @@ router.post('/:userID/reference', middleware.isAccountOwner, function(req, res){
                     foundUser.save();
                     
                     req.flash('success', '');
-                    res.redirect('/' + req.params.userID);
+                    res.redirect('/user/' + req.params.userID);
                 }
             });
         }
@@ -65,12 +65,12 @@ router.post('/:userID/reference', middleware.isAccountOwner, function(req, res){
 });
 
 // EDIT
-router.get('/:userID/reference/:refID/edit', function(req, res){
+router.get('/user/:userID/reference/:refID/edit', function(req, res){
     //lookup the ref
     Reference.findById(req.params.refID, function(err, foundRef){
        if(err){
             console.log(err); 
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
        } else {
             //render the edit page and send the cl to it 
             res.render("referenceEdit", { userID: req.params.userID, reference: foundRef }); 
@@ -79,35 +79,35 @@ router.get('/:userID/reference/:refID/edit', function(req, res){
 });
 
 // UPDATE
-router.put('/:userID/reference/:refID', function(req, res){
+router.put('/user/:userID/reference/:refID', function(req, res){
    //lookup and update the ref
    Reference.findByIdAndUpdate(req.params.refID, req.body.reference, function(err, updatedRef){
         if(err){
             console.log(err); 
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
         } 
-        res.redirect('/' + req.params.userID);
+        res.redirect('/user/' + req.params.userID);
    });  
 });
 
 // DESTROY 
-router.delete('/:userID/reference/:refID', middleware.isAccountOwner, function(req, res){
+router.delete('/user/:userID/reference/:refID', middleware.isAccountOwner, function(req, res){
     //lookup the user 
     User.findById(req.params.userID, function(err, foundUser){
         if(err){
             console.log(err);
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
         } else {
             //delete the Cover Letter
             Reference.findByIdAndRemove(req.params.refID, function(err){
             if(err){
                 console.log(err); 
-                res.redirect('/' + req.params.userID); 
+                res.redirect('/user/' + req.params.userID); 
             } else {
                 //remove the ref reference from the user document 
                 foundUser.references.splice(foundUser.references.indexOf(req.params.refID), 1);
                 foundUser.save();
-                res.redirect('/' + req.params.userID); 
+                res.redirect('/user/' + req.params.userID); 
             } 
           });
         }

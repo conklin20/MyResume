@@ -21,7 +21,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/:userID/coverletter/new', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID/coverletter/new', middleware.isAccountOwner, function(req, res){
     res.render('coverLetter', { userID: req.params.userID }); 
 //   //find the user in the DB 
 //   User.findById(req.params.userID, function(err, user){
@@ -34,19 +34,19 @@ router.get('/:userID/coverletter/new', middleware.isAccountOwner, function(req, 
 });
 
 // CREATE
-router.post('/:userID/coverletter', middleware.isAccountOwner, function(req, res){
+router.post('/user/:userID/coverletter', middleware.isAccountOwner, function(req, res){
     //lookup the user 
     User.findById(req.params.userID, function(err, foundUser){
         if(err){
             console.log(err);
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
         } else {
             //Save the CoverLetter to the DB
             CoverLetter.create(req.body.coverLetter, function(err, coverLetter) {
                 if (err) {
                     console.log(err); 
                     // req.flash('error', err.message);
-                    res.redirect("/" + req.params.userID); 
+                    res.redirect("/user/" + req.params.userID); 
                 } else {
                     //save cover letter
                     coverLetter.save(); 
@@ -55,7 +55,7 @@ router.post('/:userID/coverletter', middleware.isAccountOwner, function(req, res
                     foundUser.coverLetters.push(coverLetter._id);
                     foundUser.save();
                     
-                    res.redirect('/' + req.params.userID);
+                    res.redirect('/user/' + req.params.userID);
                 }
             });
         }
@@ -63,12 +63,12 @@ router.post('/:userID/coverletter', middleware.isAccountOwner, function(req, res
 });
 
 // EDIT
-router.get('/:userID/coverletter/:clID/edit', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID/coverletter/:clID/edit', middleware.isAccountOwner, function(req, res){
    //lookup the cover letter 
    CoverLetter.findById(req.params.clID, function(err, foundCL){
        if(err){
             console.log(err); 
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
        } else {
             //render the edit page and send the cl to it 
             res.render("coverLetterEdit", { userID: req.params.userID, coverLetter: foundCL }); 
@@ -82,9 +82,9 @@ router.put('/:userID/coverletter/:clID', middleware.isAccountOwner, function(req
     CoverLetter.findByIdAndUpdate(req.params.clID, req.body.coverLetter, function(err, updatedCL){
         if(err){
            console.log(err); 
-           res.redirect("/" + req.params.userID); 
+           res.redirect("/user/" + req.params.userID); 
         } else {
-            res.redirect('/' + req.params.userID); 
+            res.redirect('/user/' + req.params.userID); 
         }
     }); 
 });
@@ -95,18 +95,18 @@ router.delete('/:userID/coverletter/:clID', middleware.isAccountOwner, function(
     User.findById(req.params.userID, function(err, foundUser){
         if(err){
             console.log(err);
-            res.redirect("/" + req.params.userID); 
+            res.redirect("/user/" + req.params.userID); 
         } else {
             //delete the Cover Letter
             CoverLetter.findByIdAndRemove(req.params.clID, function(err){
             if(err){
                 console.log(err); 
-                res.redirect('/' + req.params.userID); 
+                res.redirect('/user/' + req.params.userID); 
             } else {
                 //remove the CL reference from the user document 
                 foundUser.coverLetters.splice(foundUser.coverLetters.indexOf(req.params.clID), 1);
                 foundUser.save();
-                res.redirect('/' + req.params.userID);
+                res.redirect('/user/' + req.params.userID);
             }
           });
         }

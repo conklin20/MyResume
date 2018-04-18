@@ -13,7 +13,7 @@ middlewareObj.ensureAuthenticated = function (req, res, next) {
   res.redirect('/login');
 };
 
-//custom...here we go
+//custom middleware
 middlewareObj.isAccountOwner = function (req, res, next) {
   if (req.isAuthenticated()){
     User.findById(req.params.userID, function(err, foundUser){
