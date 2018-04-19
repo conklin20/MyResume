@@ -12,7 +12,7 @@ var express                 = require('express'),
     //forceSsl                = require('force-ssl-heroku'),
     app                     = express();
 
-const ENV_TEST = true;
+const ENV_TEST = false;
 
 // **********************
 // Hookup Routes
