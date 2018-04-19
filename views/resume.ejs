@@ -494,7 +494,7 @@
                             <% workExp.responsibilities.forEach(function(responsibility, respIdx){ %>
                                 <li>
                                     <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/workExp/<%= workIdx %>/resp/<%= respIdx %>?_method=PUT" method="POST">
-                                        <%- responsibility %>
+                                        <%= responsibility %>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </li>
@@ -645,7 +645,7 @@
                             <% college.achievements.forEach(function(achievement, achvIdx){ %>
                                 <li>
                                     <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/education/<%= collegeIdx %>/achv/<%= achvIdx %>?_method=PUT" method="POST">
-                                        <%- achievement %>
+                                        <%= achievement %>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                     </form>
                                 </li>
@@ -816,7 +816,7 @@
                                     <% otherSection.bulletItems.forEach(function(item, itemIdx){ %>
                                         <li>
                                             <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/other/<%= sectionIdx %>/item/<%= itemIdx %>?_method=PUT" method="POST">
-                                                <%- item %>
+                                                <%= item %>
                                                 <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </li>

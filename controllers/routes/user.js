@@ -1,8 +1,8 @@
 var express         = require("express"),
     User            = require("../../models/users"),
-    // Resume          = require("../../models/resumes"),
-    // CoverLetter     = require("../../models/coverletters"),
-    // Reference       = require("../../models/references"),
+    Resume          = require("../../models/resumes"),
+    CoverLetter     = require("../../models/coverletters"),
+    Reference       = require("../../models/references"),
     middleware      = require("../../middleware/auth.js"),
     router          = express.Router();
 
@@ -113,19 +113,40 @@ router.put('/user/:userID', middleware.isAccountOwner, function(req, res){
 
 // DELETE
 router.delete('/user/:userID', middleware.isAccountOwner, function(req, res){
-  //delete data associated to the user 
-  // Resume.find({ id:333 }).remove().exec();
-  //NEED TO COMPLETE THIS
   //delete the user
-  User.findByIdAndRemove(req.params.userID, function(err){
+  User.findByIdAndRemove(req.params.userID, function(err, foundUser){
     if(err){
       console.log(err); 
         res.redirect("/"); 
     } else {
+        // eval(require("locus"))
+        //delete data associated to the user 
+        foundUser.resumes.forEach(function(resume){
+          Resume.findByIdAndRemove(resume, function(err){
+            if(err){
+              console.log(err); 
+            }
+          }); 
+        }); 
+        foundUser.coverLetters.forEach(function(cl){
+          CoverLetter.findByIdAndRemove(cl, function(err){
+            if(err){
+              console.log(err);
+            }
+          }); 
+        }); 
+        foundUser.references.forEach(function(reference){
+          Reference.findByIdAndRemove(reference, function(err){
+            if(err){
+              console.log(err); 
+            }
+          }); 
+        }); 
+      
         //log user out
         req.logout();
         //redirect
-        res.redirect("/"); 
+        res.redirect("/login"); 
     }
   });
 });

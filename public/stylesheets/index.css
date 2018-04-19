@@ -281,6 +281,7 @@ Work Experience & Education section
     background-color: white; 
     height: 18em;
     width: 18em;
+    padding: 2% 2%;
 }
 
 .experience-detail h2, h3, h4, h5, h6 

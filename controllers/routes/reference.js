@@ -92,10 +92,10 @@ router.put('/user/:userID/reference/:refID', function(req, res){
 
 // DESTROY 
 router.delete('/user/:userID/reference/:refID', middleware.isAccountOwner, function(req, res){
-    //lookup the user 
+    //find user
     User.findById(req.params.userID, function(err, foundUser){
-        if(err){
-            console.log(err);
+        if (err){
+            console.log(err); 
             res.redirect("/user/" + req.params.userID); 
         } else {
             //delete the Cover Letter

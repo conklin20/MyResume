@@ -77,7 +77,7 @@ router.get('/user/:userID/coverletter/:clID/edit', middleware.isAccountOwner, fu
 });
 
 // UPDATE
-router.put('/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
+router.put('/user/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
     //lookup and update cover letter
     CoverLetter.findByIdAndUpdate(req.params.clID, req.body.coverLetter, function(err, updatedCL){
         if(err){
@@ -90,11 +90,11 @@ router.put('/:userID/coverletter/:clID', middleware.isAccountOwner, function(req
 });
 
 // DESTROY 
-router.delete('/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
-    //lookup the user 
+router.delete('/user/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
+    //find user
     User.findById(req.params.userID, function(err, foundUser){
-        if(err){
-            console.log(err);
+        if (err){
+            console.log(err); 
             res.redirect("/user/" + req.params.userID); 
         } else {
             //delete the Cover Letter

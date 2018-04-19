@@ -21,7 +21,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/user/:userID/resume/new', function(req, res){
+router.get('/user/:userID/resume/new', middleware.ensureAuthenticated, function(req, res){
   //find the user in the DB 
   User.findById(req.params.userID, function(err, foundUser){
     if(err){
@@ -33,8 +33,8 @@ router.get('/user/:userID/resume/new', function(req, res){
 });
 
 // CREATE
-router.post('/user/:userID/resume', /*implement middleware*/ function(req, res){
-  // REMEMBER TO SANITIZE THE BODY SINCE WERE ALLOW THEM TO INPUT HTML 
+router.post('/user/:userID/resume', middleware.ensureAuthenticated, function(req, res){
+  // REMEMBER TO SANITIZE THE BODY SINCE WE ALLOW THEM TO INPUT HTML 
   //sanitize for any input allowing HTML input (Test sanitizing the entire resume object first)
   //req.body.resume = req.sanitize(req.body.resume); 
   
@@ -89,7 +89,7 @@ router.get('/user/:userID/resume/:resumeID/edit', middleware.isAccountOwner, fun
 });
 
 // UPDATE
-router.put('/user/:userID/resume/:resumeID/', function(req, res){
+router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, function(req, res){
   //sanitize for any input allowing HTML input (Test sanitizing the entire resume object first)
   //req.body.resume = req.sanitize(req.body.resume); 
   
@@ -306,7 +306,7 @@ router.put('/user/:userID/resume/:resumeID/', function(req, res){
 }); 
 
 // REMOVE TIMELINEEVENT ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/timelineEvent/:timelineID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/timelineEvent/:timelineID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -320,7 +320,7 @@ router.put('/user/:userID/resume/:resumeID/timelineEvent/:timelineID', function(
 }); 
 
 // REMOVE SKILL CATEGORY ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -335,7 +335,7 @@ router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx', function(req,
 }); 
 
 // REMOVE SKILL ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -349,7 +349,7 @@ router.put('/user/:userID/resume/:resumeID/skillCategory/:catIdx/skill/:skillIdx
 }); 
 
 // REMOVE INTEREST CATEGORY ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -364,7 +364,7 @@ router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx', function(r
 }); 
 
 // REMOVE INTEREST ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interestIdx', function(req, res){
+router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:interestIdx', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -378,7 +378,7 @@ router.put('/user/:userID/resume/:resumeID/interestCategory/:catIdx/interest/:in
 }); 
 
 // REMOVE WORK EXP ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/workExp/:workExp', function(req, res){
+router.put('/user/:userID/resume/:resumeID/workExp/:workExp', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -392,7 +392,7 @@ router.put('/user/:userID/resume/:resumeID/workExp/:workExp', function(req, res)
 }); 
 
 // REMOVE WORK EXP ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -406,7 +406,7 @@ router.put('/user/:userID/resume/:resumeID/workExp/:workExp/resp/:respID', funct
 }); 
 
 // REMOVE EDUCATION ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/education/:eduID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/education/:eduID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -420,7 +420,7 @@ router.put('/user/:userID/resume/:resumeID/education/:eduID', function(req, res)
 });
 
 // REMOVE EDUCATION ACHIVEMENT ELEMENT
-router.put('/user/:userID/resume/:resumeID/education/:eduID/achv/:achvID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/education/:eduID/achv/:achvID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -434,7 +434,7 @@ router.put('/user/:userID/resume/:resumeID/education/:eduID/achv/:achvID', funct
 }); 
 
 // REMOVE QUOTE
-router.put('/user/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/quote/:quoteID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -448,7 +448,7 @@ router.put('/user/:userID/resume/:resumeID/quote/:quoteID', function(req, res){
 });
 
 // REMOVE 'OTHER' ARRAY ELEMENT
-router.put('/user/:userID/resume/:resumeID/other/:sectionID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/other/:sectionID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -462,7 +462,7 @@ router.put('/user/:userID/resume/:resumeID/other/:sectionID', function(req, res)
 });
 
 // REMOVE 'OTHER' BULLET ITEM ELEMENT
-router.put('/user/:userID/resume/:resumeID/other/:sectionID/item/:itemID', function(req, res){
+router.put('/user/:userID/resume/:resumeID/other/:sectionID/item/:itemID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 
   Resume.findById(req.params.resumeID, function(err, foundResume){
       if(err){
@@ -477,14 +477,24 @@ router.put('/user/:userID/resume/:resumeID/other/:sectionID/item/:itemID', funct
 
 // DESTROY
 router.delete('/user/:userID/resume/:resumeID', function(req, res){
-  //find the resume in the DB and delete it 
-  Resume.findByIdAndRemove(req.params.resumeID, function(err, foundResume){
-      if(err){
-        console.log(err);
-      } else {
-        res.redirect('/user/' + req.params.userID);
-      }
-    }); 
+  //find user
+  User.findById(req.params.userID, function(err, foundUser){
+    if (err){
+      console.log(err); 
+    } else {
+      //find the resume in the DB and delete it 
+      Resume.findByIdAndRemove(req.params.resumeID, function(err, foundResume){
+        if(err){
+          console.log(err);
+        } else {
+          // remove resume from users profile
+          foundUser.resumes.splice(foundUser.resumes.indexOf(req.params.resumeID), 1); 
+          foundUser.save(); 
+          res.redirect('/user/' + req.params.userID);
+        }
+      }); 
+    }
+  }); 
 }); 
 
 // SHOW (PRINTABLE VERSION)

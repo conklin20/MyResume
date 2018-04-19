@@ -16,6 +16,10 @@
         <script src="/js/app.js"></script>
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+        <!--Google Oswald Font-->
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+        <!--<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,600i" rel="stylesheet"> -->
+        <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
     </head>
     <body>
         <!--Header-->
@@ -26,8 +30,8 @@
         <main style="color: <%= resume.fontColor %>">
             <!--Landing Page Section-->
             <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>;">
-                <div class="box introduction"><h3><%= resume.introduction %></h3></div>
-                <div class="box elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
+                <div class="introduction"><h3><%= resume.introduction %></h3></div>
+                <div class="elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
     		    <% if(coverLetter) { %>
                     <!-- Modal -->
                     <div id="cover-letter" class="cover-letter">
@@ -175,10 +179,11 @@
                                             <h5> <%= workExp.title %> </h5> 
                                             <h5> <%= workExp.city + ', ' + workExp.state%> </h5> 
                                         </span>  
+                                        <ul>
                                         <% workExp.responsibilities.forEach(function(responsibility){ %>
-                                            <p> <%- responsibility %> </p>
+                                            <li> <%- responsibility %> </li>
                                         <% }) %>
-                                       
+                                        </ul>
                                     </div>
                                 <hr>
                                 </div>
@@ -285,36 +290,37 @@
         <!--Footer-->
         <section class="footer">
             <div class="social">
-                <a class="ui circular print icon button" href="/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
+                <a class="ui circular print icon button" href="/user/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
                   <i class="print icon"></i>
                 </a>
                 <i class="handshake outline icon"></i>
                 
                 <% if(user.githubURL) { %>
-                <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank">
-                  <i class="github plus icon"></i>
-                </a>
-                <i class="handshake outline icon"></i>
+                    <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank">
+                      <i class="github plus icon"></i>
+                    </a>
+                    <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.twitterURL) { %>
-                <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank">
-                  <i class="twitter icon"></i>
-                </a>
-                <i class="handshake outline icon"></i>
+                    <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank">
+                      <i class="twitter icon"></i>
+                    </a>
+                    <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.instagramURL) { %>
-                <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank">
-                  <i class="instagram icon"></i>
-                </a>
-                <i class="handshake outline icon"></i>
+                    <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank">
+                      <i class="instagram icon"></i>
+                    </a>
+                    <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.facebookURL) { %>
-                <a class="ui circular facebook icon button" href="<%= user.facebookURL %>" target="_blank">
-                  <i class="facebook icon"></i>
-                </a>
+                    <a class="ui circular facebook icon button" href="<%= user.facebookURL %>" target="_blank">
+                      <i class="facebook icon"></i>
+                    </a>
+                    <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank">
@@ -322,7 +328,9 @@
                 </a>
             </div>
             <span id="builtby">
-                This site was built by <a href="https://www.caryconklin.com">Cary Conklin</a>
+                <div>This site was built by <a href="http://www.caryconklin.com">Cary Conklin</a></div>
+                <br>
+                <div>Sign up today and build your own page at <a href="http://www.scrollwith.me">scrollwith.me</a></div>
             </span>
 	    </section>
 	    
