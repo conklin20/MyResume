@@ -48,22 +48,24 @@
                 <hr>
                 <!--Loop through the work experience array-->
                 <% resume.experience.details.forEach(function(workExp) { %>
-                    <div class="bold">  
-                        <span><%- workExp.companyName %></span>
-                        <span><%- moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
-                    </div>  
-                    <div class="ital">  
-                        <span><%- workExp.title %></span>
-                        <span><%- workExp.city+ ", " + workExp.state %></span>
-                    </div>  
-                    <ul class="responsibilities">
-                        <!--Loop through responsibilities-->
-                        <% workExp.responsibilities.forEach(function(responsibility) { %>
-                            <li>
-                                <%- responsibility %>
-                            </li>
-                        <% }) %>
-                    </ul>
+                    <!--<div class="experience" style="order: <%= - workExp.startDate.getTime() / 100000 %>;">-->
+                        <div class="bold">  
+                            <span><%- workExp.companyName %></span>
+                            <span><%- moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
+                        </div>  
+                        <div class="ital">  
+                            <span><%- workExp.title %></span>
+                            <span><%- workExp.city.trim() + ", " + workExp.state %></span>
+                        </div>  
+                        <ul class="responsibilities">
+                            <!--Loop through responsibilities-->
+                            <% workExp.responsibilities.forEach(function(responsibility) { %>
+                                <li>
+                                    <%- responsibility %>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <!--</div>-->
                 <% }) %>
             </section>
             
@@ -72,23 +74,25 @@
                 <h3>Education</h3>
                 <hr>
                 <!--Loop through the education array-->
-                <% resume.education.details.forEach(function(pastEducation) { %>
-                    <div class="bold">  
-                        <span><%- pastEducation.instituteName %></span>
-                        <span><%- moment(pastEducation.startDate).format('MMMM YYYY') + " - " + (pastEducation.endDate ? moment(pastEducation.endDate).format('MMMM YYYY') : 'Current') %></span>
-                    </div>  
-                    <div class="ital"> 
-                        <span><%- pastEducation.degree + ", " + pastEducation.areaOfStudy %></span>
-                        <span><%- pastEducation.city+ ", " + pastEducation.state %></span>
-                    </div>  
-                    <ul class="achievements">
-                        <!--Loop through achievements-->
-                        <% pastEducation.achievements.forEach(function(achievement) { %>
-                            <li>
-                                <%- achievement %>
-                            </li>
-                        <% }) %>
-                    </ul>
+                <% resume.education.details.forEach(function(edu) { %>
+                    <!--<div class="education" style="order: <%= - edu.startDate.getTime() / 100000 %>;">-->
+                        <div class="bold">  
+                            <span><%- edu.instituteName %></span>
+                            <span><%- moment(edu.startDate).format('MMMM YYYY') + " - " + (edu.endDate ? moment(edu.endDate).format('MMMM YYYY') : 'Current') %></span>
+                        </div>  
+                        <div class="ital"> 
+                            <span><%- edu.degree.trim() + ", " + edu.areaOfStudy %></span>
+                            <span><%- edu.city.trim() + ", " + edu.state %></span>
+                        </div>  
+                        <ul class="achievements">
+                            <!--Loop through achievements-->
+                            <% edu.achievements.forEach(function(achievement) { %>
+                                <li>
+                                    <%- achievement %>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <!--</div>-->
                 <% }) %>
             </section>
             
@@ -103,7 +107,7 @@
                         <ul>
                             <% var skillStr = ""; %>
                             <% for(var i=0; i < skill.skill.length; i++){ %>
-                                <% skillStr += skill.skill[i].skillName + ", " %>
+                                <% skillStr += skill.skill[i].skillName.trim() + ", " %>
                             <% }; %>
                             <li><%- skillStr.slice(0, -2); %></li>
                         </ul>
@@ -117,7 +121,7 @@
                         <ul>
                             <% var interestStr = ""; %>
                             <% for(var i=0; i < interest.interest.length; i++){ %>
-                                <% interestStr += interest.interest[i].interest + ", " %>
+                                <% interestStr += interest.interest[i].interest.trim() + ", " %>
                             <% }; %>
                             <li><%- interestStr.slice(0, -2); %></li>
                         </ul>
@@ -146,7 +150,7 @@
         <!--Footer Section-->
         <footer>
             <p>
-                This site was built by <a href="https://www.caryconklin.com">Cary Conklin</a>
+                This resume was built use <a href="https://www.scrollwith.me">scrollwith.me</a>
             </p>
         </footer>
     </body>

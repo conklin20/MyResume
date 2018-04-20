@@ -12,11 +12,13 @@ html {
     font: normal 24px sans-serif;
     color: #555;
     
-    background: #232526;  /* fallback for old browsers */
+    /* fallback for old browsers */
+    background: #232526;
     background: -webkit-linear-gradient(left, #414345, #232526);
     background: -moz-linear-gradient(left, #414345, #232526);
     background: -o-linear-gradient(left, #414345, #232526);
-    background: linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+     /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #414345, #232526); 
 
 }
 
@@ -48,6 +50,7 @@ Shared
     min-height: 75vh;
     height: 100%;
     background-size: cover;
+    box-shadow: inset 0px 0px 10px 2px #232526;
 }
 
 .title h2 {
@@ -212,31 +215,32 @@ Timeline section
 /******************************************************************************
 Skills & Interests section
 *******************************************************************************/
-.skill-header {
-    font-size: 2em; 
+.skill-header,
+.interest-header {
+    font-size: 1.5em; 
     font-weight: bold;
     margin: 2% auto; 
     font-variant: small-caps;
     text-decoration: underline; 
 }
 
-.all-skills {
+.all-skills,
+.all-interests  {
     display: flex; 
     flex-direction: column; 
     margin-bottom: 5%; 
 }
 
-.skills ul {
+.skills ul, 
+.interests ul {
     list-style-type: none; 
 }
 
-.skill-header img {
+.skill-header img,
+.interest-header img {
     height: 5%; 
     width: 5%; 
     margin: 0 2%; 
-}
-
-.interests-section {
 }
 
 
@@ -248,37 +252,41 @@ Work Experience & Education section
     display: flex; 
     flex-direction: column; 
     margin-bottom: 5%; 
+    background-color: #1B1C1D;
+    /*color: rgba(255, 255, 255, 0.9);*/
+    opacity: 0.95; 
+    border-radius: 0.28571429rem;
 }
 
 .experience,
-.education{
+.education {
     display: flex; 
     flex-wrap: wrap;
 }
 
-.experience-headers {
+.experience-headers,
+.education-headers {
     display: flex; 
     justify-content: space-between;
 }
 
 .experience-image, 
 .education-image {
-    flex-basis: 30%; 
-    flex-grow: 1;
+    margin: auto;
 }
 
 .experience-detail,
 .education-detail {
-    flex-basis: 70%; 
-    flex-grow: 4;
     text-align: left; 
     font-size: 1.5em; 
+    margin: 0 2%;
+    width: 100%; 
 }
 
 .experience-image img,
 .education-image img {
     border-radius: 10%; 
-    background-color: white; 
+    /*background-color: white; */
     height: 18em;
     width: 18em;
     padding: 2% 2%;
@@ -290,16 +298,28 @@ Work Experience & Education section
 }
 
 /******************************************************************************
-Education ection
+Education section
 *******************************************************************************/
 #grad-image {
     height: 5em;
     width: 5em;
 }
-
+#grad-image-container{
+    text-align: center; 
+}
 
 /******************************************************************************
-Other ection
+Quotes section
+*******************************************************************************/
+.quotes-all {
+    font-size: 1.5em; 
+}
+.quotes-detail {
+    
+}
+
+/******************************************************************************
+Other section
 *******************************************************************************/
 .other-all {
     display: flex; 

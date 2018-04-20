@@ -105,7 +105,7 @@
                                             </div>
                                             <div class"all-skills">
                             		            <% skillCat.skill.forEach(function(skill){ %>
-                                                    <div style="font-size:<%= skill.proficiency <= 2 ? 1 : skill.proficiency / 2 %>em" >
+                                                    <div style="font-size:<%= skill.proficiency <= 2 ? 1 : skill.proficiency / 4 %>em" >
                                                         <p><%- skill.skillName %></p>
                                                     </div>
                                                 <% }) %>
@@ -131,12 +131,12 @@
         	                    <% resume.interests.details.forEach(function(interestCat){ %>
                                     <div class="item">
                                         <div class="content">
-                                            <div class="skill-header">
+                                            <div class="interest-header">
                                                 <img src="<%= interestCat.categoryIcon %>">
                                                 <%= interestCat.category %>
                                                 <img src="<%= interestCat.categoryIcon %>">
                                             </div>
-                                            <div class"all-skills">
+                                            <div class"all-interests">
                             		            <% interestCat.interest.forEach(function(interest){ %>
                                                     <div>
                                                         <p><%- interest.interest %></p>
@@ -159,10 +159,9 @@
         		        <div class="title">
         		            <h2>-- Work Experience --</h2>
         		        </div>
-        		        
         		        <div class="experience-all">
         	                <!--Loop through work experience-->
-        	                <% resume.experience.details.forEach(function(workExp){ %>
+        	                <% resume.experience.details.forEach(function(workExp, idx){ %>
         	                                            <!--Sort by Start Date, Desc-->
         	                    <div class="experience" style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
                                     <div class="experience-image">
@@ -211,11 +210,11 @@
                                         </a>
                                     </div>
                                     <div class="education-detail">
-                                        <span class="experience-headers">
+                                        <span class="education-headers">
                                             <h4> <%= edu.instituteName %> </h4>
                                             <h4> <%= moment(edu.startDate).format('MMM YY') + ' - ' + (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : ' current') %> </h4>
                                         </span>
-                                        <span class="experience-headers">
+                                        <span class="education-headers">
                                             <h5> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h5>  
                                             <h5> <%= edu.city + ', ' + edu.state %> </h5>
                                         </span>  
@@ -226,7 +225,9 @@
                                         </ul>
                                         <p><%= edu.notes %></p>
                                         <% if(edu.graduated) { %>
+                                        <div id="grad-image-container">
                                             <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">
+                                        </div>
                                         <% } %>
                                     </div>
                                     <hr>
@@ -244,19 +245,21 @@
         		        <div class="title">
         		            <h2>--Quotes That I Like--</h2>
         		        </div>
-                        <!--Loop through other items-->
-                        <% resume.quotes.details.forEach(function(quote){ %>
-            		        <div class="quotes-all">
-            		            <div class="quotes-detail">
-                                   <p>
-                                       "<%- quote.quote %>"
-                                       <br>
-                                       <span>- <%= quote.by %></span>
-                                   </p>
-                                </div>
-                            </div>
-                            <hr>
-                        <% }) %>
+        		        <div class="quotes-all">
+                            <!--Loop through other items-->
+                            <% resume.quotes.details.forEach(function(quote, idx){ %>
+                		            <div class="quotes-detail">
+                                       <p>
+                                           "<%- quote.quote %>"
+                                           <br>
+                                           <span>- <%= quote.by %></span>
+                                       </p>
+                                    </div>
+                                <% if(idx < resume.quotes.details.length - 1) { %>
+                                    <hr>
+                                <% } %>
+                            <% }) %>
+                        </div>
                     </div>
                 </section>
             <% } %>
@@ -290,40 +293,45 @@
         <!--Footer-->
         <section class="footer">
             <div class="social">
+                <a class="ui circular print icon button" href="mailto:<%= user.linkedinEmail %>" title="Email Me">
+                  <i class="at icon"></i>
+                </a>
+                <i class="handshake outline icon"></i>
+                
                 <a class="ui circular print icon button" href="/user/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
                   <i class="print icon"></i>
                 </a>
                 <i class="handshake outline icon"></i>
                 
                 <% if(user.githubURL) { %>
-                    <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank">
+                    <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank" title="Github">
                       <i class="github plus icon"></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.twitterURL) { %>
-                    <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank">
+                    <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank" title="Twitter">
                       <i class="twitter icon"></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.instagramURL) { %>
-                    <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank">
+                    <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank" title="Instagram">
                       <i class="instagram icon"></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.facebookURL) { %>
-                    <a class="ui circular facebook icon button" href="<%= user.facebookURL %>" target="_blank">
+                    <a class="ui circular facebook icon button" href="<%= user.facebookURL %>" target="_blank" title="Facebook">
                       <i class="facebook icon"></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
-                <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank">
+                <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank" title="LinkedIn">
                   <i class="linkedin icon"></i>
                 </a>
             </div>
