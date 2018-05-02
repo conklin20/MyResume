@@ -1,6 +1,7 @@
 /******************************************************************************
-General Styles
+Global Styles
 *******************************************************************************/
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,800');
 
 * {
     margin: 0;
@@ -10,6 +11,8 @@ General Styles
 
 html {
     font: normal 24px sans-serif;
+    /*font-family: 'Raleway', sans-serif;*/
+    /*font-size: 24px;*/
     color: #555;
     
     /* fallback for old browsers */
@@ -30,17 +33,22 @@ hr {
 Shared
 *******************************************************************************/
 .timeline-section, 
+.skills-section, 
+.interests-section, 
+.work-experience-section, 
+.education-section,  
+.quotes-section, 
+.other-section {
+    text-align: center; 
+    margin: 0 auto; 
+    margin-bottom: 5%; 
+}
+    
 .skills-section,
 .interests-section,
 .work-experience-section,
-.education-section, 
-.quotes-section,
-.other-section {
-    text-align: center; 
-    /*padding: 5% auto;*/
-    width: 50%; 
-    margin: 0 auto; 
-    margin-bottom: 5%; 
+.education-section {
+    opacity: 0.95; 
 }
 
 .section-background {
@@ -56,11 +64,6 @@ Shared
 .title h2 {
     padding: 5% 0; 
     font-variant: small-caps;
-    /*background-color: #232526; */
-    /*border-radius: 40%; */
-    /*opacity: .8; */
-    /*width: 50%; */
-    /*text-align: center; */
 }
 
 hr {
@@ -68,57 +71,100 @@ hr {
     margin-bottom: 2%; 
 }
 
-@media (max-width: 800px) {
-    main {
-        font-size: .75em; 
-        /*width: 80%; */
-        /*padding: 12% 10%;*/
-    }
-    .timeline-section, 
-    .skills-section,
-    .interests-section,
-    .work-experience-section,
-    .education-section, 
-    .quotes-section,
-    .other-section {
-        margin: auto; 
-    }
-
-    .title h2 {
-        font-size: 1.9em; 
-        padding: 8% 0; 
+@media (min-width:320px), (min-width:481px)  { 
+    /* smartphones, iPhone, portrait 480x320 phones */ 
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+    
+    html {
+        font-size: .8em; 
     }
     
-    .experience-all {
-        display: flex; 
-        flex-direction: column; 
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+        text-align: center; 
+        width: 95%; 
+        margin: 0 auto; 
+        margin-bottom: 5%; 
+    }
+    
+    .skill-header img,
+    .interest-header img {
+        height: 10%; 
+        width: 10%; 
+        margin: 0 2%; 
+    }
+    
+    .experience-all,
+    .education-all {
+        font-size: 1.2em; 
+    }
+
+}
+
+/*@media (min-width:481px)  { */
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
+    
+/*}*/
+
+@media (min-width:641px), (min-width:961px)  { 
+    /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ 
+    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    
+    html {
+        font-size: 1em; 
+    }
+    
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+        text-align: center; 
+        width: 80%; 
+        margin: 0 auto; 
+        margin-bottom: 5%; 
+    }
+    
+    .skill-header img,
+    .interest-header img {
+        height: 7.5%; 
+        width: 7.5%; 
+        margin: 0 2%; 
+    }
+    
+    .experience,
+    .education {
+        font-size: 1.3em; 
     }
 }
 
-@media (max-width: 400px) {
-    main {
-        font-size: .7em; 
+/*@media (min-width:961px)  { */
+    /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+    
+/*}*/
+
+@media (min-width:1025px), (min-width:1281px)  { 
+    /* big landscape tablets, laptops, and desktops */ 
+    /* hi-res laptops and desktops */ 
+    
+    html {
+        font-size: 1.5em; 
     }
     
-    .timeline-section, 
-    .skills-section,
-    .interests-section,
-    .work-experience-section,
-    .education-section, 
-    .quotes-section,
-    .other-section {
-        margin: auto; 
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+        text-align: center; 
+        width: 50%; 
+        margin: 0 auto; 
+        margin-bottom: 5%; 
     }
     
-    .title h2 {
-        font-size: 1.8em; 
-        padding: 10% 0; 
+    .skill-header img,
+    .interest-header img {
+        height: 5%; 
+        width: 5%; 
+        margin: 0 2%; 
     }
     
-    .experience-all {
+    .experience,
+    .education {
+        font-size: 1.5em; 
     }
 }
-
 
 /******************************************************************************
 Landing page section
@@ -130,12 +176,6 @@ Landing page section
     text-align: center; 
     align-items: center; 
     min-height: 100vh;
-}
-
-.box {
-    padding: 10px;
-    box-sizing: border-box;
-    flex-grow: 1; 
 }
 
 .landing-page .banner-image {
@@ -174,7 +214,7 @@ Cover Letter section
     left: 10%; 
     top: 10%; 
     background: white;
-    border-radius: 50%; 
+    border-radius: 10px; 
     border: 1px solid #232526;
 }
 
@@ -205,12 +245,6 @@ Timeline section
     padding-top: 2%; 
 }
 
-.connector {
-    width: 100%; 
-    height: 5%; 
-    margin: 0; 
-}
-
 
 /******************************************************************************
 Skills & Interests section
@@ -236,13 +270,6 @@ Skills & Interests section
     list-style-type: none; 
 }
 
-.skill-header img,
-.interest-header img {
-    height: 5%; 
-    width: 5%; 
-    margin: 0 2%; 
-}
-
 
 /******************************************************************************
 Work Experience & Education section
@@ -253,8 +280,6 @@ Work Experience & Education section
     flex-direction: column; 
     margin-bottom: 5%; 
     background-color: #1B1C1D;
-    /*color: rgba(255, 255, 255, 0.9);*/
-    opacity: 0.95; 
     border-radius: 0.28571429rem;
 }
 
@@ -278,17 +303,16 @@ Work Experience & Education section
 .experience-detail,
 .education-detail {
     text-align: left; 
-    font-size: 1.5em; 
     margin: 0 2%;
     width: 100%; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .experience-image img,
 .education-image img {
-    border-radius: 10%; 
-    /*background-color: white; */
-    height: 18em;
-    width: 18em;
+    border-radius: 10%;
+    height: 10em;
+    width: 10em;
     padding: 2% 2%;
 }
 
@@ -301,8 +325,8 @@ Work Experience & Education section
 Education section
 *******************************************************************************/
 #grad-image {
-    height: 5em;
-    width: 5em;
+    height: 3em;
+    width: 3em;
 }
 #grad-image-container{
     text-align: center; 
@@ -350,9 +374,8 @@ Footer Section
     flex-direction: column; 
     justify-content: space-around;
     text-align: center;
-    
     margin: 2% auto; 
-    height: 20vh; 
+    height: 20vh;
 }
 
 #builtby {

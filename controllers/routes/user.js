@@ -91,10 +91,6 @@ router.get('/user/:userID/edit', middleware.isAccountOwner, function(req, res) {
     if(err){
       console.log(err); 
     } else {
-      //get other user related info 
-      // Resume.find({userID: user.Id}, function(err, resumes){
-        
-      // }); 
       res.render('userEdit', { user: user });
     }
   }); 
@@ -119,7 +115,6 @@ router.delete('/user/:userID', middleware.isAccountOwner, function(req, res){
       console.log(err); 
         res.redirect("/"); 
     } else {
-        // eval(require("locus"))
         //delete data associated to the user 
         foundUser.resumes.forEach(function(resume){
           Resume.findByIdAndRemove(resume, function(err){
@@ -150,6 +145,5 @@ router.delete('/user/:userID', middleware.isAccountOwner, function(req, res){
     }
   });
 });
-
 
 module.exports = router; 

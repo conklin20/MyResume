@@ -1,8 +1,9 @@
-var express         = require("express"),
-    User            = require("../../models/users"),
-    CoverLetter     = require("../../models/coverletters"),
-    middleware      = require("../../middleware/auth.js"),
-    router          = express.Router();
+var express             = require("express"),
+    User                = require("../../models/users"),
+    CoverLetter         = require("../../models/coverletters"),
+    authMiddleware      = require("../../middleware/auth.js"),
+    sanitizeMiddleware  = require("../../middleware/sanitize.js"),
+    router              = express.Router();
 
 // **********************
 // RESUME ROUTES
@@ -21,7 +22,7 @@ var express         = require("express"),
 
 
 // NEW
-router.get('/user/:userID/coverletter/new', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID/coverletter/new', authMiddleware.isAccountOwner, function(req, res){
     res.render('coverLetter', { userID: req.params.userID }); 
 //   //find the user in the DB 
 //   User.findById(req.params.userID, function(err, user){
@@ -34,7 +35,7 @@ router.get('/user/:userID/coverletter/new', middleware.isAccountOwner, function(
 });
 
 // CREATE
-router.post('/user/:userID/coverletter', middleware.isAccountOwner, function(req, res){
+router.post('/user/:userID/coverletter', authMiddleware.isAccountOwner, function(req, res){
     //lookup the user 
     User.findById(req.params.userID, function(err, foundUser){
         if(err){
@@ -42,7 +43,7 @@ router.post('/user/:userID/coverletter', middleware.isAccountOwner, function(req
             res.redirect("/user/" + req.params.userID); 
         } else {
             //Save the CoverLetter to the DB
-            CoverLetter.create(req.body.coverLetter, function(err, coverLetter) {
+            CoverLetter.create(req.body.coverLetter, sanitizeMiddleware.sanitize, function(err, coverLetter) {
                 if (err) {
                     console.log(err); 
                     // req.flash('error', err.message);
@@ -63,7 +64,7 @@ router.post('/user/:userID/coverletter', middleware.isAccountOwner, function(req
 });
 
 // EDIT
-router.get('/user/:userID/coverletter/:clID/edit', middleware.isAccountOwner, function(req, res){
+router.get('/user/:userID/coverletter/:clID/edit', authMiddleware.isAccountOwner, function(req, res){
    //lookup the cover letter 
    CoverLetter.findById(req.params.clID, function(err, foundCL){
        if(err){
@@ -77,7 +78,7 @@ router.get('/user/:userID/coverletter/:clID/edit', middleware.isAccountOwner, fu
 });
 
 // UPDATE
-router.put('/user/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
+router.put('/user/:userID/coverletter/:clID', authMiddleware.isAccountOwner, sanitizeMiddleware.sanitize, function(req, res){
     //lookup and update cover letter
     CoverLetter.findByIdAndUpdate(req.params.clID, req.body.coverLetter, function(err, updatedCL){
         if(err){
@@ -90,7 +91,7 @@ router.put('/user/:userID/coverletter/:clID', middleware.isAccountOwner, functio
 });
 
 // DESTROY 
-router.delete('/user/:userID/coverletter/:clID', middleware.isAccountOwner, function(req, res){
+router.delete('/user/:userID/coverletter/:clID', authMiddleware.isAccountOwner, function(req, res){
     //find user
     User.findById(req.params.userID, function(err, foundUser){
         if (err){

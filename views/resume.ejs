@@ -63,8 +63,8 @@
             <h1 style="text-align: center;">Edit Resume</h1>
             <div class="row">
                 <!--<a href="/myresume/<%= user._id %>/<%= resume.id %>">View Your Page!</a>-->
-                <a href="/<%= user.username %>" target="_blank">View Your Page!</a>
-            </dev>
+                <a class="btn btn-warning btn-block" href="/<%= user.username %>" target="_blank">View This Resume!</a>
+            </div><br>
             <div class="row">
                 <form role="form" id="stepOne" class="form-horizontal stepOne" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST"> 
                     <div class="col-sm-2"></div>

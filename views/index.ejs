@@ -16,10 +16,6 @@
         <script src="/js/app.js"></script>
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
-        <!--Google Oswald Font-->
-        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-        <!--<link href="https://fonts.googleapis.com/css?family=Raleway:400,600,600i" rel="stylesheet"> -->
-        <!--<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
     </head>
     <body>
         <!--Header-->
@@ -30,17 +26,17 @@
         <main style="color: <%= resume.fontColor %>">
             <!--Landing Page Section-->
             <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>;">
-                <div class="introduction"><h3><%= resume.introduction %></h3></div>
+                <div class="introduction"><h3><%- resume.introduction %></h3></div>
                 <div class="elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
     		    <% if(coverLetter) { %>
                     <!-- Modal -->
                     <div id="cover-letter" class="cover-letter">
                         <div class="cover-letter-title">
-                            <%= coverLetter.title %>
+                            <%- coverLetter.title %>
                         </div>
                         <hr>
                         <div class="cover-letter-body">
-                            <%= coverLetter.body %>
+                            <%- coverLetter.body %>
                         </div>
                         <br><br>
                         <button class="ui mini primary button" onclick="closeCoverLetter()">
@@ -55,7 +51,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>;">
     		        <div class="timeline-section">
         		        <div class="title">
-        		            <h2>-- Notable Timeline Events --</h2>
+        		            <h2><i class="clock outline icon small"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>
         		        </div>
         		        <div class="events-all">
         		            <% resume.timeline.details.forEach(function(event, idx){ %>
@@ -91,7 +87,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;">
     		        <div class="skills-section">
         		        <div class="title">
-        		            <h2>-- Notable Skills --</h2>
+        		            <h2><i class="star outline icon small"></i> Notable Skills <i class="star outline icon small"></i></h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -100,12 +96,13 @@
                                         <div class="content">
                                             <div class="skill-header">
                                                 <img src="<%= skillCat.categoryIcon %>">
-                                                <%= skillCat.category %>
+                                                <%- skillCat.category %>
                                                 <img src="<%= skillCat.categoryIcon %>">
                                             </div>
                                             <div class"all-skills">
                             		            <% skillCat.skill.forEach(function(skill){ %>
-                                                    <div style="font-size:<%= skill.proficiency <= 2 ? 1 : skill.proficiency / 4 %>em" >
+                                                    <!--<div style="font-size:<%= skill.proficiency <= 2 ? skill.proficiency / 2  : skill.proficiency / 4 %>em" >-->
+                                                    <div style="font-size:<%= skill.proficiency / 3 %>em" >
                                                         <p><%- skill.skillName %></p>
                                                     </div>
                                                 <% }) %>
@@ -124,7 +121,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>;">
     		        <div class="interests-section">
         		        <div class="title">
-        		            <h2>-- Interests --</h2>
+        		            <h2><i class="thumbs up outline icon small"></i> Interests <i class="thumbs up outline icon small"></i></h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -133,7 +130,7 @@
                                         <div class="content">
                                             <div class="interest-header">
                                                 <img src="<%= interestCat.categoryIcon %>">
-                                                <%= interestCat.category %>
+                                                <%- interestCat.category %>
                                                 <img src="<%= interestCat.categoryIcon %>">
                                             </div>
                                             <div class"all-interests">
@@ -157,7 +154,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.experience.backgroundImg %>); color: <%= resume.experience.fontColor %>;">
     		        <div class="work-experience-section">
         		        <div class="title">
-        		            <h2>-- Work Experience --</h2>
+        		            <h2><i class="building outline icon small"></i> Work Experience <i class="building outline icon small"></i></h2>
         		        </div>
         		        <div class="experience-all">
         	                <!--Loop through work experience-->
@@ -184,20 +181,20 @@
                                         <% }) %>
                                         </ul>
                                     </div>
-                                <hr>
+                                <!--<hr>-->
                                 </div>
                             <% }) %>
                         </div>
                     </div>
     		    </section>
     		<% } %>
-		 
+    		
 		    <!--Education Section-->
 		    <% if(resume.education.details.length > 0) { %>
     		    <section class="section-background" style="background-image: url(<%= resume.education.backgroundImg %>); color: <%= resume.education.fontColor %>;">
     		        <div class="education-section">
         		        <div class="title">
-        		            <h2>-- Education --</h2>
+        		            <h2><i class="address book outline icon small"></i> Education <i class="address book outline icon small"></i></h2>
         		        </div>
         		        <div class="education-all">
         	                <!--Loop through education-->
@@ -230,7 +227,7 @@
                                         </div>
                                         <% } %>
                                     </div>
-                                    <hr>
+                                    <!--<hr>-->
                                 </div>
                             <% }) %>
                         </div>
@@ -243,7 +240,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.quotes.backgroundImg %>); color: <%= resume.quotes.fontColor %>;">
     		        <div class="quotes-section">
         		        <div class="title">
-        		            <h2>--Quotes That I Like--</h2>
+        		            <h2><i class="quote left outline icon small"></i> Quotes That I Like <i class="quote right outline icon small"></i></h2>
         		        </div>
         		        <div class="quotes-all">
                             <!--Loop through other items-->
@@ -271,10 +268,10 @@
                         <!--Loop through other items-->
                         <% resume.other.details.forEach(function(section){ %>
             		        <div class="title">
-            		            <h2>-- <%= section.title %> --</h2>
+            		            <h2><%- section.title %></h2>
             		        </div>
             		        <div class="other-all">
-            		            <h4> <%= section.summary %> </h4>
+            		            <h4> <%- section.summary %> </h4>
             		            <div class="other-detail">
                                     <ul>
                                         <% section.bulletItems.forEach(function(item){ %>
@@ -336,7 +333,7 @@
                 </a>
             </div>
             <span id="builtby">
-                <div>This site was built by <a href="http://www.caryconklin.com">Cary Conklin</a></div>
+                <div>This site was built by <a href="http://www.caryconklin.com/cary">Cary Conklin</a></div>
                 <br>
                 <div>Sign up today and build your own page at <a href="http://www.scrollwith.me">scrollwith.me</a></div>
             </span>
