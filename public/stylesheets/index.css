@@ -2,6 +2,7 @@
 Global Styles
 *******************************************************************************/
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,800');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 
 * {
     margin: 0;
@@ -26,7 +27,17 @@ html {
 }
 
 hr {
+    width: 100%; 
     margin: 2% 0; 
+}
+
+.flipImg {
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
 }
 
 /******************************************************************************
@@ -66,11 +77,6 @@ Shared
     font-variant: small-caps;
 }
 
-hr {
-    width: 100%; 
-    margin-bottom: 2%; 
-}
-
 @media (min-width:320px), (min-width:481px)  { 
     /* smartphones, iPhone, portrait 480x320 phones */ 
     /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
@@ -97,7 +103,21 @@ hr {
     .education-all {
         font-size: 1.2em; 
     }
-
+    
+    .cover-letter-header {
+        height: 50px;    
+    }
+    
+    .cover-letter {
+        width: 100%; 
+    }
+    
+    .cover-letter-body {
+        padding-left: 16%;
+        padding-right: 10%;
+        padding-top: 2%; 
+        line-height: 20px; 
+    }
 }
 
 /*@media (min-width:481px)  { */
@@ -124,12 +144,27 @@ hr {
     .interest-header img {
         height: 7.5%; 
         width: 7.5%; 
-        margin: 0 2%; 
+        margin: 0 2%;
     }
     
     .experience,
     .education {
         font-size: 1.3em; 
+    }
+    
+    .cover-letter-header {
+        height: 60px;    
+    }
+    
+    .cover-letter {
+        width: 90%; 
+    }
+    
+    .cover-letter-body {
+        padding-left: 15%;
+        padding-right: 10%;
+        padding-top: 1.5%; 
+        line-height: 20px; 
     }
 }
 
@@ -163,6 +198,21 @@ hr {
     .experience,
     .education {
         font-size: 1.5em; 
+    }
+    
+    .cover-letter-header {
+        height: 70px;    
+    }
+    
+    .cover-letter {
+        width: 40%; 
+    }
+    
+    .cover-letter-body {
+        padding-left: 14%;
+        padding-right: 10%;
+        padding-top: .95%; 
+        line-height: 20px; 
     }
 }
 
@@ -207,27 +257,87 @@ Landing page section
 Cover Letter section 
 *******************************************************************************/
 .cover-letter {
+    font-family: 'Indie Flower', cursive;
+    display: flex;
+    flex-direction: column;
+    min-height: 90vh;
     position: absolute; 
-    margin-left: 10%; 
-    padding: 5%;
-    width: 60%; 
-    left: 10%; 
-    top: 10%; 
-    background: white;
-    border-radius: 10px; 
-    border: 1px solid #232526;
+    top: 5%; 
+    padding: 0 2%; 
+    z-index: 99;
 }
 
-.cover-letter-title {
-    font-weight: bold; 
+.cover-letter:before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    top: 0;
+    left: 15%;
+    bottom: 0;
+    border: 1px solid;
+    border-color: transparent #efe4e4;
+}
+
+.cover-letter-header {
+    background: #fff;
+    /*flex-grow: 1;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    
+    font-size: 2em;
+}
+
+.cover-letter-header span {
+    /*vertical-align: text-bottom;*/
 }
 
 .cover-letter-body {
+    flex-grow: 8;
     text-align: left; 
     
+    background: #fff;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+    background: -webkit-linear-gradient(top, #d9eaf3 5%, #fff 8%) 0 4px;
+    background: -moz-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: -ms-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: -o-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+ 
+    -webkit-background-size: 100% 20px;
+    -moz-background-size: 100% 20px;
+    -ms-background-size: 100% 20px;
+    -o-background-size: 100% 20px;
+    background-size: 100% 20px;
+ 
 }
 
-.cover-letter button {
+.cover-letter-body ul {
+    list-style-type: none;
+    margin-left: 5%; 
+}
+
+.cover-letter-footer {
+    flex-grow: 1;
+    
+    background: #fff;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+    background: -webkit-linear-gradient(top, #d9eaf3 5%, #fff 8%) 0 4px;
+    background: -moz-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: -ms-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: -o-linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+    background: linear-gradient(top, #d9eaf3 0%, #fff 8%) 0 4px;
+ 
+    -webkit-background-size: 100% 20px;
+    -moz-background-size: 100% 20px;
+    -ms-background-size: 100% 20px;
+    -o-background-size: 100% 20px;
+    background-size: 100% 20px;
+ 
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 /******************************************************************************
@@ -303,17 +413,25 @@ Work Experience & Education section
 .experience-detail,
 .education-detail {
     text-align: left; 
-    margin: 0 2%;
+    margin: 2% 2%;
     width: 100%; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 2%; 
 }
 
 .experience-image img,
 .education-image img {
     border-radius: 10%;
-    height: 10em;
+    height: auto;
     width: 10em;
     padding: 2% 2%;
+}
+
+.experience li,
+.education li {
+    margin-left: 6%; 
+    margin-top: 1%; 
+    font-size: .8em;
 }
 
 .experience-detail h2, h3, h4, h5, h6 
@@ -361,7 +479,7 @@ Other section
     margin: 2% 2%;
 }
 
-.other-detail ul, li {
+.other-detail ul, .other-detail li {
     list-style-type: none;
     margin: 2% 2%;
 }
@@ -377,6 +495,16 @@ Footer Section
     margin: 2% auto; 
     height: 20vh;
 }
+
+/*a:hover {*/
+/*    -moz-transform: scaleX(-1);*/
+/*    -o-transform: scaleX(-1);*/
+/*    -webkit-transform: scaleX(-1);*/
+/*    transform: scaleX(-1);*/
+/*    filter: FlipH;*/
+/*    -ms-filter: "FlipH";*/
+/*    transition-delay:1s;*/
+/*}*/
 
 #builtby {
     font-size: 1.5em; 

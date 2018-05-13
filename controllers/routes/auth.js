@@ -5,6 +5,7 @@ var express         = require("express"),
 
 // INDEX 
 router.get('/', function(req, res) {
+    // console.log(global);
     res.render('login');
 }); 
 

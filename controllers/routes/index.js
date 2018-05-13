@@ -15,6 +15,19 @@ var express         = require("express"),
 // EDIT     
 // DESTROY  
 
+
+// INDEX
+// router.get('/', function(req, res) {
+    
+    
+//     console.log(window.location.host)
+//     if (window.location.host === 'caryconklin.com') {
+//         res.redirect('www.caryconklin.com/cary')
+//     } else if (window.location.host === 'personal-conklin20.c9users.io') {
+//         alert('personal-conklin20.c9users.io')
+//     }
+// }); 
+
 // SHOW 
 router.get('/:username', function(req, res) {
     //find the user in the DB 

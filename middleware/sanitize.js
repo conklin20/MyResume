@@ -14,18 +14,19 @@ var middlewareObj = {};
 //custom middleware to sanitize manual html and js input
 middlewareObj.sanitize = function (req, res, next) {
     try {
-        if (req.body.coverLetter){
-            //Sanitize cover letter input
-            req.body.coverLetter.title = req.sanitize(req.body.coverLetter.title);
-            req.body.coverLetter.body = req.sanitize(req.body.coverLetter.body);
-            return next();
-        } else if (req.body.reference){
+        // if (req.body.coverLetter){
+        //     //Sanitize cover letter input
+        //     req.body.coverLetter.title = req.sanitize(req.body.coverLetter.title);
+        //     req.body.coverLetter.body = req.sanitize(req.body.coverLetter.body);
+        //     return next();
+        // } else if (req.body.reference){
             
-            return next();
-        } else if (req.body.resume){
+        //     return next();
+        // } else if (req.body.resume){
             
+        //     return next();
+        // }
             return next();
-        }
     } catch (ex){
         console.log(ex);
     }

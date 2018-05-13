@@ -31,18 +31,31 @@
     		    <% if(coverLetter) { %>
                     <!-- Modal -->
                     <div id="cover-letter" class="cover-letter">
-                        <div class="cover-letter-title">
-                            <%- coverLetter.title %>
+                        <div class="cover-letter-header">
+                            <span><%- coverLetter.title %></span>
                         </div>
-                        <hr>
                         <div class="cover-letter-body">
                             <%- coverLetter.body %>
                         </div>
-                        <br><br>
-                        <button class="ui mini primary button" onclick="closeCoverLetter()">
-                            Continue
-                        </button>
+                        <div class="cover-letter-footer">
+                            <button class="ui mini primary button" onclick="closeCoverLetter()">
+                                Continue
+                            </button>
+                        </div>
                     </div>
+                    <!--<div id="cover-letter" class="paper">-->
+                    <!--    <div class="cover-letter-title">-->
+                    <!--        <h1><%- coverLetter.title %></h1>-->
+                    <!--    </div>-->
+                    <!--    <hr>-->
+                    <!--    <div class="">-->
+                    <!--        <p><%- coverLetter.body %></p>-->
+                    <!--    </div>-->
+                    <!--    <br><br>-->
+                    <!--    <button class="ui mini primary button" onclick="closeCoverLetter()">-->
+                    <!--        Continue-->
+                    <!--    </button>-->
+                    <!--</div>-->
     		    <% } %>
 		    
 		    </section>
@@ -51,7 +64,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>;">
     		        <div class="timeline-section">
         		        <div class="title">
-        		            <h2><i class="clock outline icon small"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>
+        		            <h2><i class="clock outline icon small flipImg"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>
         		        </div>
         		        <div class="events-all">
         		            <% resume.timeline.details.forEach(function(event, idx){ %>
@@ -87,7 +100,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;">
     		        <div class="skills-section">
         		        <div class="title">
-        		            <h2><i class="star outline icon small"></i> Notable Skills <i class="star outline icon small"></i></h2>
+        		            <h2><i class="star outline icon small flipImg"></i> Notable Skills <i class="star outline icon small"></i></h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -95,7 +108,7 @@
                                     <div class="item">
                                         <div class="content">
                                             <div class="skill-header">
-                                                <img src="<%= skillCat.categoryIcon %>">
+                                                <img class="flipImg" src="<%= skillCat.categoryIcon %>">
                                                 <%- skillCat.category %>
                                                 <img src="<%= skillCat.categoryIcon %>">
                                             </div>
@@ -121,7 +134,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>;">
     		        <div class="interests-section">
         		        <div class="title">
-        		            <h2><i class="thumbs up outline icon small"></i> Interests <i class="thumbs up outline icon small"></i></h2>
+        		            <h2><i class="thumbs up outline icon small flipImg"></i> Interests <i class="thumbs up outline icon small"></i></h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -129,7 +142,7 @@
                                     <div class="item">
                                         <div class="content">
                                             <div class="interest-header">
-                                                <img src="<%= interestCat.categoryIcon %>">
+                                                <img class="flipImg" src="<%= interestCat.categoryIcon %>">
                                                 <%- interestCat.category %>
                                                 <img src="<%= interestCat.categoryIcon %>">
                                             </div>
@@ -154,7 +167,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.experience.backgroundImg %>); color: <%= resume.experience.fontColor %>;">
     		        <div class="work-experience-section">
         		        <div class="title">
-        		            <h2><i class="building outline icon small"></i> Work Experience <i class="building outline icon small"></i></h2>
+        		            <h2><i class="building outline icon small flipImg"></i> Work Experience <i class="building outline icon small"></i></h2>
         		        </div>
         		        <div class="experience-all">
         	                <!--Loop through work experience-->
@@ -194,7 +207,7 @@
     		    <section class="section-background" style="background-image: url(<%= resume.education.backgroundImg %>); color: <%= resume.education.fontColor %>;">
     		        <div class="education-section">
         		        <div class="title">
-        		            <h2><i class="address book outline icon small"></i> Education <i class="address book outline icon small"></i></h2>
+        		            <h2><i class="address book outline icon small flipImg"></i> Education <i class="address book outline icon small"></i></h2>
         		        </div>
         		        <div class="education-all">
         	                <!--Loop through education-->
@@ -221,11 +234,11 @@
                                         <% }) %>
                                         </ul>
                                         <p><%= edu.notes %></p>
-                                        <% if(edu.graduated) { %>
-                                        <div id="grad-image-container">
-                                            <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">
-                                        </div>
-                                        <% } %>
+                                        <!--<% if(edu.graduated) { %>-->
+                                        <!--<div id="grad-image-container">-->
+                                        <!--    <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">-->
+                                        <!--</div>-->
+                                        <!--<% } %>-->
                                     </div>
                                     <!--<hr>-->
                                 </div>
@@ -291,45 +304,45 @@
         <section class="footer">
             <div class="social">
                 <a class="ui circular print icon button" href="mailto:<%= user.linkedinEmail %>" title="Email Me">
-                  <i class="at icon"></i>
+                  <i class="at icon "></i>
                 </a>
                 <i class="handshake outline icon"></i>
                 
                 <a class="ui circular print icon button" href="/user/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
-                  <i class="print icon"></i>
+                  <i class="print icon "></i>
                 </a>
                 <i class="handshake outline icon"></i>
                 
                 <% if(user.githubURL) { %>
                     <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank" title="Github">
-                      <i class="github plus icon"></i>
+                      <i class="github plus icon "></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.twitterURL) { %>
                     <a class="ui circular twitter icon button" href="<%= user.twitterURL %>" target="_blank" title="Twitter">
-                      <i class="twitter icon"></i>
+                      <i class="twitter icon "></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.instagramURL) { %>
                     <a class="ui circular instagram icon button" href="<%= user.instagramURL %>" target="_blank" title="Instagram">
-                      <i class="instagram icon"></i>
+                      <i class="instagram icon "></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <% if(user.facebookURL) { %>
                     <a class="ui circular facebook icon button" href="<%= user.facebookURL %>" target="_blank" title="Facebook">
-                      <i class="facebook icon"></i>
+                      <i class="facebook icon "></i>
                     </a>
                     <i class="handshake outline icon"></i>
                 <% } %>
                 
                 <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank" title="LinkedIn">
-                  <i class="linkedin icon"></i>
+                  <i class="linkedin icon "></i>
                 </a>
             </div>
             <span id="builtby">

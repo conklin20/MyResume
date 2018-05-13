@@ -2,7 +2,7 @@ var express             = require("express"),
     User                = require("../../models/users"),
     CoverLetter         = require("../../models/coverletters"),
     authMiddleware      = require("../../middleware/auth.js"),
-    sanitizeMiddleware  = require("../../middleware/sanitize.js"),
+    // sanitizeMiddleware  = require("../../middleware/sanitize.js"),
     router              = express.Router();
 
 // **********************
@@ -43,7 +43,7 @@ router.post('/user/:userID/coverletter', authMiddleware.isAccountOwner, function
             res.redirect("/user/" + req.params.userID); 
         } else {
             //Save the CoverLetter to the DB
-            CoverLetter.create(req.body.coverLetter, sanitizeMiddleware.sanitize, function(err, coverLetter) {
+            CoverLetter.create(req.body.coverLetter, function(err, coverLetter) {
                 if (err) {
                     console.log(err); 
                     // req.flash('error', err.message);
@@ -78,7 +78,7 @@ router.get('/user/:userID/coverletter/:clID/edit', authMiddleware.isAccountOwner
 });
 
 // UPDATE
-router.put('/user/:userID/coverletter/:clID', authMiddleware.isAccountOwner, sanitizeMiddleware.sanitize, function(req, res){
+router.put('/user/:userID/coverletter/:clID', authMiddleware.isAccountOwner,  function(req, res){
     //lookup and update cover letter
     CoverLetter.findByIdAndUpdate(req.params.clID, req.body.coverLetter, function(err, updatedCL){
         if(err){
