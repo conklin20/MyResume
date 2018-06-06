@@ -27,6 +27,7 @@ var resumeSchema = new mongoose.Schema({
         details: [{
             category: String,
             categoryIcon: String,
+            hideOnPrint: Boolean,
             skill: [{
                 skillName: String,
                 proficiency: Number
@@ -40,6 +41,7 @@ var resumeSchema = new mongoose.Schema({
         details: [{
             category: String,
             categoryIcon: String,
+            hideOnPrint: Boolean,
             interest: []
         }]
     },
@@ -55,7 +57,8 @@ var resumeSchema = new mongoose.Schema({
             city: String,
             state: String,
             url: String, 
-            logo: String, 
+            logo: String,
+            hideOnPrint: Boolean,
             responsibilities: []
         }]
     },
@@ -76,6 +79,7 @@ var resumeSchema = new mongoose.Schema({
             graduated: Boolean,
             url: String, 
             logo: String, 
+            hideOnPrint: Boolean,
             achievements: []
         }]
     },
@@ -83,6 +87,7 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             quote: String, 
             by: String
@@ -97,6 +102,7 @@ var resumeSchema = new mongoose.Schema({
             summary: String, 
             backgroundImg: String,
             fontColor: String,
+            hideOnPrint: Boolean,
             bulletItems: []
         }]
     }

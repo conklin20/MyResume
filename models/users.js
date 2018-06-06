@@ -19,6 +19,9 @@ var userSchema = new mongoose.Schema({
     instagramURL: String, 
     twitterURL: String, 
     githubURL: String,
+    defaults: {
+        resume: mongoose.Schema.Types.ObjectId
+    },
     resumes: [
         {
             type: mongoose.Schema.Types.ObjectId,

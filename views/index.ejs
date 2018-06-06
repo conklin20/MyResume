@@ -25,7 +25,7 @@
         <!--Main-->
         <main style="color: <%= resume.fontColor %>">
             <!--Landing Page Section-->
-            <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>;">
+            <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>; order: -1; ">
                 <div class="introduction"><h3><%- resume.introduction %></h3></div>
                 <div class="elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
     		    <% if(coverLetter) { %>
@@ -57,14 +57,15 @@
                     <!--    </button>-->
                     <!--</div>-->
     		    <% } %>
-		    
+    		    
 		    </section>
 		    <!--Timeline Section-->
 		    <% if(resume.timeline.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.timeline.backgroundImg %>); color: <%= resume.timeline.fontColor %>; order: <%= resume.timeline.order %>; ">
     		        <div class="timeline-section">
         		        <div class="title">
-        		            <h2><i class="clock outline icon small flipImg"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>
+        		            <!--<h2><i class="clock outline icon small flipImg"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>-->
+        		            <h2> Notable Timeline Events </h2>
         		        </div>
         		        <div class="events-all">
         		            <% resume.timeline.details.forEach(function(event, idx){ %>
@@ -97,10 +98,11 @@
 		    
 		    <!--Skills Section-->
 		    <% if(resume.skills.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;  order: <%= resume.skills.order %>; ">
     		        <div class="skills-section">
         		        <div class="title">
-        		            <h2><i class="star outline icon small flipImg"></i> Notable Skills <i class="star outline icon small"></i></h2>
+        		            <!--<h2><i class="star outline icon small flipImg"></i> What I Am Good At <i class="star outline icon small"></i></h2>-->
+        		            <h2> What I Am Good At </h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -131,10 +133,11 @@
 		    
 		    <!--Interests Section-->
 		    <% if(resume.interests.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>; order: <%= resume.interests.order %>; ">
     		        <div class="interests-section">
         		        <div class="title">
-        		            <h2><i class="thumbs up outline icon small flipImg"></i> Interests <i class="thumbs up outline icon small"></i></h2>
+        		            <!--<h2><i class="thumbs up outline icon small flipImg"></i> Things I Like <i class="thumbs up outline icon small"></i></h2>-->
+        		            <h2> Things I Like </h2>
         		        </div>
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
@@ -164,10 +167,11 @@
 		    
 		    <!--Work Experience Section-->
 		    <% if(resume.experience.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.experience.backgroundImg %>); color: <%= resume.experience.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.experience.backgroundImg %>); color: <%= resume.experience.fontColor %>; order: <%= resume.experience.order %>; ">
     		        <div class="work-experience-section">
         		        <div class="title">
-        		            <h2><i class="building outline icon small flipImg"></i> Work Experience <i class="building outline icon small"></i></h2>
+        		            <!--<h2><i class="building outline icon small flipImg"></i> What I've Done <i class="building outline icon small"></i></h2>-->
+        		            <h2> What I've Done </h2>
         		        </div>
         		        <div class="experience-all">
         	                <!--Loop through work experience-->
@@ -204,10 +208,11 @@
     		
 		    <!--Education Section-->
 		    <% if(resume.education.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.education.backgroundImg %>); color: <%= resume.education.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.education.backgroundImg %>); color: <%= resume.education.fontColor %>; order: <%= resume.education.order %>; ">
     		        <div class="education-section">
         		        <div class="title">
-        		            <h2><i class="address book outline icon small flipImg"></i> Education <i class="address book outline icon small"></i></h2>
+        		            <!--<h2><i class="address book outline icon small flipImg"></i> Where I've Learned Things <i class="address book outline icon small"></i></h2>-->
+        		            <h2> Where I've Learned Things </h2>
         		        </div>
         		        <div class="education-all">
         	                <!--Loop through education-->
@@ -250,10 +255,11 @@
 		    
 		    <!--Quotes Section-->
 		    <% if(resume.quotes.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.quotes.backgroundImg %>); color: <%= resume.quotes.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.quotes.backgroundImg %>); color: <%= resume.quotes.fontColor %>; order: <%= resume.quotes.order %>; ">
     		        <div class="quotes-section">
         		        <div class="title">
-        		            <h2><i class="quote left outline icon small"></i> Quotes That I Like <i class="quote right outline icon small"></i></h2>
+        		            <!--<h2><i class="quote left outline icon small"></i> Quotes That I Like <i class="quote right outline icon small"></i></h2>-->
+        		            <h2> Quotes That I Like </h2>
         		        </div>
         		        <div class="quotes-all">
                             <!--Loop through other items-->
@@ -276,7 +282,7 @@
 		    
 		    <!--Other Section-->
 		    <% if(resume.other.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.other.backgroundImg %>); color: <%= resume.other.fontColor %>;">
+    		    <section class="section-background" style="background-image: url(<%= resume.other.backgroundImg %>); color: <%= resume.other.fontColor %>; order: <%= resume.other.order %>; ">
     		        <div class="other-section">
                         <!--Loop through other items-->
                         <% resume.other.details.forEach(function(section){ %>
@@ -348,7 +354,7 @@
             <span id="builtby">
                 <div>This site was built by <a href="http://www.caryconklin.com/cary">Cary Conklin</a></div>
                 <br>
-                <div>Sign up today and build your own page at <a href="http://www.scrollwith.me">scrollwith.me</a></div>
+                <div>Like this online resume? Sign up and build your own at <a href="http://www.scrollwith.me">scrollwith.me</a></div>
             </span>
 	    </section>
 	    

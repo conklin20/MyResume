@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resume</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Custom CSS-->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/printStyles/traditional.css">
+    </head>
+    <body>
+        <!--Header Section-->
+        <header>
+            <div class="name"><%= user.linkedinFirstName + " " + user.linkedinLastName %></div>
+            <div class="contact">
+                <span><%- user.city + ", " + user.state %></span>
+                <br>
+                <span><i class="fa fa-envelope"></i><a href="mailto:<%- user.linkedinEmail %>"><%- user.linkedinEmail %></a><i class="fa fa-phone"></i></span>
+                <span><%- user.phone %></span>
+            </div>
+        </header>
+        <hr>
+        
+        <!--Main Section-->
+        <main>
+		    <% if(resume.objective) { %>
+                <section class="objective">
+                    <!--Loop through the work experience array-->
+                    <h3>Objective</h3>
+                    <hr>
+                    <p>
+                        <%- resume.objective %>
+                    </p>
+                </section>
+		    <% } %>
+            
+		    <% if(resume.careerSummary) { %>
+                <section class="careerSummary">
+                    <h3>Career Summary</h3>
+                    <hr>
+                    <p>
+                        <%- resume.careerSummary %>
+                    </p>
+                </section>
+		    <% } %>
+            
+		    <% if(resume.experience) { %>
+                <section style='order: <%= resume.experience.order %>;'>
+                    <div class="section-header">
+                        <h3>Work Experience</h3>
+                        <hr>
+                    </div>
+                    <!--Loop through the work experience array-->
+                    <% resume.experience.details.forEach(function(workExp) { %>
+                        <% if(!workExp.hideOnPrint) { %>
+                            <div style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
+                                <div class="section-h1">  
+                                    <span><%- workExp.companyName %></span>
+                                    <span><%- moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
+                                </div>  
+                                <div class="section-h2">  
+                                    <span><%- workExp.title %></span>
+                                    <span><%- workExp.city.trim() + ", " + workExp.state %></span>
+                                </div>  
+                                <ul class="responsibilities">
+                                    <!--Loop through responsibilities-->
+                                    <% workExp.responsibilities.forEach(function(responsibility) { %>
+                                        <li>
+                                            <%- responsibility %>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+		                <% } %>
+                    <% }) %>
+                </section>
+		    <% } %>
+            
+		    <% if(resume.education) { %>
+                <section style='order: <%= resume.education.order %>;'>
+                    <div class="section-header">
+                        <h3>Education</h3>
+                        <hr>
+                    </div>
+                    <!--Loop through the education array-->
+                    <% resume.education.details.forEach(function(edu) { %>
+                        <% if(!edu.hideOnPrint) { %>
+                            <div style="order: <%= - edu.startDate.getTime() / 100000 %>;">
+                                <div class="section-h1">  
+                                    <span><%- edu.instituteName %></span>
+                                    <span><%- moment(edu.startDate).format('MMMM YYYY') + " - " + (edu.endDate ? moment(edu.endDate).format('MMMM YYYY') : 'Current') %></span>
+                                </div>  
+                                <div class="section-h2">  
+                                    <span><%- edu.degree.trim() + ", " + edu.areaOfStudy %></span>
+                                    <span><%- edu.city.trim() + ", " + edu.state %></span>
+                                </div>  
+                                <ul class="achievements">
+                                    <!--Loop through achievements-->
+                                    <% edu.achievements.forEach(function(achievement) { %>
+                                        <li>
+                                            <%- achievement %>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+		                <% } %>
+                    <% }) %>
+                </section>
+		    <% } %>
+            
+		    <% if(resume.skills) { %>
+                <section style='order: <%= resume.skills.order %>;'>
+                    <div class="section-header">
+                        <h3>Skills</h3>
+                        <hr>
+                    </div>
+                    <ul class="skills">
+                        <!--Loops through skills-->
+                        <% resume.skills.details.forEach(function(skill){ %>
+                            <% if(!skill.hideOnPrint) { %>
+                                <li><%- skill.category %></li>
+                                <ul>
+                                    <% var skillStr = ""; %>
+                                    <% for(var i=0; i < skill.skill.length; i++){ %>
+                                        <% skillStr += skill.skill[i].skillName.trim() + ", " %>
+                                    <% }; %>
+                                    <li><%- skillStr.slice(0, -2); %></li>
+                                </ul>
+    		                <% } %>
+                        <% }); %>
+                    </ul>
+                </section>            
+		    <% } %>
+            
+		    <% if(resume.interests) { %>
+                <section style='order: <%= resume.interests.order %>;'>
+                    <div class="section-header">
+                        <h3>Interests</h3>
+                        <hr>
+                    </div>
+                    <ul class="interests">
+                        <!--Loop through interests-->
+                        <% resume.interests.details.forEach(function(interest){ %>
+                            <% if(!interest.hideOnPrint) { %>
+                                <li><%- interest.category %></li>
+                                <ul>
+                                    <% var interestStr = ""; %>
+                                    <% for(var i=0; i < interest.interest.length; i++){ %>
+                                        <% interestStr += interest.interest[i].interest.trim() + ", " %>
+                                    <% }; %>
+                                    <li><%- interestStr.slice(0, -2); %></li>
+                                </ul>
+    		                <% } %>
+                        <% }); %>
+                    </ul>
+                </section>   
+		    <% } %>
+            
+		    <% if(resume.quotes && (!resume.quotes.hideOnPrint)) { %>
+                <section style='order: <%= resume.quotes.order %>;'>
+                    <div class="section-header">
+                        <h3>Quotes I Like</h3>
+                        <hr>
+                    </div>
+                    <ul class="quotes">
+                        <!--Loop through interests-->
+                        <% resume.quotes.details.forEach(function(quote){ %>
+                            <% if(!quote.hideOnPrint) { %>
+                                <li><%- quote.quote  %> <span><%- '- ' + quote.by  %></span> </li>
+    		                <% } %>
+                        <% }); %>
+                    </ul>
+                </section>   
+		    <% } %>
+            
+            
+            <% if(resume.other) { %>
+                <section style='order: <%= resume.other.order %>;'>
+                    <div class="section-header">
+                        <!--loop through 'other' content -->
+                        <% resume.other.details.forEach(function(otherSection) { %>
+                            <% if(!otherSection.hideOnPrint) { %>
+                                <h3><%- otherSection.title %></h3>
+                                <hr>
+                                <p><%- otherSection.summary %></p>
+                                <ul class="other">
+                                    <!--Loops through skills-->
+                                    <% otherSection.bulletItems.forEach(function(item){ %>
+                                        <li><%- item %></li>
+                                    <% }); %>
+                                </ul>
+    		                <% } %>
+    		                <br>
+                        <% }) %>
+                    </div>
+                </section>
+            <% } %>
+        </main>
+        
+        <!--Footer Section-->
+        <footer>
+            <p>
+                This resume was built using <a href="http://www.scrollwith.me">scrollwith.me</a> and Your's Truely, <a href="http://www.caryconklin.com/cary"> Cary Conklin</a>
+            </p>
+        </footer>
+    </body>
+</html>

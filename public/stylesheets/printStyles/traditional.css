@@ -1,0 +1,113 @@
+/*Global Styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font: normal 16px "Garamond", sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    
+    width: 1063px;
+    height: 1375px;
+    padding: 0 30px;
+}
+
+main a {
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*Header Section*/
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex: 1 1 5%;
+}
+
+header .name {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+header .contact {
+    text-align: right; 
+    font-size:20px;
+}
+
+header .contact i {
+    padding: 0 10px;
+    /*transform: rotate(45deg);*/
+}
+
+/*Body Section*/
+main {
+    display: flex;
+    flex: 1 1 90%;
+    flex-direction: column; 
+    justify-content: flex-start;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+}
+
+section h3 {
+    text-transform: uppercase;
+}
+
+section ul {
+    margin-left: 30px;
+}
+
+section li {
+}
+
+.quotes span {
+    font-weight: bold;
+}
+
+.section-h1 {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding-top: 5px;
+}
+
+.section-h2 {
+    display: flex;
+    justify-content: space-between;
+    font-style: italic; 
+}
+
+.section-header {
+    order: -999999999;
+    padding-top: 10px;
+}
+
+
+/*Footer Section*/
+footer {
+    display: flex;
+    flex-direction: column;
+}
+
+footer p {
+    text-transform: uppercase;
+    font-size: 14px;
+    opacity: 0.6;
+    align-self: center;
+    padding-top: 5px; 
+    font-size: .7em;
+}

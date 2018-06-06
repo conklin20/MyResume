@@ -103,6 +103,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
         if(err){
           console.log(err);
         } else {
+          var hideOnPrint = false;
           // TIMELINE UPDATES
           //check if a timeline background and font was entered 
           if(req.body.timeline){
@@ -134,17 +135,19 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           //check if a skill was entered 
           if(req.body.skill){
               if(req.body.newSkillCategory){
+                hideOnPrint = req.body.hideOnPrint === 'on' ? true : false; 
                 // if a new category is being entered
                 var newSkillCat = {
                     category: req.body.newSkillCategory,
                     categoryIcon: req.body.newSkillCategoryIcon,
+                    hideOnPrint: hideOnPrint,
                     skill: {
                       skillName: req.body.skill, 
                       proficiency: req.body.proficiency
                     }
                   };
                 foundResume.skills.details.push(newSkillCat);
-            
+                
                 foundResume.save(); 
                 res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
                 return; 
@@ -176,10 +179,12 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           //check if a interest was entered 
           if(req.body.interest){
               if(req.body.newInterestCategory){
+                hideOnPrint = req.body.hideOnPrint === 'on' ? true : false; 
                 // if a new category is being entered
                 var newInterestCat = {
                     category: req.body.newInterestCategory,
                     categoryIcon: req.body.newInterestCategoryIcon,
+                    hideOnPrint: hideOnPrint,
                     interest: {
                       interest: req.body.interest, 
                     }
@@ -214,6 +219,9 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           } 
           //check if a new prior work experience was entered 
           if(req.body.workExp){
+              hideOnPrint = req.body.workExp.hideOnPrint === 'on' ? true : false;
+              req.body.workExp.hideOnPrint = hideOnPrint; 
+              
               foundResume.experience.details.push(req.body.workExp);
           
               foundResume.save(); 
@@ -242,6 +250,9 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           if(req.body.edu){
               var graduated = req.body.edu.graduated === 'on' ? true : false; 
               req.body.edu.graduated = graduated; 
+              hideOnPrint = req.body.edu.hideOnPrint === 'on' ? true : false;
+              req.body.edu.hideOnPrint = hideOnPrint; 
+              
               foundResume.education.details.push(req.body.edu);
           
               foundResume.save(); 
@@ -258,9 +269,13 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           }
           // QUOTES UPDATES
           if(req.body.quotes){
+              hideOnPrint = req.body.quotes.hideOnPrint === 'on' ? true : false;
+              req.body.quotes.hideOnPrint = hideOnPrint; 
+              
               foundResume.quotes.order          = 6; 
               foundResume.quotes.backgroundImg  = req.body.quotes.backgroundImg; 
-              foundResume.quotes.fontColor      = req.body.quotes.fontColor; 
+              foundResume.quotes.fontColor      = req.body.quotes.fontColor;
+              foundResume.quotes.hideOnPrint    = req.body.quotes.hideOnPrint;
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
               return; 
@@ -283,6 +298,9 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               return; 
           }
           if(req.body.other){
+              hideOnPrint = req.body.other.hideOnPrint === 'on' ? true : false;
+              req.body.other.hideOnPrint = hideOnPrint; 
+              
               foundResume.other.details.push(req.body.other);
           
               foundResume.save(); 
@@ -508,7 +526,8 @@ router.get('/user/:userID/resume/:resumeID/print', function(req, res){
       if(err){
         console.log(err);
       } else {
-        res.render('resumePrint', { user: foundUser, resume: foundResume });
+        // res.render('resumePrint', { user: foundUser, resume: foundResume });
+        res.render('prints/traditional', { user: foundUser, resume: foundResume });
       }
     }); 
     }

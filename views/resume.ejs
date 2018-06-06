@@ -62,7 +62,6 @@
         <% } else { %>
             <h1 style="text-align: center;">Edit Resume</h1>
             <div class="row">
-                <!--<a href="/myresume/<%= user._id %>/<%= resume.id %>">View Your Page!</a>-->
                 <a class="btn btn-warning btn-block" href="/<%= user.username %>" target="_blank">View This Resume!</a>
             </div><br>
             <div class="row">
@@ -225,16 +224,47 @@
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Skill Category: </label><br>
-                                <div>
-                                    <select class="form-control" name="category">
-                                        <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
-                                            <option value="<%= catIdx %>"><%= skillCategory.category %></option>
-                                        <% }) %>
-                                    </select>
-                                    <div class="text-center">OR</div>
-                                    <input class="form-control" type="text" name="newSkillCategory" placeholder="new category" >
-                                    <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >
+                                <!--<div>-->
+                                <!--    <select class="form-control" name="category">-->
+                                <!--        <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>-->
+                                <!--            <option value="<%= catIdx %>"><%= skillCategory.category %></option>-->
+                                <!--        <% }) %>-->
+                                <!--    </select>-->
+                                <!--    <div class="text-center">OR</div>-->
+                                <!--    <input class="form-control" type="text" name="newSkillCategory" placeholder="new category" >-->
+                                <!--    <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >-->
+                                <!--    <div class="col-sm-12 nowrap">-->
+                                <!--        <label class="pull-left" for="newSkillHideOnPrint">Hide on Printable Version: </label>-->
+                                <!--        <input class="form-control" type="checkbox" name="newSkillHideOnPrint"  >-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <div class="thumbnail">
+                                    <div class="thumbnail">Pick Existing
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <select class="form-control" name="category">
+                                                    <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
+                                                        <option value="<%= catIdx %>"><%= skillCategory.category %></option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="text-center">OR</div>
+                                    <div class="thumbnail">Create New Category
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input class="form-control" type="text" name="newSkillCategory" placeholder="new category" >
+                                                <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >
+                                                <div class="col-sm-12 nowrap">
+                                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
+                                                    <input class="form-control" type="checkbox" name="hideOnPrint"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                
                             </div>
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skill">Skill: </label>
@@ -273,7 +303,7 @@
                                     <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/skillCategory/<%= catIdx %>?_method=PUT" method="POST">
                                         <label><%= skillCategory.category %></label>
                                         <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
-                                    </form>
+                                    </form>     
                                 </li>
                                 <ul>
                                     <% skillCategory.skill.forEach(function(skill, skillIdx){ %>
@@ -320,15 +350,31 @@
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Interest Category: </label><br>
-                                <div>
-                                    <select class="form-control" name="category">
-                                        <% resume.interests.details.forEach(function(interestCategory, interestIdx){ %>
-                                            <option value="<%= interestIdx %>"><%= interestCategory.category %></option>
-                                        <% }) %>
-                                    </select>
-                                    <div class="text-center">OR</div>
-                                    <input class="form-control" type="text" name="newInterestCategory" placeholder="new interest" >
-                                    <input class="form-control" type="text" name="newInterestCategoryIcon" placeholder="interest icon url" >
+                                <div class="thumbnail">
+                                    <div class="thumbnail">Pick Existing
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <select class="form-control" name="category">
+                                                    <% resume.interests.details.forEach(function(interestCategory, interestIdx){ %>
+                                                        <option value="<%= interestIdx %>"><%= interestCategory.category %></option>
+                                                    <% }) %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="text-center">OR</div>
+                                    <div class="thumbnail">Create New Category
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <input class="form-control" type="text" name="newInterestCategory" placeholder="new interest" >
+                                                <input class="form-control" type="text" name="newInterestCategoryIcon" placeholder="interest icon url" >
+                                                <div class="col-sm-12 ">
+                                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
+                                                    <input class="form-control" type="checkbox" name="hideOnPrint"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -429,13 +475,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <label class="pull-left" for="companyName">Company Site URL: </label>
                                 <input class="form-control" type="text" name="workExp[url]" placeholder="company url">
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <label class="pull-left" for="title">Company Logo or Image: </label>
                                 <input class="form-control" type="text" name="workExp[logo]" placeholder="company logo/image">
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                <input class="form-control" type="checkbox" name="workExp[hideOnPrint]" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -573,7 +623,7 @@
                             <!--</div>-->
                             <div class="col-sm-2">
                                 <label class="pull-left" for="graduated">Graudated: </label>
-                                <input class="form-control" type="checkbox" name="edu[graduated]"  >
+                                <input type="checkbox" name="edu[graduated]"  >
                             </div>
                             <div class="col-sm-10">
                                 <label class="pull-left" for="notes">Notes: </label>
@@ -581,13 +631,17 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <label class="pull-left" for="url">URL: </label>
                                 <input class="form-control" type="text" name="edu[url]" placeholder="url">
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-5">
                                 <label class="pull-left" for="logo">Logo or Image: </label>
                                 <input class="form-control" type="text" name="edu[logo]" placeholder="logo/image">
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                <input type="checkbox" name="edu[hideOnPrint]" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -674,6 +728,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Quote section is all or nothing): </label>
+                                    <input type="checkbox" name="quotes[hideOnPrint]" placeholder="by" >
+                                </div>
+                            </div>  
+                            <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
                                 </div>
@@ -755,6 +815,12 @@
                             <div class="col-sm-12">
                                 <label class="pull-left" for="summary">Summary: </label>
                                 <textarea class="form-control" type="text" name="other[summary]" placeholder="summary of section (can include HTML markup)"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                <input type="checkbox" name="other[hideOnPrint]" >
                             </div>
                         </div>
                         <div class="form-group">
