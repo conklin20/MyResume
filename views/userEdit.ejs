@@ -64,6 +64,21 @@
                         <label class="pull-left" for="email">Email</label>
                         <input class="form-control" type="text" name="user[linkedinEmail]" value= "<%= user.linkedinEmail %>" readonly>
                     </div>
+                </div>     
+                <div class="thumbnail">
+                <p>User Defaults</p>
+                    <div class="form-group">
+                        <label class="pull-left" for="resume">Resume</label>
+                        <input class="form-control" type="text" name="defaults[resume]" value= "<%= user.defaults.resume  %>" >
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="coverLetter">Cover Letter</label>
+                        <input class="form-control" type="text" name="defaults[coverLetter]" value= "<%= user.defaults.coverLetter  %>" >
+                    </div>
+                    <div class="form-group">
+                        <label class="pull-left" for="printTheme">Print Version Theme</label>
+                        <input class="form-control" type="text" name="defaults[printTheme]" value= "<%= user.defaults.printTheme %>" >
+                    </div>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block">Update!</button>

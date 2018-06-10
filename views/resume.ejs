@@ -28,13 +28,13 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label class="pull-left" for="objective">Objective</label>
-                            <textarea class="form-control" type="text" rows="4" name="resume[objective]" placeholder="What is your objective? (optional)"></textarea>
+                            <textarea class="form-control" type="text" rows="4" name="resume[objective]" placeholder="What is your objective? (optional - and only applies to the printable version of your resume)"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
                             <label class="pull-left" for="careerSummary">Career Summary</label>
-                            <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]" placeholder="Summerize your career (optional)"></textarea>
+                            <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]" placeholder="Summerize your career (optional - and only applies to the printable version of your resume)"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -214,6 +214,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.skills.hideOnPrint) { %>
+                                        <input type="checkbox" name="skills[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="skills[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
                                 </div>
@@ -224,20 +234,6 @@
                         <div class="form-group">
                             <div class="col-sm-4">
                                 <label class="pull-left" for="skillCategory">Skill Category: </label><br>
-                                <!--<div>-->
-                                <!--    <select class="form-control" name="category">-->
-                                <!--        <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>-->
-                                <!--            <option value="<%= catIdx %>"><%= skillCategory.category %></option>-->
-                                <!--        <% }) %>-->
-                                <!--    </select>-->
-                                <!--    <div class="text-center">OR</div>-->
-                                <!--    <input class="form-control" type="text" name="newSkillCategory" placeholder="new category" >-->
-                                <!--    <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >-->
-                                <!--    <div class="col-sm-12 nowrap">-->
-                                <!--        <label class="pull-left" for="newSkillHideOnPrint">Hide on Printable Version: </label>-->
-                                <!--        <input class="form-control" type="checkbox" name="newSkillHideOnPrint"  >-->
-                                <!--    </div>-->
-                                <!--</div>-->
                                 <div class="thumbnail">
                                     <div class="thumbnail">Pick Existing
                                         <div class="form-group">
@@ -258,7 +254,7 @@
                                                 <input class="form-control" type="text" name="newSkillCategoryIcon" placeholder="category icon url" >
                                                 <div class="col-sm-12 nowrap">
                                                     <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
-                                                    <input class="form-control" type="checkbox" name="hideOnPrint"  >
+                                                    <input type="checkbox" name="hideOnPrint"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -339,6 +335,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.interests.hideOnPrint) { %>
+                                        <input type="checkbox" name="interests[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="interests[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
                                 </div>
@@ -370,7 +376,7 @@
                                                 <input class="form-control" type="text" name="newInterestCategoryIcon" placeholder="interest icon url" >
                                                 <div class="col-sm-12 ">
                                                     <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
-                                                    <input class="form-control" type="checkbox" name="hideOnPrint"  >
+                                                    <input type="checkbox" name="hideOnPrint"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -438,6 +444,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.experience.hideOnPrint) { %>
+                                        <input type="checkbox" name="experience[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="experience[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
                                 </div>
@@ -485,7 +501,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <label class="pull-left" for="title">Hide on Printable Version: </label>
-                                <input class="form-control" type="checkbox" name="workExp[hideOnPrint]" >
+                                <input type="checkbox" name="workExp[hideOnPrint]" >
                             </div>
                         </div>
                         <div class="form-group">
@@ -572,6 +588,16 @@
                                     <input class="form-control" type="color" name="education[fontColor]" value="<%= resume.education.fontColor %>" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.education.hideOnPrint) { %>
+                                        <input type="checkbox" name="education[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="education[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div> 
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
@@ -729,10 +755,14 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Quote section is all or nothing): </label>
-                                    <input type="checkbox" name="quotes[hideOnPrint]" placeholder="by" >
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.quotes.hideOnPrint) { %>
+                                        <input type="checkbox" name="quotes[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="quotes[hideOnPrint]" >
+                                    <% } %>
                                 </div>
-                            </div>  
+                            </div> 
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
@@ -753,6 +783,12 @@
                                 <textarea class="form-control" type="text" name="quote[quote]" placeholder="quote"></textarea>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
+                                <input type="checkbox" name="quote[hideOnPrint]" >
+                            </div>
+                        </div>  
                         <div class="form-group">
                             <div class="col-sm-4"></div>
                             <div class="col-sm-4">
@@ -797,6 +833,16 @@
                                     <input class="form-control" type="color" name="otherSection[fontColor]" value="<%= resume.other.fontColor %>" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.other.hideOnPrint) { %>
+                                        <input type="checkbox" name="otherSection[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="otherSection[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div> 
                             <div class="form-group">
                                 <div class="col-sm-9">
                                     <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>

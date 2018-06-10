@@ -102,9 +102,16 @@ router.put('/user/:userID', middleware.isAccountOwner, function(req, res){
     if(err){
       console.log(err); 
     } else {
-      res.redirect('/user/' + req.params.userID); 
+      // save defaults
+      updatedUser.defaults.resume       = req.body.defaults.resume; 
+      updatedUser.defaults.coverLetter  = req.body.defaults.coverLetter; 
+      updatedUser.defaults.printTheme   = req.body.defaults.printTheme; 
+      
+      updatedUser.save(); 
+      
+      res.redirect('/user/' + req.params.userID);
     }
-  }); 
+  });
 });
 
 // DELETE

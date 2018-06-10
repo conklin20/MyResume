@@ -107,7 +107,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // TIMELINE UPDATES
           //check if a timeline background and font was entered 
           if(req.body.timeline){
-              foundResume.timeline.order          = 1; 
+              // foundResume.timeline.order          = 1;
               foundResume.timeline.backgroundImg  = req.body.timeline.backgroundImg; 
               foundResume.timeline.fontColor      = req.body.timeline.fontColor; 
               foundResume.save(); 
@@ -125,9 +125,13 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // SKILL UPDATES
           //check if a skill background and font was entered 
           if(req.body.skills){
-              foundResume.skills.order          = 2; 
+              // eval(require("locus"));
+              hideOnPrint = req.body.skills.hideOnPrint === 'on' ? true : false;
+              
+              // foundResume.skills.order          = 2; 
               foundResume.skills.backgroundImg  = req.body.skills.backgroundImg; 
               foundResume.skills.fontColor      = req.body.skills.fontColor; 
+              foundResume.skills.hideOnPrint    = hideOnPrint; 
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepThree");
               return; 
@@ -168,14 +172,16 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // INTEREST UPDATES
           //check if a interest background and font was entered 
           if(req.body.interests){
-              foundResume.interests.order          = 3; 
+              hideOnPrint = req.body.interests.hideOnPrint === 'on' ? true : false;
+              
+              // foundResume.interests.order          = 3; 
               foundResume.interests.backgroundImg  = req.body.interests.backgroundImg; 
               foundResume.interests.fontColor      = req.body.interests.fontColor; 
+              foundResume.interests.hideOnPrint    = hideOnPrint; 
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFour");
               return; 
           }
-          
           //check if a interest was entered 
           if(req.body.interest){
               if(req.body.newInterestCategory){
@@ -210,9 +216,12 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // WORK EXP UPDATES
           //check if a experience background and font was entered 
           if(req.body.experience){
-              foundResume.experience.order          = 4; 
+              hideOnPrint = req.body.experience.hideOnPrint === 'on' ? true : false;
+              
+              // foundResume.experience.order          = 4; 
               foundResume.experience.backgroundImg  = req.body.experience.backgroundImg; 
               foundResume.experience.fontColor      = req.body.experience.fontColor; 
+              foundResume.experience.hideOnPrint    = hideOnPrint; 
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepFive");
               return; 
@@ -239,9 +248,12 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // EDUCATION UPDATES
           //check if a education background and font was entered 
           if(req.body.education){
-              foundResume.education.order          = 5; 
+              hideOnPrint = req.body.education.hideOnPrint === 'on' ? true : false;
+              
+              // foundResume.education.order          = 5;
               foundResume.education.backgroundImg  = req.body.education.backgroundImg; 
               foundResume.education.fontColor      = req.body.education.fontColor; 
+              foundResume.education.hideOnPrint    = hideOnPrint; 
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
@@ -270,17 +282,18 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // QUOTES UPDATES
           if(req.body.quotes){
               hideOnPrint = req.body.quotes.hideOnPrint === 'on' ? true : false;
-              req.body.quotes.hideOnPrint = hideOnPrint; 
               
-              foundResume.quotes.order          = 6; 
-              foundResume.quotes.backgroundImg  = req.body.quotes.backgroundImg; 
+              // foundResume.quotes.order          = 6; 
+              foundResume.quotes.backgroundImg  = req.body.quotes.backgroundImg;
               foundResume.quotes.fontColor      = req.body.quotes.fontColor;
-              foundResume.quotes.hideOnPrint    = req.body.quotes.hideOnPrint;
+              foundResume.quotes.hideOnPrint    = hideOnPrint;
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
               return; 
           }
           if(req.body.quote){
+              hideOnPrint = req.body.quote.hideOnPrint === 'on' ? true : false;
+              req.body.quote.hideOnPrint = hideOnPrint; 
               foundResume.quotes.details.push(req.body.quote);
           
               foundResume.save(); 
@@ -290,9 +303,12 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
           // OTHER SECTION UPDATES
           //check if other content was entered 
           if(req.body.otherSection){
-              foundResume.other.order          = 7; 
+              hideOnPrint = req.body.otherSection.hideOnPrint === 'on' ? true : false;
+              
+              // foundResume.other.order          = 7;
               foundResume.other.backgroundImg  = req.body.otherSection.backgroundImg; 
               foundResume.other.fontColor      = req.body.otherSection.fontColor; 
+              foundResume.other.hideOnPrint    = hideOnPrint; 
               foundResume.save(); 
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
               return; 
@@ -527,7 +543,7 @@ router.get('/user/:userID/resume/:resumeID/print', function(req, res){
         console.log(err);
       } else {
         // res.render('resumePrint', { user: foundUser, resume: foundResume });
-        res.render('prints/traditional', { user: foundUser, resume: foundResume });
+        res.render('prints/resume', { user: foundUser, resume: foundResume });
       }
     }); 
     }

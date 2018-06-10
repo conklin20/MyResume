@@ -3,9 +3,15 @@
     <head>
         <title>Resume</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!--Updating to use version 5 of FA - 6/9/18-->
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
         <!--Custom CSS-->
-        <link rel="stylesheet" type="text/css" href="/stylesheets/printStyles/traditional.css">
+        <% if((user.defaults.printTheme) && user.defaults.printTheme != '') { %>
+            <link rel="stylesheet" type="text/css" href="/stylesheets/printStyles/<%= user.defaults.printTheme %>.css">
+        <% } else { %>
+            <link rel="stylesheet" type="text/css" href="/stylesheets/printStyles/traditional.css">
+        <% } %>
     </head>
     <body>
         <!--Header Section-->
@@ -14,7 +20,7 @@
             <div class="contact">
                 <span><%- user.city + ", " + user.state %></span>
                 <br>
-                <span><i class="fa fa-envelope"></i><a href="mailto:<%- user.linkedinEmail %>"><%- user.linkedinEmail %></a><i class="fa fa-phone"></i></span>
+                <span><i class="fas fa-envelope"></i><a href="mailto:<%- user.linkedinEmail %>"><%- user.linkedinEmail %></a><i class="fas fa-phone"></i></span>
                 <span><%- user.phone %></span>
             </div>
         </header>
@@ -43,7 +49,7 @@
                 </section>
 		    <% } %>
             
-		    <% if(resume.experience) { %>
+		    <% if(resume.experience && (!resume.experience.hideOnPrint)) { %>
                 <section style='order: <%= resume.experience.order %>;'>
                     <div class="section-header">
                         <h3>Work Experience</h3>
@@ -54,12 +60,12 @@
                         <% if(!workExp.hideOnPrint) { %>
                             <div style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
                                 <div class="section-h1">  
-                                    <span><%- workExp.companyName %></span>
+                                    <span><%- workExp.companyName + ' - ' + workExp.city.trim() + ", " + workExp.state %></span>
                                     <span><%- moment(workExp.startDate).format('MMMM YYYY') + " - " + (workExp.endDate ? moment(workExp.endDate).format('MMMM YYYY') : 'Current') %></span>
                                 </div>  
                                 <div class="section-h2">  
                                     <span><%- workExp.title %></span>
-                                    <span><%- workExp.city.trim() + ", " + workExp.state %></span>
+                                    <!--<span><%- workExp.city.trim() + ", " + workExp.state %></span>-->
                                 </div>  
                                 <ul class="responsibilities">
                                     <!--Loop through responsibilities-->
@@ -75,7 +81,7 @@
                 </section>
 		    <% } %>
             
-		    <% if(resume.education) { %>
+		    <% if(resume.education && (!resume.education.hideOnPrint)) { %>
                 <section style='order: <%= resume.education.order %>;'>
                     <div class="section-header">
                         <h3>Education</h3>
@@ -84,14 +90,17 @@
                     <!--Loop through the education array-->
                     <% resume.education.details.forEach(function(edu) { %>
                         <% if(!edu.hideOnPrint) { %>
-                            <div style="order: <%= - edu.startDate.getTime() / 100000 %>;">
+                                 <!--if graduated, order by end date DESC - if not, order by start date ASC-->
+                            <div style="order: <%= edu.graduated ? -edu.endDate.getTime() / 100000 : edu.startDate.getTime() / 100000 %>;">
                                 <div class="section-h1">  
-                                    <span><%- edu.instituteName %></span>
+                                    <span><%- edu.instituteName + ' - ' + edu.city.trim() + ", " + edu.state %></span>
                                     <span><%- moment(edu.startDate).format('MMMM YYYY') + " - " + (edu.endDate ? moment(edu.endDate).format('MMMM YYYY') : 'Current') %></span>
                                 </div>  
                                 <div class="section-h2">  
                                     <span><%- edu.degree.trim() + ", " + edu.areaOfStudy %></span>
-                                    <span><%- edu.city.trim() + ", " + edu.state %></span>
+                                    <% if(edu.graduated) { %>
+                                        <span>Graduated  <i class="fas fa-graduation-cap"></i></span>
+                                    <% } %>
                                 </div>  
                                 <ul class="achievements">
                                     <!--Loop through achievements-->
@@ -107,31 +116,51 @@
                 </section>
 		    <% } %>
             
-		    <% if(resume.skills) { %>
+		    <% if(resume.skills && (!resume.skills.hideOnPrint)) { %>
                 <section style='order: <%= resume.skills.order %>;'>
                     <div class="section-header">
                         <h3>Skills</h3>
                         <hr>
                     </div>
-                    <ul class="skills">
-                        <!--Loops through skills-->
+                    <!--Loops through skills-->
+                    <div class="skills">
                         <% resume.skills.details.forEach(function(skill){ %>
                             <% if(!skill.hideOnPrint) { %>
-                                <li><%- skill.category %></li>
                                 <ul>
-                                    <% var skillStr = ""; %>
-                                    <% for(var i=0; i < skill.skill.length; i++){ %>
-                                        <% skillStr += skill.skill[i].skillName.trim() + ", " %>
-                                    <% }; %>
-                                    <li><%- skillStr.slice(0, -2); %></li>
+                                    <li><%- skill.category %></li>
+                                    <ul>
+                                        <% for(var i=0; i < skill.skill.length; i++){ %>
+                                            <li class="skill">
+                                                <!--clunky workaround, but display: flex overrides display: list-item-->
+                                                <%- 'o ' + skill.skill[i].skillName.trim() %>
+                                                
+                                                <!--loop through the 5 star proficiency scale-->
+                                                <% var proficiency = skill.skill[i].proficiency %>
+                                                <span class="proficiency">
+                                                <% for(var j=1; j<=5; j++){ %>
+                                                    <% if(proficiency >= j) { %>
+                                                        <i class="fas fa-circle fa-xs"></i>
+                                                    <% } else { %>
+                                                        <!--check for halves-->
+                                                        <% if(proficiency >= j-.5) { %>
+                                                            <i class="fas fa-adjust fa-xs"></i>
+                                                        <% } else { %>
+                                                            <i class="far fa-circle fa-xs"></i>
+                                                        <% } %>
+                                                    <% } %>
+                                                <% } %>
+                                                </span>
+                                            </li>
+                                        <% }; %>
+                                    </ul>
                                 </ul>
     		                <% } %>
                         <% }); %>
-                    </ul>
+                    </div>
                 </section>            
 		    <% } %>
             
-		    <% if(resume.interests) { %>
+		    <% if(resume.interests && (!resume.interests.hideOnPrint)) { %>
                 <section style='order: <%= resume.interests.order %>;'>
                     <div class="section-header">
                         <h3>Interests</h3>
@@ -169,11 +198,10 @@
     		                <% } %>
                         <% }); %>
                     </ul>
-                </section>   
+                </section>
 		    <% } %>
             
-            
-            <% if(resume.other) { %>
+            <% if(resume.other && (!resume.other.hideOnPrint)) { %>
                 <section style='order: <%= resume.other.order %>;'>
                     <div class="section-header">
                         <!--loop through 'other' content -->

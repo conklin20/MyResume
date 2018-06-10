@@ -20,7 +20,9 @@ var userSchema = new mongoose.Schema({
     twitterURL: String, 
     githubURL: String,
     defaults: {
-        resume: mongoose.Schema.Types.ObjectId
+        resume: String, //mongoose.Schema.Types.ObjectId, 
+        coverLetter: String, //mongoose.Schema.Types.ObjectId,
+        printTheme: String
     },
     resumes: [
         {

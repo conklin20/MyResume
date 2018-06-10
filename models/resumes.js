@@ -24,6 +24,7 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             category: String,
             categoryIcon: String,
@@ -38,6 +39,7 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             category: String,
             categoryIcon: String,
@@ -49,6 +51,7 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             companyName: String,
             title: String,
@@ -66,6 +69,7 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             instituteName: String,
             city: String,
@@ -90,13 +94,15 @@ var resumeSchema = new mongoose.Schema({
         hideOnPrint: Boolean,
         details: [{
             quote: String, 
-            by: String
+            by: String,
+            hideOnPrint: Boolean
         }]
     },
     other: { 
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        hideOnPrint: Boolean,
         details: [{
             title: String, 
             summary: String, 
