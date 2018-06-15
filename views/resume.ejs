@@ -736,6 +736,135 @@
                 </div>
             </div>
             <hr>
+            <!--PROJECT SECTION-->
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        </a href="#stepEight"><h2 id="stepEight" name="stepEight" style="text-align: center;">Projects</h2>
+                        <div class="thumbnail">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control" type="text" name="projects[backgroundImg]" value="<%= resume.projects.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control" type="color" name="projects[fontColor]" value="<%= resume.projects.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version (Hides Entire Section): </label>
+                                    <% if(resume.projects.hideOnPrint) { %>
+                                        <input type="checkbox" name="projects[hideOnPrint]" checked>
+                                    <% } else { %>
+                                        <input type="checkbox" name="projects[hideOnPrint]" >
+                                    <% } %>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btnAddTimelineEvent" class="btn btn-primary">Set Text and Background</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form id="#stepEight" class="form-horizontal stepEight" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <label class="pull-left" for="name">Project Name: </label>
+                                <input class="form-control" type="text" name="project[name]" placeholder="name" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="pull-left" for="name">Project Description: </label>
+                                <input class="form-control" type="text" name="project[description]" placeholder="description" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-5">
+                                <label class="pull-left" for="companyName">Project Site URL: </label>
+                                <input class="form-control" type="text" name="project[url]" placeholder="project url">
+                            </div>
+                            <div class="col-sm-5">
+                                <label class="pull-left" for="title">Project Logo or Image: </label>
+                                <input class="form-control" type="text" name="project[logo]" placeholder="project logo/image">
+                            </div>
+                            <div class="col-sm-2">
+                                <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                <input type="checkbox" name="project[hideOnPrint]" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary btn-block">Add Project</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <form class="form-horizontal stepEight" action="/user/<%= user._id %>/resume/<%= resume.id %>?_method=PUT" method="POST">  
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="name">Project: </label><br>
+                                <div>
+                                    <select class="form-control" name="projectDetail[name]">
+                                        <% if(resume.projects) { %>
+                                            <% resume.projects.details.forEach(function(project, projectIdx){ %>
+                                                <option value="<%= projectIdx %>"><%= project.name %></option>
+                                            <% }) %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <label class="pull-left" for="item">Bullet Item: </label>
+                                <textarea class="form-control" type="text" name="projectDetail[item]" placeholder="bullet item detail (can include HTML markup)"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <button id="btnAddTimelineEvent" class="btn btn-primary btn-block">Add Bullet Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <ul>
+                    <% resume.projects.details.forEach(function(project, projectIdx){ %>
+                        <li>
+                            <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/project/<%= projectIdx %>?_method=PUT" method="POST">
+                                <%= project.name %>
+                                <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
+                            </form>
+                        </li>
+                        <ul>
+                            <% project.projectDetail.forEach(function(projectDetail, projectDetailIdx){ %>
+                                <li>
+                                    <form action="/user/<%=  user._id %>/resume/<%= resume.id %>/education/<%= projectIdx %>/achv/<%= projectDetailIdx %>?_method=PUT" method="POST">
+                                        <%= projectDetail %>
+                                        <button class="btn btn-xs"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% }) %>
+                    </ul>
+                </div>
+            </div>
+            <hr>
             <!--QUOTES SECTION-->
             <div class="row">
                 <div class="col-sm-2"></div>

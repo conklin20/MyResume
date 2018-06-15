@@ -87,6 +87,32 @@ var resumeSchema = new mongoose.Schema({
             achievements: []
         }]
     },
+    projects: { 
+        order: Number, 
+        backgroundImg: String,
+        fontColor: String,
+        hideOnPrint: Boolean,
+        details: [{
+            name: String,
+            description: String,
+            url: String, 
+            logo: String,
+            hideOnPrint: Boolean,
+            projectDetail: []
+        }]
+    },
+    // volunteerWork: { 
+    //     order: Number, 
+    //     backgroundImg: String,
+    //     fontColor: String,
+    //     hideOnPrint: Boolean,
+    //     details: [{
+    //         name: String,
+    //         desc: String,
+    //         hideOnPrint: Boolean,
+    //         interest: []
+    //     }]
+    // },
     quotes: { 
         order: Number, 
         backgroundImg: String,

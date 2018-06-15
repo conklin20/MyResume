@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Resume</title>
+        <title><%= resume.alias %></title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!--Updating to use version 5 of FA - 6/9/18-->
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -20,8 +20,12 @@
             <div class="contact">
                 <span><%- user.city + ", " + user.state %></span>
                 <br>
-                <span><i class="fas fa-envelope"></i><a href="mailto:<%- user.linkedinEmail %>"><%- user.linkedinEmail %></a><i class="fas fa-phone"></i></span>
-                <span><%- user.phone %></span>
+                <span>
+                    <!--<i class="fas fa-envelope"></i>-->
+                    <a href="mailto:<%- user.linkedinEmail %>"> <%- user.linkedinEmail %></a>
+                    <!--<i class="fas fa-phone"></i>-->
+                </span>
+                <span><%- ' | ' + user.phone %></span>
             </div>
         </header>
         <hr>
@@ -65,6 +69,11 @@
                                 </div>  
                                 <div class="section-h2">  
                                     <span><%- workExp.title %></span>
+                                    <% if(moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'months') < 12) { %>
+                                        <span><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'months') + ' months' %></span>
+                                    <% } else { %>
+                                        <span><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'years') + ' years' %></span>
+                                    <% } %>
                                     <!--<span><%- workExp.city.trim() + ", " + workExp.state %></span>-->
                                 </div>  
                                 <ul class="responsibilities">
@@ -99,7 +108,7 @@
                                 <div class="section-h2">  
                                     <span><%- edu.degree.trim() + ", " + edu.areaOfStudy %></span>
                                     <% if(edu.graduated) { %>
-                                        <span>Graduated  <i class="fas fa-graduation-cap"></i></span>
+                                        <span>Graduated</span> <!-- <i class="fas fa-graduation-cap"></i>-->
                                     <% } %>
                                 </div>  
                                 <ul class="achievements">
@@ -127,7 +136,7 @@
                         <% resume.skills.details.forEach(function(skill){ %>
                             <% if(!skill.hideOnPrint) { %>
                                 <ul>
-                                    <li><%- skill.category %></li>
+                                    <li class="skill-category"><%- skill.category %></li>
                                     <ul>
                                         <% for(var i=0; i < skill.skill.length; i++){ %>
                                             <li class="skill">
@@ -182,6 +191,37 @@
                         <% }); %>
                     </ul>
                 </section>   
+		    <% } %>
+		    
+		    <% if(resume.projects && (!resume.projects.hideOnPrint)) { %>
+                <section style='order: <%= resume.projects.order %>;'>
+                    <div class="section-header">
+                        <h3>Side Projects & Relevant Experience</h3>
+                        <hr>
+                    </div>
+                    <!--Loop through the projects array-->
+                    <% resume.projects.details.forEach(function(project) { %>
+                        <% if(!project.hideOnPrint) { %>
+                            <div>
+                                <div class="section-h1">  
+                                    <span><%- project.name %></span>
+                                </div>  
+                                <p>  
+                                    <%- project.description %>
+                                </p>  
+                                <ul class="responsibilities">
+                                    <!--Loop through details-->
+                                    <% project.projectDetail.forEach(function(detail) { %>
+                                        <li>
+                                            <%- detail %>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+                            </div>
+		                <% } %>
+                    <% }) %>
+                </section>   
+		    
 		    <% } %>
             
 		    <% if(resume.quotes && (!resume.quotes.hideOnPrint)) { %>

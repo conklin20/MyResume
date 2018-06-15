@@ -279,6 +279,37 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSix");
               return; 
           }
+          //PROJECTS UPDATES 
+          // check if projects background and font was entered 
+          if(req.body.projects){
+              hideOnPrint = req.body.projects.hideOnPrint === 'on' ? true : false; 
+            
+              foundResume.projects.backgroundImg  = req.body.projects.backgroundImg; 
+              foundResume.projects.fontColor      = req.body.projects.fontColor; 
+              foundResume.projects.hideOnPrint    = hideOnPrint; 
+              foundResume.save(); 
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              return;   
+          }
+          //check if a prior project has been added 
+          if(req.body.project){
+              hideOnPrint = req.body.project.hideOnPrint === 'on' ? true : false;
+              req.body.project.hideOnPrint = hideOnPrint; 
+              
+              foundResume.projects.details.push(req.body.project);
+          
+              foundResume.save(); 
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              return; 
+          }
+          //check if project details have been added  
+          if(req.body.projectDetail){
+              foundResume.projects.details[req.body.projectDetail.name].projectDetail.push(req.body.projectDetail.item);
+          
+              foundResume.save(); 
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              return; 
+          }
           // QUOTES UPDATES
           if(req.body.quotes){
               hideOnPrint = req.body.quotes.hideOnPrint === 'on' ? true : false;

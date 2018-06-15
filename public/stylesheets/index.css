@@ -243,14 +243,14 @@ Landing page section
 
 .introduction {
     animation: 4s slidefadeIn 1s forwards;
-    padding-top: 5%; 
+    padding-top: 2%; 
 }
 
 .elevator-pitch {
     animation: 10s slidefadeIn 4s forwards;
     flex-grow: 2; 
     margin: auto 20%; 
-    padding: 10% 5%;
+    padding: 4% 5%;
 }
 
 @keyframes slidefadeIn {
@@ -497,7 +497,8 @@ Footer Section
     justify-content: space-around;
     text-align: center;
     margin: 2% auto; 
-    height: 20vh;
+    height: 20vh; 
+    color: #A29A99;
 }
 
 /*a:hover {*/
