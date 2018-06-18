@@ -7,7 +7,7 @@
 }
 
 html {
-    font: normal 13pt "Garamond", sans-serif;
+    font: normal "Garamond", sans-serif;
 }
 
 body {
@@ -106,13 +106,18 @@ section ul {
 
 .skill-category {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.1em;
     padding-top: 10px;
 }
 
 .proficiency {
     padding-left: 5px;
 }
+
+.proficiency i {
+    margin-right: -3px; /*narrow spacing between circle icons*/
+}
+
 
 /*Footer Section*/
 footer {

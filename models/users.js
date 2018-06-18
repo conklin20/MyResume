@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     defaults: {
         resume: String, //mongoose.Schema.Types.ObjectId, 
         coverLetter: String, //mongoose.Schema.Types.ObjectId,
-        printTheme: String
+        printTheme: String, 
+        printFontSize: Number 
     },
     resumes: [
         {

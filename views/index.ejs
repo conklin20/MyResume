@@ -152,7 +152,7 @@
                                             <div class"all-interests">
                             		            <% interestCat.interest.forEach(function(interest){ %>
                                                     <div>
-                                                        <p><%- interest.interest %></p>
+                                                        <p id="interest"><%- interest.interest %></p>
                                                     </div>
                                                 <% }) %>
                                             </div>
@@ -253,6 +253,45 @@
                 </section>
             <% } %>
 		    
+		    <!--Projects Section-->
+		    <% if(resume.projects.details.length > 0) { %>
+    		    <section class="section-background" style="background-image: url(<%= resume.projects.backgroundImg %>); color: <%= resume.projects.fontColor %>; order: <%= resume.projects.order %>; ">
+    		        <div class="projects-section">
+        		        <div class="title">
+        		            <!--<h2><i class="address book outline icon small flipImg"></i> Where I've Learned Things <i class="address book outline icon small"></i></h2>-->
+        		            <h2> Side Projects & Relevant Experience </h2>
+        		        </div>
+        		        <div class="projects-all">
+        	                <!--Loop through education-->
+        	                <% resume.projects.details.forEach(function(project){ %>
+        	                                            <!--Sort by Start Date, Desc-->
+        	                    <div class="project">
+                                    <div class="project-image">
+                                        <a href="<%= project.url %>"  target="_blank">
+                                            <img src="<%= project.logo %>">
+                                        </a>
+                                    </div>
+                                    <div class="project-detail">
+                                        <span class="project-headers">
+                                            <h4> <%= project.name %> </h4>
+                                        </span>
+                                        <span class="project-headers">
+                                            <h5> <%= project.description %> </h5>
+                                        </span>  
+                                        <ul>
+                                            <% project.projectDetail.forEach(function(detail){ %>
+                                                <li> <%- detail %> </li>
+                                            <% }) %>
+                                        </ul>
+                                    </div>
+                                    <!--<hr>-->
+                                </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </section>
+            <% } %>
+            
 		    <!--Quotes Section-->
 		    <% if(resume.quotes.details.length > 0) { %>
     		    <section class="section-background" style="background-image: url(<%= resume.quotes.backgroundImg %>); color: <%= resume.quotes.fontColor %>; order: <%= resume.quotes.order %>; ">

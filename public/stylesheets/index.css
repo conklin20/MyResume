@@ -53,7 +53,8 @@ Shared
 .work-experience-section, 
 .education-section,  
 .quotes-section, 
-.other-section {
+.other-section,
+.projects-section {
     text-align: center; 
     margin: 0 auto; 
     margin-bottom: 5%; 
@@ -62,7 +63,8 @@ Shared
 .skills-section,
 .interests-section,
 .work-experience-section,
-.education-section {
+.education-section,
+.projects-section {
     opacity: 0.95; 
 }
 
@@ -81,6 +83,10 @@ Shared
     font-variant: small-caps;
 }
 
+section a {
+    font-style: italic;
+}
+
 @media (min-width:320px), (min-width:481px)  { 
     /* smartphones, iPhone, portrait 480x320 phones */ 
     /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ 
@@ -89,7 +95,7 @@ Shared
         font-size: .8em; 
     }
     
-    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section, .projects-section {
         text-align: center; 
         width: 95%; 
         margin: 0 auto; 
@@ -104,7 +110,8 @@ Shared
     }
     
     .experience-all,
-    .education-all {
+    .education-all, 
+    .projects-all {
         font-size: 1.2em; 
     }
     
@@ -137,7 +144,7 @@ Shared
         font-size: 1em; 
     }
     
-    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section, .projects-section {
         text-align: center; 
         width: 80%; 
         margin: 0 auto; 
@@ -152,7 +159,8 @@ Shared
     }
     
     .experience,
-    .education {
+    .education, 
+    .project{
         font-size: 1.3em; 
     }
     
@@ -185,7 +193,7 @@ Shared
         font-size: 1.5em; 
     }
     
-    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section {
+    .timeline-section, .skills-section, .interests-section, .work-experience-section, .education-section,  .quotes-section, .other-section, .projects-section {
         text-align: center; 
         width: 50%; 
         margin: 0 auto; 
@@ -200,7 +208,8 @@ Shared
     }
     
     .experience,
-    .education {
+    .education, 
+    .project {
         font-size: 1.5em; 
     }
     
@@ -389,7 +398,8 @@ Skills & Interests section
 Work Experience & Education section
 *******************************************************************************/
 .experience-all, 
-.education-all {
+.education-all, 
+.projects-all {
     display: flex; 
     flex-direction: column; 
     margin-bottom: 5%; 
@@ -398,24 +408,28 @@ Work Experience & Education section
 }
 
 .experience,
-.education {
+.education,
+.project {
     display: flex; 
     flex-wrap: wrap;
 }
 
 .experience-headers,
-.education-headers {
+.education-headers, 
+.project-headers{
     display: flex; 
     justify-content: space-between;
 }
 
 .experience-image, 
-.education-image {
+.education-image, 
+.project-image{
     margin: auto;
 }
 
 .experience-detail,
-.education-detail {
+.education-detail, 
+.project-detail {
     text-align: left; 
     margin: 2% 2%;
     width: 100%; 
@@ -424,7 +438,8 @@ Work Experience & Education section
 }
 
 .experience-image img,
-.education-image img {
+.education-image img, 
+.project-image img {
     border-radius: 10%;
     height: auto;
     width: 10em;
@@ -432,14 +447,16 @@ Work Experience & Education section
 }
 
 .experience li,
-.education li {
+.education li, 
+.project li {
     margin-left: 6%; 
     margin-top: 1%; 
     font-size: .8em;
 }
 
 .experience-detail h2, h3, h4, h5, h6 
-.education-detail h2, h3, h4, h5, h6 {
+.education-detail h2, h3, h4, h5, h6 
+.project-detail h2, h3, h4, h5, h6  {
     margin: 0 0;
 }
 

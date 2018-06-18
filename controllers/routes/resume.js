@@ -299,7 +299,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.projects.details.push(req.body.project);
           
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepNine");
               return; 
           }
           //check if project details have been added  
@@ -307,7 +307,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.projects.details[req.body.projectDetail.name].projectDetail.push(req.body.projectDetail.item);
           
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepNine");
               return; 
           }
           // QUOTES UPDATES
@@ -319,7 +319,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.quotes.fontColor      = req.body.quotes.fontColor;
               foundResume.quotes.hideOnPrint    = hideOnPrint;
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTen");
               return; 
           }
           if(req.body.quote){
@@ -328,7 +328,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.quotes.details.push(req.body.quote);
           
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepSeven");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepTen");
               return; 
           }
           // OTHER SECTION UPDATES
@@ -351,7 +351,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.other.details.push(req.body.other);
           
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEleven");
               return; 
           }
           //check if other content bullet item was entered 
@@ -359,7 +359,7 @@ router.put('/user/:userID/resume/:resumeID/', middleware.isAccountOwner, functio
               foundResume.other.details[req.body.bulletItems.title].bulletItems.push(req.body.bulletItems.item);
           
               foundResume.save(); 
-              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEight");
+              res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepEleven");
           } else {
             res.redirect('/user/' + req.params.userID + "/resume/" + req.params.resumeID + "/edit#stepOne");
               return; 

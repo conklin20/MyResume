@@ -103,9 +103,10 @@ router.put('/user/:userID', middleware.isAccountOwner, function(req, res){
       console.log(err); 
     } else {
       // save defaults
-      updatedUser.defaults.resume       = req.body.defaults.resume; 
-      updatedUser.defaults.coverLetter  = req.body.defaults.coverLetter; 
-      updatedUser.defaults.printTheme   = req.body.defaults.printTheme; 
+      updatedUser.defaults.resume         = req.body.defaults.resume; 
+      updatedUser.defaults.coverLetter    = req.body.defaults.coverLetter; 
+      updatedUser.defaults.printTheme     = req.body.defaults.printTheme;
+      updatedUser.defaults.printFontSize  = req.body.defaults.printFontSize;
       
       updatedUser.save(); 
       

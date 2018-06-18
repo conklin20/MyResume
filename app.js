@@ -35,7 +35,7 @@ var authRoutes          = require("./controllers/routes/auth"),
 // **********************
 if(ENV_TEST) {
     mongoose.connect("mongodb://localhost/MyResume_v2");
-} else {
+} else {    
     mongoose.connect(process.env.DATABASECON || "mongodb://localhost/MyResume_v2");
 } 
 
