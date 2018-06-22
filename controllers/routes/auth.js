@@ -1,12 +1,42 @@
 var express         = require("express"),
     passport        = require("passport"),
     User            = require("../../models/users"),
+    Resume          = require("../../models/resumes"),
+    url             = require('http'),
+    url             = require('url'),
     router          = express.Router();
 
 // INDEX 
 router.get('/', function(req, res) {
     // console.log(global);
-    res.render('login');
+    var os = require("os");
+    var hostname = os.hostname();
+    console.log(hostname);
+    if(hostname.contains('caryconklin.com')){
+      User.findOne({username: 'cary' }, function(err, foundUser){
+      if(err){
+          console.log(err); 
+      } else {
+          //find the resume in the DB
+          if(foundUser) {
+              // eval(require("locus"))
+              if(foundUser.resumes.length > 0){
+                  Resume.findById(foundUser.defaults.resume, function(err, foundResume){
+                      if(err){
+                          console.log(err);
+                      } else {
+                          res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+                      }
+                  }); 
+              } else {
+                  
+              }
+          }
+      }
+      }); 
+    } else {
+      res.render('login');
+    }
 }); 
 
 // GET /auth/linkedin

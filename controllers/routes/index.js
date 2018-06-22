@@ -39,7 +39,7 @@ router.get('/:username', function(req, res) {
         if(foundUser) {
             // eval(require("locus"))
             if(foundUser.resumes.length > 0){
-                Resume.findById(foundUser.resumes[0], function(err, foundResume){
+                Resume.findById(foundUser.defaults.resume, function(err, foundResume){
                     if(err){
                         console.log(err);
                     } else {
