@@ -11,8 +11,9 @@ router.get('/', function(req, res) {
     // console.log(global);
     var os = require("os");
     var hostname = os.hostname();
-    console.log('LOGGING RES: ' + res);
-    console.log('LOGGING REQ: ' + req);
+    console.log('LOGGING REQ HEADER: ' + req.headers.host);
+    console.log('LOGGING RES: ' + res.host);
+    console.log('LOGGING REQ: ' + req.host);
     console.log(hostname);
     // if(hostname.contains('caryconklin.com')){
     //   User.findOne({username: 'cary' }, function(err, foundUser){
