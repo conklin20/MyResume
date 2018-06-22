@@ -9,11 +9,8 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--SemanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
-        <!--<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">-->
-        <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
-        <!--<script src="semantic/dist/semantic.min.js"></script>-->
         <!--Custom JS-->
-        <script src="/js/app.js"></script>
+        
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
     </head>
@@ -231,7 +228,14 @@
                                         </span>
                                         <span class="education-headers">
                                             <h5> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h5>  
-                                            <h5> <%= edu.city + ', ' + edu.state %> </h5>
+                                            <% var cityState %>
+                                            <% if(edu.city) { %>
+                                                <% cityState = edu.city %>
+                                            <% } %>
+                                            <% if(edu.state) { %>
+                                                <% cityState += ', ' + edu.state %>
+                                            <% } %>
+                                            <h5> <%= cityState %> </h5>
                                         </span>  
                                         <ul>
                                         <% edu.achievements.forEach(function(achievement){ %>
@@ -267,16 +271,20 @@
         	                                            <!--Sort by Start Date, Desc-->
         	                    <div class="project">
                                     <div class="project-image">
-                                        <a href="<%= project.url %>"  target="_blank">
+                                        <% if(project.url) { %>
+                                            <a href="<%= project.url %>"  target="_blank">
+                                                <img src="<%= project.logo %>">
+                                            </a>
+                                        <% } else { %>
                                             <img src="<%= project.logo %>">
-                                        </a>
+                                        <% } %>
                                     </div>
                                     <div class="project-detail">
                                         <span class="project-headers">
                                             <h4> <%= project.name %> </h4>
                                         </span>
                                         <span class="project-headers">
-                                            <h5> <%= project.description %> </h5>
+                                            <h5> <%- project.description %> </h5>
                                         </span>  
                                         <ul>
                                             <% project.projectDetail.forEach(function(detail){ %>
@@ -349,7 +357,7 @@
         <section class="footer">
             <div class="social">
                 <a class="ui circular print icon button" href="mailto:<%= user.linkedinEmail %>" title="Email Me">
-                  <i class="at icon "></i>
+                  <i class="at icon"></i>
                 </a>
                 <i class="handshake outline icon"></i>
                 
@@ -359,7 +367,7 @@
                 <i class="handshake outline icon"></i>
                 
                 <% if(user.githubURL) { %>
-                    <a class="ui circular github plus icon button" href="<%= user.githubURL %>" target="_blank" title="Github">
+                    <a class="ui circular github icon button" href="<%= user.githubURL %>" target="_blank" title="Github">
                       <i class="github plus icon "></i>
                     </a>
                     <i class="handshake outline icon"></i>
@@ -387,13 +395,13 @@
                 <% } %>
                 
                 <a class="ui circular linkedin icon button" href="<%= user.linkedinURL %>" target="_blank" title="LinkedIn">
-                  <i class="linkedin icon "></i>
+                  <i class="linkedin icon"></i>
                 </a>
             </div>
             <span id="builtby">
-                <div>This site was built by <a href="http://www.caryconklin.com/cary">Cary Conklin</a></div>
+                <div>This site was built by <a href="http://www.caryconklin.com/cary" target="_blank">Cary Conklin</a></div>
                 <br>
-                <div>Like this online resume? Sign up and build your own at <a href="http://www.scrollwith.me">scrollwith.me</a></div>
+                <div>Like this online resume? Sign up and build your own at <a href="http://www.scrollwith.me" target="_blank">scrollwith.me</a></div>
             </span>
 	    </section>
 	    

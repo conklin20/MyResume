@@ -2,7 +2,7 @@ var mongoose    = require("mongoose");
 
 //user schema 
 var referenceSchema = new mongoose.Schema({
-    name: String, 
+    name: { type: String, unique : true},
     company: String, 
     position: String, 
     phone: String, 

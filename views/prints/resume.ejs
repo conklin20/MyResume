@@ -62,6 +62,7 @@
                     <!--Loop through the work experience array-->
                     <% resume.experience.details.forEach(function(workExp) { %>
                         <% if(!workExp.hideOnPrint) { %>
+                                        <!--order by start date desc-->
                             <div style="order: <%= - workExp.startDate.getTime() / 100000 %>;">
                                 <div class="section-h1">  
                                     <span><%- workExp.companyName + ' - ' + workExp.city.trim() + ", " + workExp.state %></span>
@@ -70,9 +71,9 @@
                                 <div class="section-h2">  
                                     <span><%- workExp.title %></span>
                                     <% if(moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'months') < 12) { %>
-                                        <span><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'months') + ' months' %></span>
+                                        <span id="timeInJob"><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'months') + ' months' %></span>
                                     <% } else { %>
-                                        <span><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'years') + ' years' %></span>
+                                        <span id="timeInJob"><%-  moment(workExp.endDate ? workExp.endDate : moment()).diff(workExp.startDate, 'years') + ' years' %></span>
                                     <% } %>
                                     <!--<span><%- workExp.city.trim() + ", " + workExp.state %></span>-->
                                 </div>  
@@ -102,14 +103,22 @@
                                  <!--if graduated, order by end date DESC - if not, order by start date ASC-->
                             <div style="order: <%= edu.graduated ? -edu.endDate.getTime() / 100000 : edu.startDate.getTime() / 100000 %>;">
                                 <div class="section-h1">  
-                                    <span><%- edu.instituteName + ' - ' + edu.city.trim() + ", " + edu.state %></span>
-                                    <span><%- moment(edu.startDate).format('MMMM YYYY') + " - " + (edu.endDate ? moment(edu.endDate).format('MMMM YYYY') : 'Current') %></span>
+                                    <% var cityState %>
+                                    <% if(edu.city) { %>
+                                        <% cityState = edu.city %>
+                                    <% } %>
+                                    <% if(edu.state) { %>
+                                        <% cityState += ', ' + edu.state %>
+                                    <% } %>
+                                    <span><%= edu.instituteName + ' - ' + cityState %></span>
+                                    <% cityState = '' %>
+                                    <span><%- (edu.endDate ? moment(edu.endDate).format('MMMM YYYY') : moment(edu.startDate).format('MMMM YYYY') + " - " + 'Current') %></span>
                                 </div>  
                                 <div class="section-h2">  
                                     <span><%- edu.degree.trim() + ", " + edu.areaOfStudy %></span>
-                                    <% if(edu.graduated) { %>
-                                        <span>Graduated</span> <!-- <i class="fas fa-graduation-cap"></i>-->
-                                    <% } %>
+                                    <!--<% if(edu.graduated) { %>-->
+                                    <!--    <span>Graduated</span> <!-- <i class="fas fa-graduation-cap"></i>-->
+                                    <!--<% } %>-->
                                 </div>  
                                 <ul class="achievements">
                                     <!--Loop through achievements-->
@@ -202,9 +211,11 @@
                     <!--Loop through the projects array-->
                     <% resume.projects.details.forEach(function(project) { %>
                         <% if(!project.hideOnPrint) { %>
-                            <div>
+                                        <!--order by start date desc-->
+                            <div style="order: <%= - project.startDate.getTime() / 100000 %>;">
                                 <div class="section-h1">  
                                     <span><%- project.name %></span>
+                                    <span><%- moment(project.startDate).format('MMMM YYYY') + " - " + (project.endDate ? moment(project.endDate).format('MMMM YYYY') : 'Current') %></span>
                                 </div>  
                                 <p>  
                                     <%- project.description %>

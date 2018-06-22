@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 //user schema 
 var resumeSchema = new mongoose.Schema({
-    alias: String,
+    alias: { type: String, unique : true},
     introduction: String,
     elevatorPitch: String,
     objective: String,
@@ -97,6 +97,8 @@ var resumeSchema = new mongoose.Schema({
             description: String,
             url: String, 
             logo: String,
+            startDate: Date, 
+            endDate: Date,
             hideOnPrint: Boolean,
             projectDetail: []
         }]

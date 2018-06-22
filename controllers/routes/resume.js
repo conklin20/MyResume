@@ -498,6 +498,36 @@ router.put('/user/:userID/resume/:resumeID/education/:eduID/achv/:achvID', middl
     }); 
 }); 
 
+
+
+// REMOVE PROJECT ARRAY ELEMENT
+router.put('/user/:userID/resume/:resumeID/projects/:projectIdx', middleware.isAccountOwner, function(req, res){
+  //find the resume in the DB and delete it 
+  Resume.findById(req.params.resumeID, function(err, foundResume){
+      if(err){
+        console.log(err);
+      } else {
+        foundResume.projects.details.splice(req.params.projectIdx, 1);
+        foundResume.save(); 
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepEight' );
+      }
+    }); 
+});
+
+// REMOVE PROJECT DETAIL ELEMENT
+router.put('/user/:userID/resume/:resumeID/projects/:projectIdx/project/:projectDetailIdx', middleware.isAccountOwner, function(req, res){
+  //find the resume in the DB and delete it 
+  Resume.findById(req.params.resumeID, function(err, foundResume){
+      if(err){
+        console.log(err);
+      } else {
+        foundResume.projects.details[req.params.projectIdx].projectDetail.splice(req.params.projectDetailIdx, 1);
+        foundResume.save(); 
+        res.redirect('/user/' + req.params.userID + '/resume/' + req.params.resumeID + '/edit#stepEight' );
+      }
+    }); 
+}); 
+
 // REMOVE QUOTE
 router.put('/user/:userID/resume/:resumeID/quote/:quoteID', middleware.isAccountOwner, function(req, res){
   //find the resume in the DB and delete it 

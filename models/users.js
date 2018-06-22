@@ -10,7 +10,7 @@ var userSchema = new mongoose.Schema({
     linkedinURL: String,
     linkedinID: String, 
     // Custom fields
-    username: String,
+    username: { type: String, unique : true, dropDups: true },
     phone: String,
     city: String, 
     state: String, 
