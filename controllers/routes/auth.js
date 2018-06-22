@@ -11,32 +11,35 @@ router.get('/', function(req, res) {
     // console.log(global);
     var os = require("os");
     var hostname = os.hostname();
+    console.log('LOGGING RES: ' + res);
+    console.log('LOGGING REQ: ' + req);
     console.log(hostname);
-    if(hostname.contains('caryconklin.com')){
-      User.findOne({username: 'cary' }, function(err, foundUser){
-      if(err){
-          console.log(err); 
-      } else {
-          //find the resume in the DB
-          if(foundUser) {
-              // eval(require("locus"))
-              if(foundUser.resumes.length > 0){
-                  Resume.findById(foundUser.defaults.resume, function(err, foundResume){
-                      if(err){
-                          console.log(err);
-                      } else {
-                          res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
-                      }
-                  }); 
-              } else {
+    // if(hostname.contains('caryconklin.com')){
+    //   User.findOne({username: 'cary' }, function(err, foundUser){
+    //   if(err){
+    //       console.log(err); 
+    //   } else {
+    //       //find the resume in the DB
+    //       if(foundUser) {
+    //           // eval(require("locus"))
+    //           if(foundUser.resumes.length > 0){
+    //               Resume.findById(foundUser.defaults.resume, function(err, foundResume){
+    //                   if(err){
+    //                       console.log(err);
+    //                   } else {
+    //                       res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+    //                   }
+    //               }); 
+    //           } else {
                   
-              }
-          }
-      }
-      }); 
-    } else {
+    //           }
+    //       }
+    //   }
+    //   }); 
+    // } else {
+    //   res.render('login');
+    // }
       res.render('login');
-    }
 }); 
 
 // GET /auth/linkedin
