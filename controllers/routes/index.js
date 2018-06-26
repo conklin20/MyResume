@@ -39,13 +39,24 @@ router.get('/:username', function(req, res) {
         if(foundUser) {
             // eval(require("locus"))
             if(foundUser.resumes.length > 0){
-                Resume.findById(foundUser.defaults.resume, function(err, foundResume){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
-                    }
-                }); 
+                // if a default resume is set use it, otherwise grab the first one
+                if (foundUser.defaults.resume){
+                    Resume.findById(foundUser.defaults.resume, function(err, foundResume){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+                        }
+                    }); 
+                } else {
+                        Resume.findById(foundUser.resumes[0], function(err, foundResume){
+                        if(err){
+                            console.log(err);
+                        } else {
+                            res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+                        }
+                    }); 
+                }
             } else {
                 
             }
