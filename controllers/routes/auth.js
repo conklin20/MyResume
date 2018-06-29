@@ -6,7 +6,6 @@ var express         = require("express"),
 
 // INDEX 
 router.get('/', function(req, res) {
-    // console.log(global);
     if (req.headers.host === 'www.caryconklin.com') {
       User.findOne({username: 'cary' }, function(err, foundUser){
       if(err){
@@ -14,7 +13,6 @@ router.get('/', function(req, res) {
       } else {
           //find the resume in the DB
           if(foundUser) {
-              // eval(require("locus"))
               if(foundUser.resumes.length > 0){
                   Resume.findById(foundUser.defaults.resume, function(err, foundResume){
                       if(err){
@@ -31,7 +29,7 @@ router.get('/', function(req, res) {
       }); 
     } else {
       res.render('login');
-    };
+    }
 }); 
 
 // GET /auth/linkedin

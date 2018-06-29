@@ -9,8 +9,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!--SemanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
-        <!--Custom JS-->
-        
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
     </head>
@@ -35,7 +33,7 @@
                             <%- coverLetter.body %>
                         </div>
                         <div class="cover-letter-footer">
-                            <button class="ui mini primary button" onclick="closeCoverLetter()">
+                            <button id="closeCoverLetter" class="ui mini primary button"  >
                                 Continue
                             </button>
                         </div>
@@ -101,6 +99,38 @@
         		            <!--<h2><i class="star outline icon small flipImg"></i> What I Am Good At <i class="star outline icon small"></i></h2>-->
         		            <h2> What I'm Good At </h2>
         		        </div>
+        		        
+                        <div class="ui inverted segment">
+                            <div class="item">
+                                <div class="content">
+                                    <div class="skill-header">
+                                        Proficiency Key
+                                    </div>
+                                    <div class"proficiency-key">
+                                        <% for(var i=0; i<=5; i++){ %>
+                                            <div style="font-size:<%= i / 3 %>em" >
+                                                <% if(i === 1) { %>
+                                                    <p>1 - Fundamental Awareness</p>
+                                                <% } else  %>
+                                                        <% if(i === 2) { %>
+                                                            <p>2 - Novice</p>
+                                                        <% } else  %>
+                                                                <% if(i === 3) { %>
+                                                                    <p>3 - Intermediate</p>
+                                                                <% } else  %>
+                                                                        <% if(i === 4) { %>
+                                                                            <p>4 - Advanced</p>
+                                                                        <% } else  %>
+                                                                                <% if(i === 5) { %>
+                                                                                    <p>5 - Expert</p>
+                                                                                <% } %>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        		        
                         <div class="ui inverted segment">
                             <div class="ui inverted relaxed divided list">
         	                    <% resume.skills.details.forEach(function(skillCat){ %>
@@ -406,4 +436,8 @@
 	    </section>
 	    
     </body>
+    
+    
+    <!--Custom JS-->
+    <script src="/js/app.js"></script>
 </html>

@@ -3,6 +3,7 @@ Global Styles
 *******************************************************************************/
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,800');
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Handlee');
 
 * {
     margin: 0;
@@ -267,16 +268,22 @@ Landing page section
     100% { opacity: .9; }
 }
 
+@keyframes fadeOut {
+    100% {
+        opacity: 0; 
+    }
+}
+
 /******************************************************************************
 Cover Letter section 
 *******************************************************************************/
 .cover-letter {
-    font-family: 'Indie Flower', cursive;
+    font-family: 'Handlee', cursive;
     display: flex;
     flex-direction: column;
     min-height: 90vh;
     position: absolute; 
-    top: 5%; 
+    top: 3%; 
     padding: 0 2%; 
     z-index: 99;
 }
@@ -354,6 +361,10 @@ Cover Letter section
     border-bottom-left-radius: 5px;
 }
 
+.cover-letter-fade-out {
+    animation: fadeOut 1s linear forwards;
+}
+
 /******************************************************************************
 Timeline section 
 *******************************************************************************/
@@ -394,6 +405,9 @@ Skills & Interests section
     list-style-type: none; 
 }
 
+.proficiency-key {
+    
+}
 
 /******************************************************************************
 Work Experience & Education section
