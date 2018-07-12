@@ -13,6 +13,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         details: [{
             date: Date,
             summary: String,
@@ -24,6 +26,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             category: String,
@@ -39,6 +43,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             category: String,
@@ -51,6 +57,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             companyName: String,
@@ -69,6 +77,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             instituteName: String,
@@ -91,6 +101,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             name: String,
@@ -119,6 +131,8 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             quote: String, 
@@ -130,16 +144,24 @@ var resumeSchema = new mongoose.Schema({
         order: Number, 
         backgroundImg: String,
         fontColor: String,
+        headerFontColor: String,
+        // sectionTitle: String, 
         hideOnPrint: Boolean,
         details: [{
             title: String, 
             summary: String, 
-            backgroundImg: String,
-            fontColor: String,
+            // backgroundImg: String,
+            // fontColor: String,
             hideOnPrint: Boolean,
             bulletItems: []
         }]
-    }
+    } 
+    // order: [
+    //     {
+    //         sectionTitle: String, 
+    //         order: Number
+    //     }
+    //     ]
 });
 
 

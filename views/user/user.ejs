@@ -1,0 +1,140 @@
+<% include ../partials/header %>
+
+     <div id="global" class="row" data-userid="<%= user._id %>">
+        <div class="col-lg-0 col-md-1 col-sm-2 col-xs-2"></div>
+        <div class="jumbotron">
+            <h2 class="text-center">Hi <%= user.linkedinFirstName %>, welcome to your profile! </h2>
+            <h3 class="text-center">You can manage the contents of your profile below. </h3>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div id="nav-tabs" class="container col-sm-8">	
+                <ul class="nav nav-pills">
+            		<li id="nav-account-overview" class="active">
+                        <a href="#overview" data-toggle="tab">Account Info</a>
+            		</li>
+            		<li id="nav-resumes">
+            		    <a href="#resumes" data-toggle="tab">Resumes</a>
+            		</li>
+            		<li id="nav-cover-letters">
+            		    <a href="#cover-letters" data-toggle="tab">Cover Letters</a>
+            		</li>
+        		    <li id="nav-references">
+                        <a href="#references" data-toggle="tab">References</a>
+            		</li>
+        		    <li id="nav-bundle">
+                        <a href="#bundles" data-toggle="tab">Bundles</a>
+            		</li>
+          	    </ul>
+                <div class="tab-content clearfix">
+                    <!--account overview start-->
+                    <div class="tab-pane section active" id="overview">
+                        <div class="account-section">
+                            <h3>Account Info</h3>
+                            <p>Username: <%= user.username %> </p>
+                            <p>Name: <%= user.linkedinFirstName + ' ' + user.linkedinLastName %> </p>
+                            <p>Email: <%= user.linkedinEmail %> </p>
+                            <p>Phone: <%= user.phone %> </p>
+                            <span><img class="img-circle img-responsive" src= <%= user.avatar %>> </span>
+                            <div class="buttons">
+                                <a id="btn-edit-profile" class="btn btn-primary" href="<%= user._id %>/edit">Edit Profile</a>
+                                <a id="btn-delete-profile" class="btn btn-danger">Delete Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--account overview end-->
+                    
+                    
+                    <!--resume section start-->
+                    <div class="tab-pane section" id="resumes">
+                        <div class="account-section">
+                            <h3 class="text-center">Resumes
+                                <span class="badge"><%= user.resumes.length %></span>
+                                <a href="/u/<%= user._id %>/r"><span class="fa fa-plus"></span></a>
+                            </h3>
+                            <% if(user.resumes && user.resumes.length > 0) { %>
+                                <ul class="resumes">
+                                    <!--Now using an AJAX call to build out this list-->
+                                </ul>
+                            <% } else { %>
+                                <p>No resumes found</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!--resume section end-->
+                    
+                    
+                    <!--cover letter section start-->
+                    <div class="tab-pane section" id="cover-letters">
+                        <div class="account-section">
+                            <h3 class="text-center">Cover Letters
+                                <span class="badge"><%= user.coverLetters.length %></span> 
+                                <a href="/u/<%= user._id %>/cl/new"><span class="fa fa-plus"></span></a>
+                            </h3>
+                            <% if(user.coverLetters && user.coverLetters.length > 0) { %>  
+                                <ul class="cover-letters">
+                                    <!--Now using an AJAX call to build out this list-->
+                                </ul>
+                            <% } else { %>
+                                <p>No cover letters found</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!--cover letter section end-->
+                    
+                    
+                    <!--references section start-->
+                    <div class="tab-pane section" id="references">
+                        <div class="account-section">
+                            <h3 class="text-center">References
+                                <span class="badge"><%= user.references.length %></span> 
+                                <a href="/u/<%= user._id %>/ref/new"><span class="fa fa-plus"></span></a>
+                             </h3>
+                            <% if(user.references && user.references.length > 0) { %>
+                                <ul class="references">
+                                    <!--Now using an AJAX call to build out this list-->
+                                </ul>
+                            <% } else { %>
+                                <p>No references found</p>
+                            <% } %>
+                        </div>
+                    </div>
+                    <!--references section end-->
+                    
+                    
+                    <!--Bundles section start-->
+                    <div class="tab-pane section" id="bundles">
+                        <div class="account-section">
+                            <h3 class="text-center">Bundles
+                                <!--<a href="/u/<%= user._id %>/bundle/new"><span class="fas fa-plus"></span></a>-->
+                             </h3>
+                             <p>
+                                 A bundle consists of a reference to your userID, a resume of your choice, and a cover letter of your choice.
+                                 Creating a bundle will allow you to package up all of these components in a single link that you can then send to others. 
+                             </p>
+                            <div class="jumbotron">
+                                <h1 class="text-center">Coming Soon...</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Bundles section end-->
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <!-- jQuery CDN -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+  
+    <!--Custom JavaScript-->
+    <script type="text/javascript" src="/js/user/index.js"></script>
+    <script type="text/javascript" src="/js/user/resume.js"></script>
+    <script type="text/javascript" src="/js/user/cover-letter.js"></script>
+    <script type="text/javascript" src="/js/user/reference.js"></script>
+    
+<% include ../partials/footer %>

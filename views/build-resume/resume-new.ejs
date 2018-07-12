@@ -1,0 +1,72 @@
+<% include ./partials/header %>
+
+  <div id="global" class="row resume" data-userId="<%= user._id %>" >
+    
+    <h1 style="text-align: center;">Add New Resume</h1>
+    <form role="form" class="form-horizontal" action="/api/u/<%= user._id %>/r" method="POST">  
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="form-group">
+          <div class="col-sm-3"></div>
+          <div class="col-sm-6">
+            <label class="pull-left" for="alias">Alias</label>
+            <input class="form-control" type="text" name="resume[alias]" placeholder="Give this resume an alias" maxlength="50" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label class="pull-left" for="introduction">Say Hello</label>
+            <input class="form-control" type="text" name="resume[introduction]" placeholder="Hey, I'm <%= user.linkedinFirstName %>" maxlength="150" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>
+            <input class="form-control" type="text" name="resume[elevatorPitch]" placeholder="This will be what people first see. Write something that makes you stand out, but keep it short" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label class="pull-left" for="objective">Objective</label>
+            <textarea class="form-control" type="text" rows="4" name="resume[objective]" placeholder="What is your objective? (optional - and only applies to the printable version of your resume)"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <label class="pull-left" for="careerSummary">Career Summary</label>
+            <textarea class="form-control" type="text" rows="4" name="resume[careerSummary]" placeholder="Summerize your career (optional - and only applies to the printable version of your resume)"></textarea>
+        </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <label class="pull-left" for="backgroundImg">Background Image/Color <p>(Find an image online)</p></label>
+            <input class="form-control" type="text" name="resume[backgroundImg]" placeholder="Background url" required>
+          </div>
+          <div class="col-sm-6">
+            <label class="pull-left" for="fontColor">Font Color <p>(Doesnt apply to printable version of resume)</p></label>
+            <input class="form-control" type="color" name="resume[fontColor]" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button class="btn btn-lg btn-success btn-block">Next</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <a class="btn btn-lg btn-primary btn-block" href="/u/<%= user._id %>">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <!-- jQuery CDN -->
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous">
+  </script>
+  
+    
+<% include ./partials/footer %>

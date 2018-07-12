@@ -9,13 +9,12 @@
         <!--semanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"> 
         <!--Font Awesome-->
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <!--Scroll Magic-->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"></script>-->
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"></script>-->
         <!--Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-        <!--Custom JavaScript-->
     </head>
     <body>
     <nav class="navbar navbar-default">
@@ -27,12 +26,11 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
                 </button>
-    
-                <a class="navbar-brand" href="/">Scroll With Me</a>
+                <a class="navbar-brand" href="<% currentUser ? '/linkedin/'+currentUser.id+'' : '/' %>">Scroll With Me</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="/">Home</a></li>
+                  <li class="<%= typeof page !== 'undefined' && page === 'login' ? 'active' : '' %>"><a href="<% currentUser ? '/linkedin/'+currentUser.id+'' : '/' %>">Home</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                   <% if(!currentUser){ %>

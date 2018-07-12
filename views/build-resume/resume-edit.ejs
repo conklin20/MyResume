@@ -1,0 +1,1088 @@
+<% include ../partials/header %>
+  
+  <div id="global" class="resume" data-userId="<%= user._id %>" data-resumeId="<%= resume.id %>" >
+    <!--Experimenting with tabs-->
+    <br>
+    <h1 style="text-align: center;">Edit Resume</h1>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+            <a  class="btn btn-primary btn-block" href="/u/<%= user._id %>">Back To Profile</a>
+        </div>
+        <div class="col-sm-5">
+            <a  class="btn btn-warning btn-block" href="/u/<%= user._id %>/r/<%= resume.id %>" target="_blank">View This Resume!</a>
+        </div>
+    </div><br>
+    <div id="nav-tabs" class="container">	
+        <ul class="nav nav-pills">
+    		<li id="nav-overview" class="active">
+                <a href="#overview" data-toggle="tab">Summary</a>
+    		</li>
+    		<li id="nav-timeline">
+    		    <a href="#timeline" data-toggle="tab">Timeline</a>
+    		</li>
+    		<li id="nav-skills">
+    		    <a href="#skills" data-toggle="tab">Skills</a>
+    		</li>
+		    <li id="nav-work">
+                <a href="#work" data-toggle="tab">Work</a>
+    		</li>
+		    <li id="nav-education">
+                <a href="#education" data-toggle="tab" >Education</a>
+    		</li>
+		    <li id="nav-interests">
+                <a href="#interests" data-toggle="tab">Interests</a>
+    		</li>
+		    <li id="nav-projects">
+                <a href="#projects" data-toggle="tab">Projects</a>
+    		</li>
+		    <li id="nav-quotes">
+                <a href="#quotes" data-toggle="tab">Quotes</a>
+    		</li>
+		    <li id="nav-other">
+                <a href="#other" data-toggle="tab">Other</a>
+    		</li>
+		    <li id="nav-order">
+                <a href="#order" data-toggle="tab">Order</a>
+    		</li>
+  	    </ul>
+        <div class="tab-content clearfix">
+            <!--overview start-->
+            <div class="tab-pane section active" id="overview">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                        <h2 style="text-align: center;">Summary</h2>
+                            <div class="form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="alias">Alias</label>
+                                    <input class="form-control summary" type="text" name="resume[alias]" value="<%= resume.alias %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="introduction">Say Hello</label>
+                                    <input class="form-control summary" type="text" name="resume[introduction]" value="<%= resume.introduction %>" maxlength="50" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="elevatorPitch">Elevator Pitch</label>
+                                    <input class="form-control summary" type="text" name="resume[elevatorPitch]" value="<%= resume.elevatorPitch %>" maxlength="150" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="objective">Objective</label>
+                                    <textarea class="form-control summary" type="text" rows="4" name="resume[objective]"><%= resume.objective %></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="careerSummary">Career Summary</label>
+                                    <textarea class="form-control summary" type="text" rows="4" name="resume[careerSummary]"><%= resume.careerSummary %></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="backgroundImg">Background Image/Color</label> <p>(Find an image online)</p>
+                                    <input class="form-control summary" type="text" name="resume[backgroundImg]" value="<%= resume.backgroundImg %>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="fontColor">Font Color </label><p>(Doesnt apply to printable version of resume)</p>
+                                    <input class="form-control summary" type="color" name="resume[fontColor]" value="<%= resume.fontColor %>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <br>
+                                <div class="col-sm-6">
+                                    <button id="btn-update-summary" class="btn btn-lg btn-success btn-block">Update Overview</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <a class="btn btn-lg btn-primary btn-block" href="/u/<%= user._id %>">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--overview end
+            
+            <!------------------------------------------------------------------->
+            <!--timeline start-->
+            <div class="tab-pane section" id="timeline">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Timeline</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="timeline-settings"  class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.timeline.sectionTitle ? resume.timeline.sectionTitle : 'Timeline' %>" >
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.timeline.backgroundImg %>" >
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.timeline.headerFontColor %>" >
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-timeline-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="date">Date: </label>
+                                    <input class="form-control timeline-event" type="date" name="timelineEvent[date]" placeholder="date of event" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <label class="pull-left" for="summary">Summary: </label>
+                                    <input class="form-control timeline-event" type="text" name="timelineEvent[summary]" placeholder="summary of event" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <label class="pull-left" for="detail">Detail: </label>
+                                    <textarea class="form-control timeline-event" rows="4" name="timelineEvent[detail]" placeholder="detail of event" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <label class="pull-left" for="icon">Icon: </label>
+                                    <input class="form-control timeline-event" type="text" name="timelineEvent[icon]" placeholder="url of icon image" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-9">
+                                    <button id="btn-add-timeline-event" class="btn btn-primary">Add Timeline Event</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2"></div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <p>Current Events (Events will be displayed in chronological order on your page)</p>
+                            <!--This is now being rendered in '/public/js/build-resume/timeline.js' using AJAX calls-->
+                            <div class="timeline-summary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--timeline end-->
+            
+            <!------------------------------------------------------------------->
+            <!--skills start-->
+            <div class="tab-pane section" id="skills">
+              <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8">
+                      <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Skills</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="skills-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.skills.sectionTitle ? resume.skills.sectionTitle : 'Skills' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.skills.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.skills.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.skills.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.skills.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-skills-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="skill">Skill Category: </label><br>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle btn-block" type="button" id="skill-cat-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Category
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul id="existing-skills" name="newSkill[existingCategory]" form="new-skill-form" class="dropdown-menu new-skill-data" aria-labelledby="skill-cat-dropdown">
+                                        <!--get existing categories from db-->
+                                        <% resume.skills.details.forEach(function(skillCategory, catIdx){ %>
+                                            <li><a><%= skillCategory.category %></a></li>
+                                        <% }) %>
+                                        
+                                        <li role="separator" class="divider"></li>
+                                        <li style="text-align: center">
+                                            <div class="new-category">
+                                                <h6><em>New Category</em></h6>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <input id="new-skill-category" class="form-control" type="text" name="newSkill[newSkillCategory]" placeholder="new category">
+                                                        <input id="new-skill-category-icon" class="form-control" type="text" name="newSkill[newSkillCategoryIcon]" placeholder="category icon url" >
+                                                        <div class="col-sm-12 nowrap">
+                                                            <label class="pull-left" for="hideOnPrint">Hide on Print: </label>
+                                                            <input id="hideOnPrint" type="checkbox" name="newSkill[hideOnPrint]"  >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="skill">Skill: </label>
+                                <input id="new-skill" class="form-control new-skill-data" type="text" name="newSkill[skill]" placeholder="skill" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="pull-left" for="proficiency">Proficiency: </label>
+                                <input id="proficiency" class="new-skill-data" type="range" min="1.0" max="5.0" step=".5"list="tickmarks" name="newSkill[proficiency]" >
+                                <div class="proficiency">
+                                    <label for="proficiency">1</label>
+                                    <label for="proficiency">2</label>
+                                    <label for="proficiency">3</label>
+                                    <label for="proficiency">4</label>
+                                    <label for="proficiency">5</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4"></div>
+                            <div class="col-sm-4">
+                                <button id="btn-add-skill" class="btn btn-primary btn-block">Add Skill</button>
+                            </div>
+                        </form>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-8">
+                      <div class="form-group">
+                          <h3>Skills</h3>
+                          <ul class="skills">
+                              <!--This is now being rendered in '/public/js/build-resume/skills.js' using AJAX calls-->
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <!--skills end-->
+            
+            <!------------------------------------------------------------------->
+            <!--work start-->
+            <div class="tab-pane section" id="work">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">
+                          <h2 style="text-align: center;">Work Experience</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="experience-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.experience.sectionTitle ? resume.experience.sectionTitle : 'Work Experience' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.experience.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.experience.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.experience.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.experience.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-experience-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="companyName">Company Name: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[companyName]" placeholder="company name" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="title">Title: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[title]" placeholder="job title" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="city">City: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[city]" placeholder="city" >
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-left" for="state">State: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[state]" maxlength="2" placeholder="state" >
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="pull-left" for="startDate">Start: </label>
+                                    <input class="form-control new-experience" type="date" name="workExp[startDate]"  >
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="pull-left" for="endDate">End: </label>
+                                    <input class="form-control new-experience" type="date" name="workExp[endDate]" >
+                                    <p>(leave blank if current)</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label class="pull-left" for="companyName">Company Site URL: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[url]" placeholder="company url">
+                                </div>
+                                <div class="col-sm-5">
+                                    <label class="pull-left" for="title">Company Logo or Image: </label>
+                                    <input class="form-control new-experience" type="text" name="workExp[logo]" placeholder="company logo/image">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                    <input class="new-experience" type="checkbox" name="workExp[hideOnPrint]" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-experience" class="btn btn-primary btn-block">Add Work Experience</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="form-horizontal">  
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="company">Company: </label><br>
+                                    <div>
+                                        <select id="company-dd" class="form-control new-responsibility" name="responsibility[company]">
+                                            <% resume.experience.details.forEach(function(workExp){ %>
+                                                <option><%= workExp.companyName %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="responsibility">Responsibility: </label>
+                                    <textarea id="responsibility" class="form-control new-responsibility" type="text" name="responsibility[responsibility]" placeholder="details of responsibility (can include HTML markup)"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-responsibility" class="btn btn-primary btn-block">Add Responsibility</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <ul class="experience">
+                        <!--This is now being rendered in '/public/js/build-resume/experience.js' using AJAX calls-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--work end-->
+            
+            <!------------------------------------------------------------------->
+            <!--education start-->
+            <div class="tab-pane section" id="education">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">
+                          <h2 style="text-align: center;">Education</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="education-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.education.sectionTitle ? resume.education.sectionTitle : 'Education' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.education.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.education.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.education.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.education.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-education-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="instituteName">Institution Name: </label>
+                                    <input class="form-control new-education" type="text" name="edu[instituteName]" placeholder="college/institution name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="city">City: </label>
+                                    <input class="form-control new-education" type="text" name="edu[city]" placeholder="city" >
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-left" for="state">State: </label>
+                                    <input class="form-control new-education" type="text" name="edu[state]" maxlength="2" placeholder="state" >
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="pull-left" for="startDate">Start: </label>
+                                    <input class="form-control new-education" type="date" name="edu[startDate]" required>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label class="pull-left" for="endDate">End: </label>
+                                    <input class="form-control new-education" type="date" name="edu[endDate]" >
+                                    <p>(leave blank if current)</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="degree">Degree: </label>
+                                    <input class="form-control new-education" type="text" name="edu[degree]" placeholder="degree" >
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="areaOfStudy">Area of Study: </label>
+                                    <input class="form-control new-education" type="text" name="edu[areaOfStudy]" placeholder="area of study" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <label class="pull-left" for="graduated">Graudated: </label>
+                                    <input class="new-education" type="checkbox" name="edu[graduated]"  >
+                                </div>
+                                <div class="col-sm-10">
+                                    <label class="pull-left" for="notes">Notes: </label>
+                                    <input class="form-control new-education" type="text" name="edu[notes]" placeholder="notes" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-5">
+                                    <label class="pull-left" for="url">URL: </label>
+                                    <input class="form-control new-education" type="text" name="edu[url]" placeholder="url">
+                                </div>
+                                <div class="col-sm-5">
+                                    <label class="pull-left" for="logo">Logo or Image: </label>
+                                    <input class="form-control new-education" type="text" name="edu[logo]" placeholder="logo/image">
+                                </div>
+                                <div class="col-sm-2">
+                                    <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                    <input class="new-education" type="checkbox" name="edu[hideOnPrint]" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-education" class="btn btn-primary btn-block">Add Education</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="form-horizontal">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="company">College/Institution: </label><br>
+                                    <div>
+                                        <select id="school-dd" class="form-control new-achievement" name="achievement[instituteName]">
+                                            <% resume.education.details.forEach(function(college, collegeIdx){ %>
+                                                <option><%= college.instituteName %></option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="achievement">Achievement: </label>
+                                    <textarea id="achievement" class="form-control new-achievement" type="text" name="achievement[achievement]" placeholder="details of achievement (can include HTML markup)"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-achievement" class="btn btn-primary btn-block">Add Achievement</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <ul class="education">
+                        <!--This is now being rendered in '/public/js/build-resume/education.js' using AJAX calls-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--education end-->
+            
+            <!------------------------------------------------------------------->
+            <!--interests start-->
+            <div class="tab-pane section" id="interests">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Interests</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="interests-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.interests.sectionTitle ? resume.interests.sectionTitle : 'Interests' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.interests.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.interests.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.interests.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.interests.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-interests-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal" >  
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="interestCategory">Interest Category: </label><br>
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle btn-block" type="button" id="interest-cat-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                            Category
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul id="existing-interests" name="newInterest[existingCategory]" form="new-interest-form" class="dropdown-menu new-interest-data" aria-labelledby="interest-cat-dropdown">
+                                            <!--get existing categories from db-->
+                                            <% resume.interests.details.forEach(function(interestCategory, catIdx){ %>
+                                                <li><a><%= interestCategory.category %></a></li>
+                                            <% }) %>
+                                            
+                                            <li role="separator" class="divider"></li>
+                                            <li style="text-align: center">
+                                                <div class="new-category">
+                                                    <h6><em>New Category</em></h6>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <input id="new-interest-category" class="form-control" type="text" name="newInterest[newInterestCategory]" placeholder="new interest" >
+                                                            <input id="new-interest-category-icon" class="form-control" type="text" name="newInterest[newInterestCategory]" placeholder="interest icon url" >
+                                                            <div class="col-sm-12 ">
+                                                                <label class="pull-left" for="hideOnPrint">Hide on Print: </label>
+                                                                <input id="hideOnPrint" type="checkbox" name="newInterest[hideOnPrint]"  >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="interest">Interest: </label>
+                                    <input id="new-interest" class="form-control" type="text" name="interest" placeholder="interest" >
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="btn-add-interest"></label>
+                                    <button id="btn-add-interest" class="btn btn-primary btn-block">Add Interest</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <h3>Interests</h3>
+                            <ul class="interests">
+                              <!--This is now being rendered in '/public/js/build-resume/interests.js' using AJAX calls-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--interests end-->
+            
+            <!------------------------------------------------------------------->
+            <!--projects start-->
+            <div class="tab-pane section" id="projects">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Projects & Relevant Experience</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="projects-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.projects.sectionTitle ? resume.projects.sectionTitle : 'Projects' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.projects.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.projects.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.projects.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.projects.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-projects-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="name">Project Name: </label>
+                                    <input class="form-control new-project" type="text" name="project[name]" placeholder="name" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="name">Project Description: </label>
+                                    <input class="form-control new-project" type="text" name="project[description]" placeholder="description" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="url">Project Site URL: </label>
+                                    <input class="form-control new-project" type="text" name="project[url]" placeholder="project url">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="logo">Project Logo or Image: </label>
+                                    <input class="form-control new-project" type="text" name="project[logo]" placeholder="project logo/image" required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="startDate">Start Date: </label>
+                                    <input class="form-control new-project" type="text" name="project[startDate]" placeholder="start date" required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="endDate">End Date: </label>
+                                    <input class="form-control new-project" type="text" name="project[endDate]" placeholder="end date" >
+                                    <p>(leave blank if current)</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                    <input class="new-project" type="checkbox" name="project[hideOnPrint]" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-project" class="btn btn-primary btn-block">Add Project</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="form-horizontal">  
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="name">Project: </label><br>
+                                    <div>
+                                        <select id="project-dd" class="form-control new-project-bullet" name="projectDetail[name]">
+                                            <% if(resume.projects) { %>
+                                                <% resume.projects.details.forEach(function(project, projectIdx){ %>
+                                                    <option value="<%= project._id %>"><%= project.name %></option>
+                                                <% }) %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="item">Bullet Item: </label>
+                                    <textarea id="project-bullet" class="form-control new-project-bullet" type="text" name="projectDetail[item]" placeholder="bullet item detail (can include HTML markup)"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-project-bullet" class="btn btn-primary btn-block">Add Bullet Item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <h3>Projects</h3>
+                            <ul class="projects">
+                              <!--This is now being rendered in '/public/js/build-resume/projects.js' using AJAX calls-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--projects end-->
+            
+            <!------------------------------------------------------------------->
+            <!--quotes start-->
+            <div class="tab-pane section" id="quotes">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Quotes</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="quotes-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.quotes.sectionTitle ? resume.quotes.sectionTitle : 'Quotes' %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.quotes.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.quotes.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.quotes.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.quotes.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-quotes-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="by">By: </label>
+                                    <input class="form-control new-quote" type="text" name="quote[by]" placeholder="by" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="quote">Quote: </label>
+                                    <textarea class="form-control new-quote" type="text" name="quote[quote]" placeholder="quote"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="hideOnPrint">Hide on Printable Version: </label>
+                                    <input class="new-quote" type="checkbox" name="quote[hideOnPrint]" >
+                                </div>
+                            </div>  
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-quote" class="btn btn-primary btn-block">Add Quote</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <h3>Quotes</h3>
+                            <ul class="quotes">
+                              <!--This is now being rendered in '/public/js/build-resume/quotes.js' using AJAX calls-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--quotes end-->
+            
+            <!------------------------------------------------------------------->
+            <!--other start-->
+            <div class="tab-pane section" id="other">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-horizontal">  
+                          <h2 style="text-align: center;">Create Another Section</h2>
+                          <div class="thumbnail settings">
+                              <h5 style="text-align: center;">Section Settings</h5>
+                              <div id="other-settings" class="form-group">
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="title">1) Section Title </label>
+                                      <input class="form-control" type="text" name="title" value="<%= resume.other.sectionTitle ? resume.other.sectionTitle : 'Not Applicable' %>" readonly>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="backgroundImg">2) Background Image/Color</label><p>(Find an image online, and paste the image URL here)</p>
+                                      <input class="form-control" type="text" name="backgroundImg" value="<%= resume.other.backgroundImg %>" required>
+                                  </div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="headerFontColor">3) Header Font Color </label>
+                                      <input class="form-control" type="color" name="headerFontColor" value="<%= resume.other.headerFontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-1"></div>
+                                  <div class="col-sm-5">
+                                      <label class="pull-left" for="fontColor">4) Font Color </label>
+                                      <input class="form-control" type="color" name="fontColor" value="<%= resume.other.fontColor %>" required>
+                                  </div>
+                                  <div class="col-sm-12">
+                                      <label class="pull-left" for="hideOnPrint">5) Hide on Printable Version (Hides Entire Section): </label>
+                                      <% if(resume.other.hideOnPrint) { %>
+                                          <input type="checkbox" name="hideOnPrint" checked>
+                                      <% } else { %>
+                                          <input type="checkbox" name="hideOnPrint" >
+                                      <% } %>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button id="btn-other-settings" class="btn btn-primary">Save Settings</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+                        <form class="form-horizontal">  
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="title">Section Title: </label>
+                                    <input class="form-control new-other-section" type="text" name="other[title]" placeholder="title" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="summary">Summary: </label>
+                                    <textarea class="form-control new-other-section" type="text" name="other[summary]" placeholder="summary of section (can include HTML markup)"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <label class="pull-left" for="title">Hide on Printable Version: </label>
+                                    <input class="new-other-section" type="checkbox" name="other[hideOnPrint]" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-other-section" class="btn btn-primary btn-block">Add Section</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="form-horizontal">  
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <label class="pull-left" for="title">Section: </label><br>
+                                    <div>
+                                        <select id="section-dd" class="form-control new-section-bullet" name="bulletItems[title]">
+                                            <% if(resume.other) { %>
+                                                <% resume.other.details.forEach(function(otherSection, sectionIdx){ %>
+                                                    <option value="<%= otherSection.id %>"><%= otherSection.title %></option>
+                                                <% }) %>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="pull-left" for="item">Bullet Item: (Optional)</label>
+                                    <textarea id="other-bullet" class="form-control new-section-bullet" type="text" name="bulletItems[item]" placeholder="detail (can include HTML markup)"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4"></div>
+                                <div class="col-sm-4">
+                                    <button id="btn-add-new-other-section-bullet" class="btn btn-primary btn-block">Add Bullet Item</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <h3>Other Sections</h3>
+                            <ul class="other">
+                              <!--This is now being rendered in '/public/js/build-resume/other.js' using AJAX calls-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--other end-->
+            
+            <!------------------------------------------------------------------->
+            <!--order start-->
+            <div class="tab-pane section" id="order">
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                        <div class="form-horizontal">  
+                            <h2 style="text-align: center;">Section Order</h2>
+                            <ul class="list-group order">
+                              <!--This is now being rendered in '/public/js/build-resume/index.js' using AJAX calls-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--order end-->
+        </div>
+    </div>
+  </div>
+  
+    <!-- jQuery CDN -->
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+  
+    <!--Custom JavaScript-->
+    <script type="text/javascript" src="/js/build-resume/index.js"></script>
+    <script type="text/javascript" src="/js/build-resume/timeline.js"></script>
+    <script type="text/javascript" src="/js/build-resume/skills.js"></script>
+    <script type="text/javascript" src="/js/build-resume/experience.js"></script>
+    <script type="text/javascript" src="/js/build-resume/education.js"></script>
+    <script type="text/javascript" src="/js/build-resume/interests.js"></script>
+    <script type="text/javascript" src="/js/build-resume/projects.js"></script>
+    <script type="text/javascript" src="/js/build-resume/quotes.js"></script>
+    <script type="text/javascript" src="/js/build-resume/other.js"></script>
+        
+<% include ../partials/footer %>

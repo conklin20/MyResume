@@ -1,0 +1,64 @@
+<% include ./partials/header %>
+    
+    <div class="row">
+        <h1 style="text-align: center;">Edit Reference</h1>
+        <hr>
+        <form role="form" class="form-horizontal" id="editReference" action="/api/u/<%= userId %>/ref/<%= reference._id %>?_method=PUT" method="POST">  
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="name">Name</label>
+                        <input class="form-control" type="text" name="reference[name]" value="<%= reference.name %>" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="company">Company</label>
+                        <input class="form-control" type="text" name="reference[company]" value="<%= reference.company %>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="position">Position</label>
+                        <input class="form-control" type="text" name="reference[position]" value="<%= reference.position %>" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="relationship">Relationship</label>
+                        <input class="form-control" type="text" name="reference[relationship]" value="<%= reference.relationship %>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="phone">Phone</label>
+                        <input class="form-control" type="tel" name="reference[phone]" value="<%= reference.phone %>" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="pull-left" for="email">Email</label>
+                        <input class="form-control" type="email" name="reference[email]" value="<%= reference.email %>" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="pull-left" for="note">Note</label>
+                        <input class="form-control" type="text" name="reference[note]" value="<%= reference.note %>" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label class="pull-left" for="writtenRef">Written Reference (If Applicable)</label>
+                        <textarea id="coverLetterBody" class="form-control" type="text" rows="12" name="reference[writtenRef]"><%= reference.writtenRef %></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <a class="btn btn-lg btn-primary btn-block" onclick="history.back()">Back</a>
+                    </div>
+                    <div class="col-sm-6">
+                        <button class="btn btn-lg btn-success btn-block">Update!</button>
+                    </div>
+                </div>
+            </div>
+        </form>          
+    </div>
+    
+    
+<% include ./partials/footer %>

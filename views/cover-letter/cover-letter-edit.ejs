@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+
+ <div class="row">
+        <div class="col-xs-0 col-lg-2"></div>
+        <div class="col-xs-12 col-lg-8 text-center">
+            <h1 style="text-align: center;">Edit <em><%= coverLetter.title %></em> Cover Letter</h1>
+            <form id="editCoverLetter" action="/api/u/<%= userId %>/cl/<%= coverLetter._id %>?_method=PUT" method="POST">         
+                <div class="form-group">
+                    <label class="pull-left" for="title">Title</label>
+                    <input class="form-control" type="text" name="coverLetter[title]" value="<%= coverLetter.title %>" required>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left" for="body">Body <em>(Accepts HTML Markup)</em></label>
+                    <textarea class="form-control" type="text" rows="24" name="coverLetter[body]" required><%- coverLetter.body %></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                      <a class="btn btn-lg btn-primary btn-block" onclick="history.back()">Back</a>
+                    </div>
+                    <div class="col-sm-6">
+                      <button class="btn btn-lg btn-success btn-block">Update!</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <!--<button type="button" class="btn btn-lg btn-primary thirdButton" data-toggle="modal" data-target="#previewModal">-->
+                <!--  Preview-->
+                <!--</button>-->
+            </div>
+        </div>
+    </div>
+<% include ./partials/footer %>

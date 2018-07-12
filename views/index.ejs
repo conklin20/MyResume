@@ -10,7 +10,7 @@
         <!--SemanticUI-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.0/semantic.css">
         <!--Custom CSS-->
-        <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
     </head>
     <body>
         <!--Header-->
@@ -22,10 +22,14 @@
             <!--Landing Page Section-->
             <section class="landing-page section-background" style="background-image: url(<%= resume.backgroundImg %>); color: <%= resume.fontColor %>; order: -1; ">
                 <div class="introduction"><h3><%- resume.introduction %></h3></div>
-                <div class="elevator-pitch"><h3><%- resume.elevatorPitch %></h3></div>
+                <div class="elevator-pitch">
+                    <div class="block"></div>
+                    <div><h3><%- resume.elevatorPitch %></h3></div>
+                    <div class="block"></div>
+                </div>
     		    <% if(coverLetter) { %>
                     <!-- Modal -->
-                    <div id="cover-letter" class="cover-letter">
+                    <div id="cover-letter" class="cover-letter" style="color: #000000">
                         <div class="cover-letter-header">
                             <span><%- coverLetter.title %></span>
                         </div>
@@ -33,24 +37,11 @@
                             <%- coverLetter.body %>
                         </div>
                         <div class="cover-letter-footer">
-                            <button id="closeCoverLetter" class="ui mini primary button"  >
+                            <button id="close-cover-letter" class="ui mini primary button"  >
                                 Continue
                             </button>
                         </div>
                     </div>
-                    <!--<div id="cover-letter" class="paper">-->
-                    <!--    <div class="cover-letter-title">-->
-                    <!--        <h1><%- coverLetter.title %></h1>-->
-                    <!--    </div>-->
-                    <!--    <hr>-->
-                    <!--    <div class="">-->
-                    <!--        <p><%- coverLetter.body %></p>-->
-                    <!--    </div>-->
-                    <!--    <br><br>-->
-                    <!--    <button class="ui mini primary button" onclick="closeCoverLetter()">-->
-                    <!--        Continue-->
-                    <!--    </button>-->
-                    <!--</div>-->
     		    <% } %>
     		    
 		    </section>
@@ -60,7 +51,7 @@
     		        <div class="timeline-section">
         		        <div class="title">
         		            <!--<h2><i class="clock outline icon small flipImg"></i> Notable Timeline Events <i class="clock outline icon small"></i></h2>-->
-        		            <h2> Notable Timeline Events </h2>
+        		            <h2 style="color: <%= resume.timeline.headerFontColor %>;"> <%= resume.timeline.sectionTitle ? resume.timeline.sectionTitle : 'Timeline Events'%> </h2>
         		        </div>
         		        <div class="events-all">
         		            <% resume.timeline.details.forEach(function(event, idx){ %>
@@ -93,14 +84,14 @@
 		    
 		    <!--Skills Section-->
 		    <% if(resume.skills.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>); color: <%= resume.skills.fontColor %>;  order: <%= resume.skills.order %>; ">
+    		    <section class="section-background" style="background-image: url(<%= resume.skills.backgroundImg %>);  order: <%= resume.skills.order %>; ">
     		        <div class="skills-section">
         		        <div class="title">
         		            <!--<h2><i class="star outline icon small flipImg"></i> What I Am Good At <i class="star outline icon small"></i></h2>-->
-        		            <h2> What I'm Good At </h2>
+        		            <h2 style="color: <%= resume.skills.headerFontColor %>;"> <%= resume.skills.sectionTitle ? resume.skills.sectionTitle : "Skills"%> </h2>
         		        </div>
         		        
-                        <div class="ui inverted segment">
+                        <div class="ui inverted segment" style="color: <%= resume.skills.fontColor %>;">
                             <div class="item">
                                 <div class="content">
                                     <div class="skill-header">
@@ -131,7 +122,7 @@
                             </div>
                         </div>
         		        
-                        <div class="ui inverted segment">
+                        <div class="ui inverted segment" style="color: <%= resume.skills.fontColor %>;">
                             <div class="ui inverted relaxed divided list">
         	                    <% resume.skills.details.forEach(function(skillCat){ %>
                                     <div class="item">
@@ -160,13 +151,12 @@
 		    
 		    <!--Interests Section-->
 		    <% if(resume.interests.details.length > 0) { %>
-    		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); color: <%= resume.interests.fontColor %>; order: <%= resume.interests.order %>; ">
+    		    <section class="section-background" style="background-image: url(<%= resume.interests.backgroundImg %>); order: <%= resume.interests.order %>; ">
     		        <div class="interests-section">
         		        <div class="title">
-        		            <!--<h2><i class="thumbs up outline icon small flipImg"></i> Things I Like <i class="thumbs up outline icon small"></i></h2>-->
-        		            <h2> Things I Like </h2>
+        		            <h2 style="color: <%= resume.interests.headerFontColor %>;"> <%= resume.interests.sectionTitle ? resume.interests.sectionTitle : "Interests"%> </h2>
         		        </div>
-                        <div class="ui inverted segment">
+                        <div class="ui inverted segment" style="color: <%= resume.interests.fontColor %>;">
                             <div class="ui inverted relaxed divided list">
         	                    <% resume.interests.details.forEach(function(interestCat){ %>
                                     <div class="item">
@@ -198,7 +188,7 @@
     		        <div class="work-experience-section">
         		        <div class="title">
         		            <!--<h2><i class="building outline icon small flipImg"></i> What I've Done <i class="building outline icon small"></i></h2>-->
-        		            <h2> What I've Done </h2>
+        		            <h2 style="color: <%= resume.experience.headerFontColor %>;"> <%= resume.experience.sectionTitle ? resume.experience.sectionTitle : "Work Experience"%> </h2>
         		        </div>
         		        <div class="experience-all">
         	                <!--Loop through work experience-->
@@ -239,7 +229,7 @@
     		        <div class="education-section">
         		        <div class="title">
         		            <!--<h2><i class="address book outline icon small flipImg"></i> Where I've Learned Things <i class="address book outline icon small"></i></h2>-->
-        		            <h2> Where I've Learned Things </h2>
+        		            <h2 style="color: <%= resume.education.headerFontColor %>;"> <%= resume.education.sectionTitle ? resume.education.sectionTitle : "Education"%> </h2>
         		        </div>
         		        <div class="education-all">
         	                <!--Loop through education-->
@@ -254,7 +244,7 @@
                                     <div class="education-detail">
                                         <span class="education-headers">
                                             <h4> <%= edu.instituteName %> </h4>
-                                            <h4> <%= moment(edu.startDate).format('MMM YY') + ' - ' + (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : ' current') %> </h4>
+                                            <h4> <%= (edu.endDate ?  moment(edu.endDate).format('MMM YY')  : moment(edu.startDate).format('MMM YY') + ' - ' + ' current') %> </h4>
                                         </span>
                                         <span class="education-headers">
                                             <h5> <%= edu.degree + ' - ' + edu.areaOfStudy %> </h5>  
@@ -273,13 +263,7 @@
                                         <% }) %>
                                         </ul>
                                         <p><%= edu.notes %></p>
-                                        <!--<% if(edu.graduated) { %>-->
-                                        <!--<div id="grad-image-container">-->
-                                        <!--    <img id="grad-image" src="http://icons.veryicon.com/256/Business/Pretty%20Office%2010/Graduate%20academic%20cap.png">-->
-                                        <!--</div>-->
-                                        <!--<% } %>-->
                                     </div>
-                                    <!--<hr>-->
                                 </div>
                             <% }) %>
                         </div>
@@ -293,7 +277,7 @@
     		        <div class="projects-section">
         		        <div class="title">
         		            <!--<h2><i class="address book outline icon small flipImg"></i> Where I've Learned Things <i class="address book outline icon small"></i></h2>-->
-        		            <h2> Side Projects & Relevant Experience </h2>
+        		            <h2 style="color: <%= resume.projects.headerFontColor %>;"> <%= resume.projects.sectionTitle ? resume.projects.sectionTitle : "Side Projects"%> </h2>
         		        </div>
         		        <div class="projects-all">
         	                <!--Loop through education-->
@@ -336,7 +320,7 @@
     		        <div class="quotes-section">
         		        <div class="title">
         		            <!--<h2><i class="quote left outline icon small"></i> Quotes That I Like <i class="quote right outline icon small"></i></h2>-->
-        		            <h2> Quotes That I Like </h2>
+        		            <h2 style="color: <%= resume.quotes.headerFontColor %>;"> <%= resume.quotes.sectionTitle ? resume.quotes.sectionTitle : "Quotes"%> </h2>
         		        </div>
         		        <div class="quotes-all">
                             <!--Loop through other items-->
@@ -391,7 +375,7 @@
                 </a>
                 <i class="handshake outline icon"></i>
                 
-                <a class="ui circular print icon button" href="/user/<%= user._id %>/resume/<%= resume.id %>/print" target="_blank" title="View Printable Version">
+                <a class="ui circular print icon button" href="/u/<%= user._id %>/r/<%= resume.id %>/print" target="_blank" title="View Printable Version">
                   <i class="print icon "></i>
                 </a>
                 <i class="handshake outline icon"></i>

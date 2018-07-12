@@ -16,7 +16,7 @@ middlewareObj.ensureAuthenticated = function (req, res, next) {
 //custom middleware
 middlewareObj.isAccountOwner = function (req, res, next) {
   if (req.isAuthenticated()){
-    User.findById(req.params.userID, function(err, foundUser){
+    User.findById(req.params.userId, function(err, foundUser){
       if(err){
         req.flash('error', 'Redirect to error page: error looking up user');
         res.redirect('back'); 

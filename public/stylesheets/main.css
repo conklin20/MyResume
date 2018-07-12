@@ -1,89 +1,136 @@
 /*General Styles*/
+body {
+  background-color: #F0EFEF; 
+}
+
 hr {
     height: 2px;
     background-color: gray;
     margin: 50px 0;
 }
 
-.account {
-    border: 2px solid black;
-    width: 46%;
-    margin: 2% 2%;
-    padding: 2% 2%;
+ul span{
+    cursor: pointer;
 }
 
-.delete-form {
-    display: inline;
+.section{
+  margin: 2% 0;
 }
 
-.input.narrow {
-    width: 20%;
+.section h2{
+  text-align: center;
 }
 
-.input.wider {
-    width: 40%;
+/*this is not the header nav bar, its for the tabs used in editing a resume*/
+/*resume nav */
+#nav-tabs .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+  font-weight: bold;
 }
 
-.input.wide {
-    width: 60%;
+#nav-tabs .tab-content {
+  /*color : white;*/
+  border: solid 2px #428bca;
+  /*background-color: #428bca;*/
+  padding : 5px 15px;
+  border-radius: 0% 5em 0% 5em;
+  box-shadow: inset 0 0 10px #428bca;
 }
 
-.halfButton {
-    width: 49.8%;
-    display: inline-block;
+/*user overview page css*/
+.account-section{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  min-height: 40vh;
 }
 
-.thirdButton {
-    width: 33%;
+.account-section h3{
+  margin-top: 2%;
 }
 
-#tab {
-    top: 60px;
+.account-section .buttons{
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
+  margin: 2% 2%;
 }
 
+/*END user overview page css*/
 
-/*Resume Section*/
-.stepOne {
-    /*min-height: 900px; */
+/*edit resume css*/
+.settings{
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2% 2%;
 }
 
-.stepTwo {
-    /*Timeline*/
-    vertical-align: text-top;
+.settings div{
+  margin: 1% 1%;
 }
 
-.timelineSummary {
-    width: 100px; 
-    height: 100px; 
-    border-radius: 50%; 
-    border-color: transparent;  
-    text-align: center; 
-    display: inline-block;
-    margin: 10px 0;
-    text-align: center;
+.timeline-summary {
+  display: flex;
+  border-color: transparent; 
+  text-align: center; 
+}
+
+.event{
+  display: flex;
+  flex-direction: column;
+  width: 100px; 
+  height: auto; 
+  margin-right: 5px;
 }
 
 .resume {
-    /*border: 2px solid black;*/
-    /*text-align: center;*/
-    padding: 0 1%;
-    /*float: left;*/
-    width: auto;
-    min-height: 1800px; 
+  display: flex;
+  flex-direction: column;
 }
 
 .resumeContent a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-
-form a {
-    color: black; 
-}
-
-
-/*Skill section */
 .proficiency {
-    display: flex; 
-    justify-content: space-between;
+  display: flex; 
+  justify-content: space-between;
+}
+
+.new-category{
+  width: 90%; 
+  margin-left: 5%;
+}
+
+.new-category input{
+  margin-top: 2%;
+}
+
+.order{
+  display: flex; 
+  flex-direction: column;
+}
+
+.order-section{
+  /*border: red solid 2px;*/
+  display: flex; 
+  justify-content: space-between;
+}
+
+#order-title{
+  font-size: 1.5em;
+  /*background-color: yellow;*/
+}
+
+#order-btns i{
+  padding-left: 5px;
+  color: #428bca;
+}
+
+.footer{
+  display: flex; 
+  justify-content: center;
+  margin: 5% 5%; 
 }

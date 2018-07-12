@@ -17,16 +17,35 @@ const ENV_TEST = false;
 // **********************
 // Hookup Routes
 // **********************
-var authRoutes          = require("./controllers/routes/auth"),
-    userRoutes          = require("./controllers/routes/user"),
-    indexRoutes         = require("./controllers/routes/index"),
-    resumeRoutes        = require("./controllers/routes/resume"),
-    coverLetterRoutes   = require("./controllers/routes/coverletter"),
-    referenceRoutes     = require("./controllers/routes/reference");
+var // authRoutes          = require("./controllers/routes/auth"),
+    // userRoutes          = require("./controllers/routes/user"),
+    // indexRoutes         = require("./controllers/routes/index"),
+    // resumeRoutes        = require("./controllers/routes/resume"),
+    // coverLetterRoutes   = require("./controllers/routes/coverletter"),
+    // referenceRoutes     = require("./controllers/routes/reference"), 
+    
+    //refactoring routes
+    resumeIndex         = require("./routes/build-resume/index"),
+    timeline            = require("./routes/build-resume/timeline"),
+    skills              = require("./routes/build-resume/skills"),
+    experience          = require("./routes/build-resume/experience"),
+    education           = require("./routes/build-resume/education"),
+    interests           = require("./routes/build-resume/interests"),
+    projects            = require("./routes/build-resume/projects"),
+    quotes              = require("./routes/build-resume/quotes"),
+    other               = require("./routes/build-resume/other"),
+    
+    index               = require("./routes/index"),
+    auth                = require("./routes/auth/auth"),
+    users               = require("./routes/user/user"),
+    coverLetter         = require("./routes/cover-letter/cover-letter"), 
+    references          = require("./routes/reference/reference");
+    
+    
 
 // **********************
 // Database Config
-// Using environment variables here to distinguish between our test (C9) db version, and our "prod" or "deployed" (heroku) db version 
+// Using environment variables here to distinguish between our test (Local C9) db version, and our "prod" or "deployed" (MLab) db version 
 // In order to do so, we need to run the following commands to CREATE an environment variable in both enviornments 
 // 1) For Cloud9, run cmd: export DATABASEURL=mongodb://localhost/yelp_camp
 // 2) For Heroku, run cmd: heroku config:set DATABASEURL=mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
@@ -97,24 +116,28 @@ passport.use(new LinkedinStrategy({
 // **********************
 // Configure Express
 // **********************
-app.set('views', __dirname + '/views');
+app.set('views', [__dirname + '/views',
+                  __dirname + '/views/build-resume', 
+                  __dirname + '/views/user', 
+                  __dirname + '/views/cover-letter',
+                  __dirname + '/views/reference',
+                  __dirname + '/views/prints']);
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressSanitizer()); //MUST GO AFTER BODY PARSER 
-// app.use(express.logger());
 app.use(cookieParser());
-// app.use(express.urlencoded());
 app.use(express.json());
 app.use(expressSession({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+
 // Initialize Passport!  Also use passport.session() middleware, to support
 // persistent login sessions (recommended).
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(app.router);
+
 app.use(express.static(__dirname + '/public'));
+
 app.use(methodOverride("_method")); //overriding HTML froms ability to only send POST and GET routes 
-// force SSL redirects
-//app.use(forceSsl);
 
 // **********************
 //  Custom middleware 
@@ -132,12 +155,31 @@ app.use(function(req, res, next) {
 // **********************
 // Use our Routes
 // **********************
-app.use(authRoutes);
-app.use(userRoutes);
-app.use(indexRoutes);
-app.use(resumeRoutes);
-app.use(coverLetterRoutes);
-app.use(referenceRoutes);
+//Old but still refactoring 
+// app.use(authRoutes);
+// app.use(userRoutes);
+// app.use(indexRoutes);
+// app.use(resumeRoutes);
+// app.use(coverLetterRoutes);
+// app.use(referenceRoutes);
+
+// refactored routes
+app.use(auth); 
+app.use(users);
+app.use(index); 
+app.use(coverLetter); 
+app.use(references); 
+//resume-edit related routes
+app.use(resumeIndex); 
+app.use(timeline);
+app.use(skills);
+app.use(experience);
+app.use(education);
+app.use(interests);
+app.use(projects);
+app.use(quotes);
+app.use(other);
+
 
 //seed our db for testing only 
 //seedDB();

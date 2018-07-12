@@ -56,7 +56,7 @@
 		    <% if(resume.experience && (!resume.experience.hideOnPrint)) { %>
                 <section style='order: <%= resume.experience.order %>;'>
                     <div class="section-header">
-                        <h3>Work Experience</h3>
+                        <h3><%= resume.experience.sectionTitle ? resume.experience.sectionTitle : "Work Experience"%></h3>
                         <hr>
                     </div>
                     <!--Loop through the work experience array-->
@@ -94,7 +94,7 @@
 		    <% if(resume.education && (!resume.education.hideOnPrint)) { %>
                 <section style='order: <%= resume.education.order %>;'>
                     <div class="section-header">
-                        <h3>Education</h3>
+                        <h3><%= resume.education.sectionTitle ? resume.education.sectionTitle : "Education"%></h3>
                         <hr>
                     </div>
                     <!--Loop through the education array-->
@@ -137,7 +137,7 @@
 		    <% if(resume.skills && (!resume.skills.hideOnPrint)) { %>
                 <section style='order: <%= resume.skills.order %>;'>
                     <div class="section-header">
-                        <h3>Skills</h3>
+                        <h3><%= resume.skills.sectionTitle ? resume.skills.sectionTitle : "Skills"%></h3>
                         <hr>
                     </div>
                     <!--Loops through skills-->
@@ -181,7 +181,7 @@
 		    <% if(resume.interests && (!resume.interests.hideOnPrint)) { %>
                 <section style='order: <%= resume.interests.order %>;'>
                     <div class="section-header">
-                        <h3>Interests</h3>
+                        <h3><%= resume.interests.sectionTitle ? resume.interests.sectionTitle : "Interests"%></h3>
                         <hr>
                     </div>
                     <ul class="interests">
@@ -205,7 +205,8 @@
 		    <% if(resume.projects && (!resume.projects.hideOnPrint)) { %>
                 <section style='order: <%= resume.projects.order %>;'>
                     <div class="section-header">
-                        <h3>Side Projects & Relevant Experience</h3>
+                        <h3></h3>
+                        <h3><%= resume.projects.sectionTitle ? resume.projects.sectionTitle : "Side Projects & Relevant Experience"%></h3>
                         <hr>
                     </div>
                     <!--Loop through the projects array-->
@@ -238,7 +239,7 @@
 		    <% if(resume.quotes && (!resume.quotes.hideOnPrint)) { %>
                 <section style='order: <%= resume.quotes.order %>;'>
                     <div class="section-header">
-                        <h3>Quotes I Like</h3>
+                        <h3><%= resume.quotes.sectionTitle ? resume.quotes.sectionTitle : "Quotes I Like"%></h3>
                         <hr>
                     </div>
                     <ul class="quotes">

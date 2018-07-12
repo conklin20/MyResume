@@ -1,0 +1,49 @@
+<% include ./partials/header %>
+
+    <div class="row">
+        <div class="col-xs-0 col-lg-2"></div>
+        <div class="col-xs-12 col-lg-8 text-center">
+            <h1 style="text-align: center;">Write New Cover Letter</h1>
+            <form id="newCoverLetter" action="/api/u/<%= userId %>/cl" method="POST">         
+                <div class="form-group">
+                    <label class="pull-left" for="title">Title</label>
+                    <input class="form-control" type="text" name="coverLetter[title]" placeholder="title" required>
+                </div>
+                <div class="form-group">
+                    <label class="pull-left" for="body">Body <em>(Accepts HTML Markup)</em></label>
+                    <textarea id="coverLetterBody" class="form-control" type="text" rows="24" name="coverLetter[body]" placeholder="body" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-success btn-block">Submit!</button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="previewModalLabel">Cover Letter Preview</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body text-left">
+                        <%- 'Dont have this working <em>yet</em>' %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <a class="btn btn-lg btn-primary halfButton " href="/u/<%= userId %>">Back</a>
+                <button type="button" class="btn btn-lg btn-primary halfButton" data-toggle="modal" data-target="#previewModal">
+                  Preview
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    
+<% include ./partials/footer %>
