@@ -50,19 +50,19 @@
                 <p>User Defaults</p>
                     <div class="form-group">
                         <label class="pull-left" for="resume">Resume</label>
-                        <select id="resume-defaults-dd" class="form-control resumes">
+                        <select id="resume-defaults-dd" class="form-control resumes" name="defaults[resume]">
                             <!--AJAX call in js/user/user-edit.js to load this dd-->
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="coverLetter">Cover Letter</label>
-                        <select id="cover-letter-defaults-dd" class="form-control cover-letters" >
+                        <select id="cover-letter-defaults-dd" class="form-control cover-letters" name="defaults[coverLetter]" >
                             <!--AJAX call in js/user/user-edit.js to load this dd-->
                         </select>
                     </div>
                     <div class="form-group">
                         <label class="pull-left" for="printTheme">Print Version Theme</label>
-                        <select id="print-theme-defaults-dd" class="form-control" >
+                        <select id="print-theme-defaults-dd" class="form-control" name="defaults[printTheme]">
                             <!--hard coding until I can figure out how to parse the /public/stylesheets/printStyles folder-->
                             <option>traditional</option>
                         </select>

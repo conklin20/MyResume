@@ -165,6 +165,7 @@ router.get('/u/:userId', middleware.isAccountOwner, function(req, res){
       if(err){
         console.log(err); 
       } else {
+        console.log(foundUser.defaults); 
         res.render('user', { user: foundUser });
       }
     }); 
