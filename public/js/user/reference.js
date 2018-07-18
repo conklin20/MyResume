@@ -22,7 +22,7 @@ function displayReferences(references){
   references.data.forEach(function(reference){
     var refHTML = '<li>' + 
                         '<a href="/u/'+userId+'/ref/'+reference._id+'/edit" title="Edit Reference">'+reference.name+' | </a>' +
-                        '<a href="#" id="btn-delete-reference" title="Delete Reference" data-id='+reference._id+'><i class="fa fa-trash"></i></a>'
+                        '<a href="#" id="btn-delete-reference" title="Delete Reference" data-id='+reference._id+'><i class="fas fa-trash"></i></a>'
                      '</li>';
 
     $('.references').append(refHTML);

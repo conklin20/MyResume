@@ -95,6 +95,21 @@ router.get('/u/:userId/cl/:clId/edit', authMiddleware.isAccountOwner, function(r
    }); 
 });
 
+// GET ALL USER COVER LETTERS
+router.get(rootUrl, authMiddleware.isAccountOwner, function(req, res) {
+  //find the user in the DB 
+  User.findById(req.params.userId).
+    populate("coverLetters").
+    exec(function(err, data){
+      if(err){
+        console.log(err); 
+      } else {
+        
+        res.status(200).json({ data: data.coverLetters });
+      }
+    }); 
+});
+
 // NEW
 router.get('/u/:userId/cl/new', authMiddleware.isAccountOwner, function(req, res){
     res.render('cover-letter', { userId: req.params.userId }); 

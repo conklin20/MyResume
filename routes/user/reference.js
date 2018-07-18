@@ -80,6 +80,20 @@ router.delete(rootUrl + '/:refId', middleware.isAccountOwner, function(req, res)
     }); 
 });
 
+// GET ALL USER REFERENCES
+router.get(rootUrl, middleware.isAccountOwner, function(req, res) {
+  //find the user in the DB   
+  User.findById(req.params.userId).
+    populate("references").
+    exec(function(err, data){
+      if(err){
+        console.log(err); 
+      } else {
+        res.status(200).json({ data: data.references });
+      }
+    }); 
+});
+
 // NEW
 router.get('/u/:userId/ref/new', middleware.isAccountOwner, function(req, res){
     res.render('reference', { userId: req.params.userId });

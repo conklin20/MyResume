@@ -115,12 +115,13 @@ section a {
         font-size: 1.2em; 
     }
     
-    .cover-letter-header {
-        height: 50px;    
+    .cover-letter {
+        margin-left: 2%;
+        width: 96%; 
     }
     
-    .cover-letter {
-        width: 100%; 
+    .cover-letter-header {
+        font-size: 1.5em;
     }
     
     .cover-letter-body {
@@ -128,6 +129,8 @@ section a {
         padding-right: 10%;
         padding-top: 2%; 
         line-height: 20px; 
+        /*max-height: 70vh;*/
+        /*overflow-y: scroll;*/
     }
     
 }
@@ -165,18 +168,19 @@ section a {
         font-size: 1.3em; 
     }
     
-    .cover-letter-header {
-        height: 60px;    
+    .cover-letter {
+        margin-left: 5%;
+        width: 90%; 
     }
     
-    .cover-letter {
-        width: 90%; 
+    .cover-letter-header {
+        font-size: 2em;
     }
     
     .cover-letter-body {
         padding-left: 15%;
         padding-right: 10%;
-        padding-top: 1.5%; 
+        padding-top: .7em;
         line-height: 20px; 
     }
 }
@@ -214,20 +218,36 @@ section a {
         font-size: 1.5em; 
     }
     
-    .cover-letter-header {
-        height: 70px;    
+    .cover-letter {
+        margin-left: 25%;
+        width: 50%; 
     }
     
-    .cover-letter {
-        width: 40%; 
+    .cover-letter-header {
+        font-size: 2em;
     }
     
     .cover-letter-body {
         padding-left: 14%;
         padding-right: 10%;
-        padding-top: .95%; 
+        padding-top: .7em;
         line-height: 20px; 
     }
+}
+
+
+/******************************************************************************
+Sticky Content Throughout Main Section
+*******************************************************************************/
+#sticky-content{
+    display: flex;
+    padding-left: 1%; 
+    top: 100vh;
+}
+
+.sticky-social {
+    display: flex;
+    flex-direction: column;
 }
 
 /******************************************************************************
@@ -261,6 +281,7 @@ Landing page section
 .elevator-pitch {
     animation: 10s slidefadeIn 4s forwards;
     display: flex;
+    justify-content: center;
     flex-grow: 4;
 }
 
@@ -272,12 +293,6 @@ Landing page section
     100% { opacity: .9; }
 }
 
-@keyframes fadeOut {
-    100% {
-        opacity: 0; 
-    }
-}
-
 /******************************************************************************
 Cover Letter section 
 *******************************************************************************/
@@ -285,14 +300,15 @@ Cover Letter section
     font-family: 'Handlee', cursive;
     display: flex;
     flex-direction: column;
-    min-height: 90vh;
+    max-height: 90vh;
+    overflow-y: scroll;
     position: absolute; 
     top: 3%; 
     padding: 0 2%; 
     z-index: 99;
 }
 
-.cover-letter:before {
+.cover-letter::before {
     content: '';
     position: absolute;
     width: 4px;
@@ -305,14 +321,12 @@ Cover Letter section
 
 .cover-letter-header {
     background: #fff;
-    /*flex-grow: 1;*/
     display: flex;
     flex-direction: column;
     justify-content: flex-end; 
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
-    
-    font-size: 2em;
+    min-height: 9vh;
 }
 
 .cover-letter-header span {
@@ -346,6 +360,7 @@ Cover Letter section
 
 .cover-letter-footer {
     flex-grow: 1;
+    padding: 2% 0;
     
     background: #fff;
     background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
@@ -363,10 +378,6 @@ Cover Letter section
  
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-}
-
-.cover-letter-fade-out {
-    animation: fadeOut 1s linear forwards;
 }
 
 /******************************************************************************

@@ -1,6 +1,6 @@
 /*General Styles*/
 body {
-  background-color: #F0EFEF; 
+  background-color: #F0EFEF;
 }
 
 hr {
@@ -15,6 +15,10 @@ ul span{
 
 .section{
   margin: 2% 0;
+}
+
+.section li{
+  font-size: 1.8rem;
 }
 
 .section h2{

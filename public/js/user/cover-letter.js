@@ -17,12 +17,11 @@ $(document).ready(function(){
 });
 
 function displayCoverLetters(coverLetters){
-  // console.log(coverLetters.data);
   
   coverLetters.data.forEach(function(coverLetter){
     var clsHTML = '<li>' + 
                         '<a href="/u/'+userId+'/cl/'+coverLetter._id+'/edit" title="Edit Cover Letter">'+coverLetter.title+' | </a>' +
-                        '<a href="#" id="btn-delete-cover-letter" title="Delete Cover Letter" data-id='+coverLetter._id+'><i class="fa fa-trash"></i></a>'
+                        '<a href="#" id="btn-delete-cover-letter" title="Delete Cover Letter" data-id='+coverLetter._id+'><i class="fas fa-trash"></i></a>'
                      '</li>';
 
     $('.cover-letters').append(clsHTML);

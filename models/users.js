@@ -42,6 +42,14 @@ var userSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Reference"
         }
+    ], 
+    bundles: [
+        {
+            alias: { type: String },
+            resumeId: mongoose.Schema.Types.ObjectId,
+            coverLetterId: mongoose.Schema.Types.ObjectId,
+            expireOn: Date
+        }
     ]
 }); 
 

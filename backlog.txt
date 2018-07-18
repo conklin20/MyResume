@@ -1,0 +1,8 @@
+List Items I am Working On 
+
+#   STATUS          DATE        DESC            
+1   In Progress     7/12/18     Ability for user to create bundles 
+2   Not Started                 Copy/Clone Resume
+3   Not Started                 Santize html body 
+4   Not Started                 Proficiency key stuck to right well 
+5   Not Started                 Flex the "Other" section - space around

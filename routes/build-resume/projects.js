@@ -42,7 +42,7 @@ router.post(rootUrl, middleware.isAccountOwner, function(req, res){
       if(err){
         console.log(err);
       } else {
-        console.log(req.body);
+        
         foundResume.projects.details.push(req.body.newProject);
     
         foundResume.save(); 

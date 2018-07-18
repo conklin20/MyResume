@@ -47,8 +47,12 @@ router.get('/:username', function(req, res) {
                     }); 
                 }
             } else {
-                
+                // user wasnt found
+                res.status(404).json({ data: "No Resumes Found"});
             }
+        } else {
+            // user wasnt found
+            res.status(404).json({ data: "User Profile Not Found"});
         }
     }
     }); 
@@ -66,6 +70,30 @@ router.get('/u/:userId/r/:resumeId', function(req, res) {
                     console.log(err);
                 } else {
                     res.render('index', { user: foundUser, resume: foundResume, coverLetter: null }); 
+                }
+            });
+        }
+    }); 
+});
+
+// SHOW SPECIFIC RESUME & COVER LETTER
+router.get('/u/:userId/r/:resumeId/cl/:coverLetterID', function(req, res) {
+    //find the user in the DB 
+    User.findById(req.params.userId, function(err, foundUser){
+        if(err){
+            console.log(err); 
+        } else {
+            Resume.findById(req.params.resumeId, function(err, foundResume){
+                if(err){
+                    console.log(err);
+                } else {
+                    CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
+                        if(err){
+                            console.log(err);
+                        } else {
+                            res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
+                        }
+                    });
                 }
             });
         }

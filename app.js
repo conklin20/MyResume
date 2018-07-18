@@ -7,7 +7,7 @@ var express                 = require('express'),
     expressSession          = require("express-session"),
     passport                = require('passport'),
     LinkedinStrategy        = require('passport-linkedin-oauth2').Strategy,
-    // seedDB                  = require("./seed"),
+    //seedDB                  = require("./seed"),
     expressSanitizer        = require("express-sanitizer"),
     //forceSsl                = require('force-ssl-heroku'),
     app                     = express();
@@ -17,15 +17,7 @@ const ENV_TEST = false;
 // **********************
 // Hookup Routes
 // **********************
-var // authRoutes          = require("./controllers/routes/auth"),
-    // userRoutes          = require("./controllers/routes/user"),
-    // indexRoutes         = require("./controllers/routes/index"),
-    // resumeRoutes        = require("./controllers/routes/resume"),
-    // coverLetterRoutes   = require("./controllers/routes/coverletter"),
-    // referenceRoutes     = require("./controllers/routes/reference"), 
-    
-    //refactoring routes
-    resumeIndex         = require("./routes/build-resume/index"),
+var resumeIndex         = require("./routes/build-resume/index"),
     timeline            = require("./routes/build-resume/timeline"),
     skills              = require("./routes/build-resume/skills"),
     experience          = require("./routes/build-resume/experience"),
@@ -38,8 +30,9 @@ var // authRoutes          = require("./controllers/routes/auth"),
     index               = require("./routes/index"),
     auth                = require("./routes/auth/auth"),
     users               = require("./routes/user/user"),
-    coverLetter         = require("./routes/cover-letter/cover-letter"), 
-    references          = require("./routes/reference/reference");
+    coverLetter         = require("./routes/user/cover-letter"), 
+    references          = require("./routes/user/reference"),
+    bundle              = require("./routes/user/bundle");
     
     
 
@@ -53,9 +46,9 @@ var // authRoutes          = require("./controllers/routes/auth"),
 //      URL for this Heroku db: mongodb://<username>:<password>@ds219318.mlab.com:19318/yelpcamp
 // **********************
 if(ENV_TEST) {
-    mongoose.connect("mongodb://localhost/MyResume_v2");
+    mongoose.connect("mongodb://localhost/MyResume_v3");
 } else {
-    mongoose.connect(process.env.DATABASECON || "mongodb://localhost/MyResume_v2");
+    mongoose.connect(process.env.DATABASECON || "mongodb://localhost/MyResume_v3");
 } 
 
 // **********************
@@ -155,20 +148,13 @@ app.use(function(req, res, next) {
 // **********************
 // Use our Routes
 // **********************
-//Old but still refactoring 
-// app.use(authRoutes);
-// app.use(userRoutes);
-// app.use(indexRoutes);
-// app.use(resumeRoutes);
-// app.use(coverLetterRoutes);
-// app.use(referenceRoutes);
-
-// refactored routes
+//user related routes
 app.use(auth); 
 app.use(users);
 app.use(index); 
 app.use(coverLetter); 
 app.use(references); 
+app.use(bundle); 
 //resume-edit related routes
 app.use(resumeIndex); 
 app.use(timeline);

@@ -4,7 +4,6 @@ var express         = require("express"),
     CoverLetter     = require("../../models/coverletters"),
     Reference       = require("../../models/references"),
     middleware      = require("../../middleware/auth.js"),
-    async           = require("async"),
     router          = express.Router();
 
 // **********************
@@ -38,18 +37,18 @@ router.post(rootUrl, middleware.ensureAuthenticated, function(req, res){
       githubURL: req.body.user.githubURL
   };
   
-  User.create(newUser, function(err, user) {
+  User.create(newUser, function(err, newUser) {
       if (err) {
           console.log(err); 
           // req.flash('error', err.message);
           return res.redirect('back');
       }
-      res.redirect('u/' + user.id);
+      res.redirect('/u/' + newUser.id);
   });
     
 }); 
 
-// UPDATE 
+// UPDATE USER
 router.put(rootUrl+'/:userId', middleware.isAccountOwner, function(req, res){
   User.findByIdAndUpdate(req.params.userId, req.body.user, function(err, updatedUser){
     if(err){
@@ -68,7 +67,7 @@ router.put(rootUrl+'/:userId', middleware.isAccountOwner, function(req, res){
   });
 });
 
-// DELETE
+// DELETE USER
 router.delete(rootUrl+'/:userId', middleware.isAccountOwner, function(req, res){
   //delete the user
   User.findByIdAndRemove(req.params.userId, function(err, foundUser){
@@ -121,40 +120,12 @@ router.get(rootUrl+'/:userId/r', middleware.isAccountOwner, function(req, res) {
     }); 
 });
 
-// GET ALL USER COVER LETTERS
-router.get(rootUrl+'/:userId/cl', middleware.isAccountOwner, function(req, res) {
-  //find the user in the DB 
-  User.findById(req.params.userId).
-    populate("coverLetters").
-    exec(function(err, data){
-      if(err){
-        console.log(err); 
-      } else {
-        res.status(200).json({ data: data.coverLetters });
-      }
-    }); 
-});
-
-// GET ALL USER REFERENCES
-router.get(rootUrl+'/:userId/ref', middleware.isAccountOwner, function(req, res) {
-  //find the user in the DB   
-  User.findById(req.params.userId).
-    populate("references").
-    exec(function(err, data){
-      if(err){
-        console.log(err); 
-      } else {
-        res.status(200).json({ data: data.references });
-      }
-    }); 
-});
-
-// SHOW
+// SHOW NEW USER FORM
 router.get('/u/new', middleware.ensureAuthenticated, function(req, res){
   res.render('user-new', { user: req.user });
 });
 
-// SHOW
+// SHOW USER PROFILE PAGE
 router.get('/u/:userId', middleware.isAccountOwner, function(req, res){
   //find the user in the DB 
   User.findById(req.params.userId).
@@ -165,13 +136,12 @@ router.get('/u/:userId', middleware.isAccountOwner, function(req, res){
       if(err){
         console.log(err); 
       } else {
-        console.log(foundUser.defaults); 
         res.render('user', { user: foundUser });
       }
     }); 
 });
 
-// SHOW (VIA LINKEDIN USER ID)
+// SHOW USER PROFILE PAGE (VIA LINKEDIN USER ID)
 router.get('/linkedin/:userId', function(req, res){
   //check if user is in db, using the LinkedIn ID field
   if(req.user){
@@ -190,7 +160,7 @@ router.get('/linkedin/:userId', function(req, res){
   }
 });
 
-// SHOW EDIT FORM
+// SHOW USER EDIT FORM
 router.get('/u/:userId/edit', middleware.isAccountOwner, function(req, res) {
   //find the user in the DB 
   User.findById(req.params.userId, function(err, user){

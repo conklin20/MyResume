@@ -6,8 +6,8 @@ var express         = require("express"),
 
 // INDEX 
 router.get('/', function(req, res) {
-    if (req.headers.host === 'www.caryconklin.com') {
-      User.findOne({username: 'cary' }, function(err, foundUser){
+  if (req.headers.host === 'www.caryconklin.com') {
+    User.findOne({username: 'cary' }, function(err, foundUser){
       if(err){
           console.log(err); 
       } else {
@@ -24,11 +24,11 @@ router.get('/', function(req, res) {
               }
           }
       }
-      }); 
-    } else {
-      ///me/MyResume/views/user/login.ejs
-      res.render('login');
-    }
+    });
+  } else {
+    ///me/MyResume/views/user/login.ejs
+    res.render('login');
+  }
 }); 
 
 // GET /auth/linkedin
