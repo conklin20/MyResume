@@ -101,11 +101,11 @@ router.get('/u/:userId/r/:resumeId/cl/:coverLetterID', function(req, res) {
 });
 
 // - SHOWING A COVERLETTER AS WELL
-router.get('/:username/:coverLetterID', function(req, res) {
+router.get('/:username/:coverLetterTitle', function(req, res) {
     //find the user in the DB 
     User.findOne({username: req.params.username }, function(err, foundUser){
     if(err){
-        console.log(err); 
+        console.log(err);
     } else {
         //find the resume in the DB
         if(foundUser) {
@@ -115,7 +115,7 @@ router.get('/:username/:coverLetterID', function(req, res) {
                     if(err){
                         console.log(err);
                     } else {
-                        CoverLetter.findById(req.params.coverLetterID, function(err, foundCL) {
+                        CoverLetter.findOne({title: req.params.coverLetterTitle }, function(err, foundCL) {
                             if(err){
                                 console.log(err);
                             } else {

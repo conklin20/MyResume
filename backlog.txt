@@ -6,3 +6,6 @@ List Items I am Working On
 3   Not Started                 Santize html body 
 4   Not Started                 Proficiency key stuck to right well 
 5   Not Started                 Flex the "Other" section - space around
+
+
+1   Done            7/18/18     Lookup CoverLetter by title on index route /:userName/:coverLetterTitle

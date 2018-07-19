@@ -23,7 +23,7 @@ function displayResumes(resumes){
     var resumesHTML = '<li>' + 
                         '<a href="/u/'+userId+'/r/'+resume._id+'/edit" title="Edit Resume">'+resume.alias+' | </a>' +
                         '<a href="/u/'+userId+'/r/'+resume._id+'/print" target="_blank" title="View Printable Version"><i class="fas fa-print"></i> | </a>' +
-                        // '<a href="/u/'+userId+'/r/'+resume._id+'/clone" title="Clone This Resume"><i class="fas fa-clone"></i> | </a>' +
+                        '<a href="/u/'+userId+'/r/'+resume._id+'/clone" title="Clone This Resume"><i class="fas fa-clone"></i> | </a>' +
                         '<a href="#" id="btn-delete-resume" title="Delete Resume" data-id='+resume._id+'><i class="fas fa-trash"></i></a>' +
                      '</li>';
 

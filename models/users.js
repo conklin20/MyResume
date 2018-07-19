@@ -48,7 +48,7 @@ var userSchema = new mongoose.Schema({
             alias: { type: String },
             resumeId: mongoose.Schema.Types.ObjectId,
             coverLetterId: mongoose.Schema.Types.ObjectId,
-            expireOn: Date
+            expiresOn: Date
         }
     ]
 }); 
