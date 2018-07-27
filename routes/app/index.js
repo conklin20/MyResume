@@ -1,8 +1,7 @@
 var express         = require("express"),
-    User            = require("../models/users"),
-    Resume          = require("../models/resumes"),
-    CoverLetter     = require("../models/coverletters"),
-    // helpers         = require('../routes/helpers/helpers.js'),
+    User            = require("../../models/users"),
+    Resume          = require("../../models/resumes"),
+    CoverLetter     = require("../../models/coverletters"),
     router          = express.Router();
     
 
@@ -58,6 +57,42 @@ router.get('/:username', function(req, res) {
     }); 
 });
 
+// - SHOWING A COVERLETTER AS WELL
+router.get('/:username/:coverLetterTitle', function(req, res) {
+    //find the user in the DB 
+    User.findOne({username: req.params.username }, function(err, foundUser){
+    if(err){
+        console.log(err);
+    } else {
+        //find the resume in the DB
+        if(foundUser) {
+            // eval(require("locus"))
+            if(foundUser.resumes.length > 0){
+                Resume.findById(foundUser.resumes[0], function(err, foundResume){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        CoverLetter.findOne({title: req.params.coverLetterTitle }, function(err, foundCL) {
+                            if(err){
+                                console.log(err);
+                            } else {
+                                res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
+                            }
+                        });
+                    }
+                }); 
+            } else {
+                // user wasnt found
+                res.status(404).json({ data: "No Resumes Found"});
+            }
+        } else {
+            // user wasnt found
+            res.status(404).json({ data: "User Profile Not Found"});
+        }
+    }
+    }); 
+});
+
 // SHOW SPECIFIC RESUME
 router.get('/u/:userId/r/:resumeId', function(req, res) {
     //find the user in the DB 
@@ -97,38 +132,6 @@ router.get('/u/:userId/r/:resumeId/cl/:coverLetterID', function(req, res) {
                 }
             });
         }
-    }); 
-});
-
-// - SHOWING A COVERLETTER AS WELL
-router.get('/:username/:coverLetterTitle', function(req, res) {
-    //find the user in the DB 
-    User.findOne({username: req.params.username }, function(err, foundUser){
-    if(err){
-        console.log(err);
-    } else {
-        //find the resume in the DB
-        if(foundUser) {
-            // eval(require("locus"))
-            if(foundUser.resumes.length > 0){
-                Resume.findById(foundUser.resumes[0], function(err, foundResume){
-                    if(err){
-                        console.log(err);
-                    } else {
-                        CoverLetter.findOne({title: req.params.coverLetterTitle }, function(err, foundCL) {
-                            if(err){
-                                console.log(err);
-                            } else {
-                                res.render('index', { user: foundUser, resume: foundResume, coverLetter: foundCL });
-                            }
-                        });
-                    }
-                }); 
-            } else {
-                
-            }
-        }
-    }
     }); 
 });
 

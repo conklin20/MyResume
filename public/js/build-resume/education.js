@@ -53,6 +53,8 @@ function displayEducation(education){
 }
 
 function appendEducation(school, educationArr){
+  
+  
   const schoolBtns = ` | <span id="school-del"><i class="fa fa-trash"></i></span> `; 
 
   var schoolHTML = '<li data-schoolid=' + school._id + '>' + school.instituteName + ' (' + school.city   + ', ' + school.state + ', ' + school.degree + ', ' + school.areaOfStudy  + ')' + schoolBtns;

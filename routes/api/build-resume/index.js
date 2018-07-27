@@ -1,7 +1,7 @@
 var express         = require("express"),
-    User            = require("../../models/users"),
-    Resume          = require("../../models/resumes"),
-    middleware      = require("../../middleware/auth.js"),
+    User            = require("../../../models/users"),
+    Resume          = require("../../../models/resumes"),
+    middleware      = require("../../../middleware/auth.js"),
     router          = express.Router();
 
 const rootUrl = '/api/u/:userId/r/:resumeId';
@@ -138,6 +138,60 @@ router.get(rootUrl + '/order', middleware.isAccountOwner, function(req, res){
     }); 
 });
 
+// RESET ORDER TO DEFAULT ORDER
+router.put(rootUrl + '/order/reset', middleware.isAccountOwner, function(req, res){
+  Resume.findById(req.params.resumeId, function(err, foundResume){
+      if(err){
+        console.log(err);
+      } else {
+        var sectionOrder = 
+          [
+            {
+              sysTitle: 'timeline',
+              defaultOrder: 1
+            },
+            {
+              sysTitle: 'skills',
+              defaultOrder: 2
+            },
+            {
+              sysTitle: 'interests',
+              defaultOrder: 3
+            },
+            {
+              sysTitle: 'experience',
+              defaultOrder: 4
+            },
+            {
+              sysTitle: 'education',
+              defaultOrder: 5
+            },
+            {
+              sysTitle: 'projects',
+              defaultOrder: 6
+            },
+            {
+              sysTitle: 'quotes',
+              defaultOrder: 7
+            },
+            {
+              sysTitle: 'other',
+              defaultOrder: 8
+            }
+          ];
+          
+          //reset values 
+          for(var i=0; i < sectionOrder.length; i++){
+            foundResume['' + sectionOrder[i].sysTitle + ''].order = sectionOrder[i].defaultOrder
+          }
+          foundResume.save(); 
+          
+          //send back the object 
+          res.status(200).json(sectionOrder);
+        }
+    }); 
+});
+
 // UPDATE THE SECTION ORDER
 router.put(rootUrl + '/order/:direction', middleware.isAccountOwner, function(req, res){
   Resume.findById(req.params.resumeId, function(err, foundResume){
@@ -213,81 +267,5 @@ router.delete(rootUrl, function(req, res){
     }
   }); 
 }); 
-
-// CREATE NEW RESUME
-router.get('/u/:userId/r', middleware.ensureAuthenticated, function(req, res){
-  //find the user in the DB 
-  User.findById(req.params.userId, function(err, foundUser){
-    if(err){
-      console.log(err); 
-    } else {
-      res.render('resume-new', { user: foundUser, resume: null });
-    }
-  }); 
-});
-
-// CREATE NEW RESUME BY CLONING EXISTING 
-router.get('/u/:userId/r/:resumeId/clone', middleware.ensureAuthenticated, function(req, res){
-  //find the user in the DB 
-  User.findById(req.params.userId, function(err, foundUser){
-    if(err){
-      console.log(err); 
-    } else {
-      res.status(404).json({data: "Unable to clone resume."});
-    }
-  }); 
-});
-
-// SHOW RESUME EDIT PAGE
-router.get('/u/:userId/r/:resumeId/edit', middleware.isAccountOwner, function(req, res){
-  User.findById(req.params.userId, function(err, foundUser){
-    if(err){
-      console.log(err); 
-    } else {
-      Resume.findById(req.params.resumeId, function(err, foundResume){
-        if(err){
-          console.log(err);
-        } else {
-          res.render('resume-edit', { user: foundUser, resume: foundResume });
-        }
-        });
-      }
-  }); 
-});
-
-// SHOW (PRINTABLE VERSION)
-router.get('/u/:userId/r/:resumeId/print', function(req, res){
-  //find the user in the DB 
-  User.findById(req.params.userId, function(err, foundUser){
-    if(err){
-      console.log(err); 
-    } else {
-      Resume.findById(req.params.resumeId, function(err, foundResume){
-      if(err){
-        console.log(err);
-      } else {
-        // res.render('resumePrint', { user: foundUser, resume: foundResume });
-        res.render('prints/resume', { user: foundUser, resume: foundResume });
-      }
-    }); 
-    }
-  }); 
-});
-
-// arrow functioin to swap array element positions
-const swapArrayElements = (arr, x, y) => {
-  if (arr[x] === undefined || arr[y] === undefined) {
-    return arr;
-  }
-  const a = x > y ? y : x;
-  const b = x > y ? x : y;
-  return [
-    ...arr.slice(0, a),
-    arr[b],
-    ...arr.slice(a+1, b),
-    arr[a],
-    ...arr.slice(b+1)
-  ];
-};
 
 module.exports = router;

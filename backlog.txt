@@ -1,11 +1,12 @@
 List Items I am Working On 
 
-#   STATUS          DATE        DESC            
+#   STATUS          DATE        DESC                                            FILES INVOLVED
 1   In Progress     7/12/18     Ability for user to create bundles 
 2   Not Started                 Copy/Clone Resume
 3   Not Started                 Santize html body 
 4   Not Started                 Proficiency key stuck to right well 
 5   Not Started                 Flex the "Other" section - space around
 
-
-1   Done            7/18/18     Lookup CoverLetter by title on index route /:userName/:coverLetterTitle
+1   Done            7/18/18     Lookup CoverLetter by title on index route      /routes/app/index.js
+2   Done            7/22/18     Reset section                                   /public/js/build-resume/index.js , /routes/api/build-resume/index.js , /views/build-resume/resume-edit.ejs
+3   Done            7/22/18     Created (Started) Data API                      /routes/api/data

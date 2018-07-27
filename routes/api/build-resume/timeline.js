@@ -1,8 +1,9 @@
 var express         = require("express"),
-    User            = require("../../models/users"),
-    Resume          = require("../../models/resumes"),
-    middleware      = require("../../middleware/auth.js"),
+    User            = require("../../../models/users"),
+    Resume          = require("../../../models/resumes"),
+    middleware      = require("../../../middleware/auth.js"),
     router          = express.Router();
+
 
 const rootUrl = '/api/u/:userId/r/:resumeId/timeline';
 

@@ -28,6 +28,11 @@ $(document).ready(function(){
   $('.order').on('click', '#order-btn-up', function(){
     moveResumeSection($(this).parent(), url, 'up');
   })
+  
+  $('#btn-reset-order').on('click', function(){
+    resetOrder(url);
+  })
+  
 });
 
 function saveSummary(url, summary){
@@ -96,7 +101,6 @@ function resetForm(fields){
 
 function displaySectionOrder(url){
   var getUrl = url + '/order';
-  
   // AJAX Call to get order of sections
   $.getJSON(getUrl)
   .then(function(order){
@@ -115,6 +119,22 @@ function displaySectionOrder(url){
   })
   .catch(function(err){
       throwErr(err);
+  });
+}
+
+function resetOrder(url){
+  var updateUrl = url + '/order/reset';
+  
+    // AJAX Call to reset order to default
+  $.ajax({
+    method: 'PUT',
+    url:  updateUrl
+  })
+  .then(function(){
+    displaySectionOrder(url); 
+  })
+  .catch(function(err){
+    throwErr(err);
   });
 }
 

@@ -1,9 +1,9 @@
 var express         = require("express"),
-    User            = require("../../models/users"),
-    Resume          = require("../../models/resumes"),
-    CoverLetter     = require("../../models/coverletters"),
-    Reference       = require("../../models/references"),
-    middleware      = require("../../middleware/auth.js"),
+    User            = require("../../../models/users"),
+    Resume          = require("../../../models/resumes"),
+    CoverLetter     = require("../../../models/coverletters"),
+    Reference       = require("../../../models/references"),
+    middleware      = require("../../../middleware/auth.js"),
     router          = express.Router();
 
 // **********************

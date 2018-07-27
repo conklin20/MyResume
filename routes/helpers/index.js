@@ -5,13 +5,25 @@ var User            = require("../../models/users"),
 // these helpers arent being used yet 7/11/2018
 
 // Users Model helpers
-exports.getUser = function(req, res){
-    User.findById(req.params.userId)
+// exports.getUser = function(req, res){
+//     User.findById(req.params.userId)
+//     .then(function(foundUser){
+//         return res.status(201).json(foundUser);
+//     })
+//     .catch(function(err){
+//         res.status(500).json(err);
+//     });
+// };
+
+exports.getUser = function(userId){
+    console.log(userId); 
+    User.findById(userId)
     .then(function(foundUser){
-        res.status(201).json(foundUser);
+        console.log(foundUser.username);
+        return User;
     })
     .catch(function(err){
-        res.status(500).json(err);
+        console.log(err);
     });
 };
 
@@ -85,5 +97,4 @@ exports.getAllUserResumes = function(req, res){
 
 
 
-// module.exports = router; 
 

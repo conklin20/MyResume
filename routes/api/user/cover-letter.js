@@ -1,7 +1,7 @@
 var express             = require("express"),
-    User                = require("../../models/users"),
-    CoverLetter         = require("../../models/coverletters"),
-    authMiddleware      = require("../../middleware/auth.js"),
+    User                = require("../../../models/users"),
+    CoverLetter         = require("../../../models/coverletters"),
+    authMiddleware      = require("../../../middleware/auth.js"),
     // sanitizeMiddleware  = require("../../middleware/sanitize.js"),
     router              = express.Router();
 
@@ -81,20 +81,6 @@ router.delete(rootUrl + '/:clID', authMiddleware.isAccountOwner, function(req, r
     }); 
 });
 
-// EDIT
-router.get('/u/:userId/cl/:clId/edit', authMiddleware.isAccountOwner, function(req, res){
-   //lookup the cover letter 
-   CoverLetter.findById(req.params.clId, function(err, foundCL){
-       if(err){
-            console.log(err); 
-            res.redirect("/u/" + req.params.userId); 
-       } else {
-            //render the edit page and send the cl to it
-            res.render("cover-letter-edit", { userId: req.params.userId, coverLetter: foundCL }); 
-       }
-   }); 
-});
-
 // GET ALL USER COVER LETTERS
 router.get(rootUrl, authMiddleware.isAccountOwner, function(req, res) {
   //find the user in the DB 
@@ -108,11 +94,6 @@ router.get(rootUrl, authMiddleware.isAccountOwner, function(req, res) {
         res.status(200).json({ data: data.coverLetters });
       }
     }); 
-});
-
-// NEW
-router.get('/u/:userId/cl/new', authMiddleware.isAccountOwner, function(req, res){
-    res.render('cover-letter', { userId: req.params.userId }); 
 });
 
 module.exports = router;

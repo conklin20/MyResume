@@ -17,24 +17,33 @@ const ENV_TEST = false;
 // **********************
 // Hookup Routes
 // **********************
-var resumeIndex         = require("./routes/build-resume/index"),
-    timeline            = require("./routes/build-resume/timeline"),
-    skills              = require("./routes/build-resume/skills"),
-    experience          = require("./routes/build-resume/experience"),
-    education           = require("./routes/build-resume/education"),
-    interests           = require("./routes/build-resume/interests"),
-    projects            = require("./routes/build-resume/projects"),
-    quotes              = require("./routes/build-resume/quotes"),
-    other               = require("./routes/build-resume/other"),
+var appIndex               = require("./routes/app/index"),
+    appAuth                = require("./routes/app/auth"),
+    appUsers               = require("./routes/app/user/user"),
+    appCoverLetter         = require("./routes/app/user/cover-letter"),
+    appReferences          = require("./routes/app/user/reference"),
+    appResumeIndex         = require("./routes/app/build-resume/index"),
+    // appBundle              : require("./routes/app/user/bundle")
     
-    index               = require("./routes/index"),
-    auth                = require("./routes/auth/auth"),
-    users               = require("./routes/user/user"),
-    coverLetter         = require("./routes/user/cover-letter"), 
-    references          = require("./routes/user/reference"),
-    bundle              = require("./routes/user/bundle");
-    
-    
+    apiResumeIndex         = require("./routes/api/build-resume/index"),
+    apiTimeline            = require("./routes/api/build-resume/timeline"),
+    apiSkills              = require("./routes/api/build-resume/skills"),
+    apiExperience          = require("./routes/api/build-resume/experience"),
+    apiEducation           = require("./routes/api/build-resume/education"),
+    apiInterests           = require("./routes/api/build-resume/interests"),
+    apiProjects            = require("./routes/api/build-resume/projects"),
+    apiQuotes              = require("./routes/api/build-resume/quotes"),
+    apiOther               = require("./routes/api/build-resume/other"),
+    apiUsers               = require("./routes/api/user/user"),
+    apiCoverLetter         = require("./routes/api/user/cover-letter"),
+    apiReferences          = require("./routes/api/user/reference"),
+    apiData                = require("./routes/api/data/index");
+    // apiBundle              = require("./routes/api/user/bundle"),
+
+// creating an array of our routes, so we dont have to individually call app.use() to all of them (ln ~158)
+var appRoutes = [appAuth, appUsers, appIndex, appCoverLetter, appReferences, appResumeIndex];
+var apiRoutes = [apiResumeIndex, apiTimeline, apiSkills, apiExperience, apiEducation, apiInterests, apiProjects, apiQuotes, apiOther, apiUsers, apiCoverLetter, apiReferences, apiData];
+
 
 // **********************
 // Database Config
@@ -97,10 +106,6 @@ passport.use(new LinkedinStrategy({
         // asynchronous verification, for effect...
         req.session.accessToken = accessToken;
         process.nextTick(function() {
-            // To keep the example simple, the user's Linkedin profile is returned to
-            // represent the logged-in user.  In a typical application, you would want
-            // to associate the Linkedin account with a user record in your database,
-            // and return that user instead.
             return done(null, profile);
         });
     }
@@ -148,24 +153,8 @@ app.use(function(req, res, next) {
 // **********************
 // Use our Routes
 // **********************
-//user related routes
-app.use(auth); 
-app.use(users);
-app.use(index); 
-app.use(coverLetter); 
-app.use(references); 
-app.use(bundle); 
-//resume-edit related routes
-app.use(resumeIndex); 
-app.use(timeline);
-app.use(skills);
-app.use(experience);
-app.use(education);
-app.use(interests);
-app.use(projects);
-app.use(quotes);
-app.use(other);
-
+app.use(appRoutes); 
+app.use(apiRoutes); 
 
 //seed our db for testing only 
 //seedDB();
